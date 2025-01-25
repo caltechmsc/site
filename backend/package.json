@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "dev": "npm start",
+    "start": "node server.js"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cheerio": "^1.0.0",
