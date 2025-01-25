@@ -34,7 +34,7 @@ The MSC website is designed to offer:
 ## 🛠️ Technologies
 
 - **Frontend**: Node.js, Express.js, HTML (EJS), CSS (Tailwind CSS), JavaScript, Quill.js
-- **Backend**: Node.js, Express.js, SQLite, Cheerio.js
+- **Backend**: Node.js, Express.js, SQLite, Lowdb, Cheerio.js
 
 ## 🚀 Getting Started
 
