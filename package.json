@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "lint": "eslint",
+    "format": "prettier --write ."
+  },
   "dependencies": {
     "eslint": "^9.19.0",
     "prettier": "^3.4.2"
