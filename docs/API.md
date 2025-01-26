@@ -12,6 +12,8 @@ The API documentation provides detailed information about the backend API endpoi
     - [Authentication Endpoints](#authentication-endpoints)
       - [Admin Login](#admin-login)
       - [Admin Login (OAuth)](#admin-login-oauth)
+    - [Admin Endpoints](#admin-endpoints)
+      - [Get All Admins](#get-all-admins)
 
 ## Authentication
 
@@ -205,6 +207,44 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error logging in admin.",
       "error": {
         "code": "LOGIN_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+### Admin Endpoints
+
+> **Note:** The following admin endpoints are protected and require a valid JWT token to access.
+
+#### Get All Admins
+
+- **URL**: `/api/admins`
+- **Method**: `GET`
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {
+        "admins": []
+      },
+      "message": "Admins retrieved successfully."
+    }
+    ```
+
+    > **Note:** The list of admins will be returned in the response (`data` field).
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error in getting admins.",
+      "error": {
+        "code": "GET_ADMINS_ERROR",
         "details": {}
       }
     }
