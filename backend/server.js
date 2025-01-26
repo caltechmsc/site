@@ -10,6 +10,7 @@ require('dotenv').config();
 const express = require('express');
 const db = require('./src/db/db');
 const lowdb = require('./src/db/lowdb');
+const authMiddleware = require('./src/middlewares/authMiddleware');
 
 const DEFAULT_PORT = 5000;
 const port = process.env.PORT || DEFAULT_PORT;
@@ -19,6 +20,9 @@ const app = express();
 
 // Trust the first proxy
 app.set('trust proxy', 1);
+
+// Middleware setup
+app.use(authMiddleware);
 
 // Start the server
 const server = app.listen(port, host, () => {
