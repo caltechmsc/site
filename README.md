@@ -59,7 +59,7 @@ The MSC website is designed to offer:
       PORT=5000 # Port number for the server (default: 5000)
       HOST=localhost # Host address for the server (default: localhost)
       JWT_SECRET=secret # Secret key for JWT token generation
-      PUBLICATIONS_URL=https://caltech-msc.github.io/publications/pubs-current.html # URL for the Caltech Library publications
+      PUBLICATIONS_URL=https://feeds.library.caltech.edu/people/Goddard-W-A-III/article.json # URL for the Caltech Library publications
       ```
 
    2. Install the dependencies:
@@ -78,7 +78,7 @@ The MSC website is designed to offer:
    4. Go back to the root directory:
 
       ```bash
-      cd ..
+      cd .. # Move to the root directory
       ```
 
 3. **Setup the frontend**:
