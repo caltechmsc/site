@@ -29,6 +29,7 @@ const createMember = async (member) => {
         member.website,
         member.photo,
         (error) => {
+          statement.finalize();
           if (error) {
             return reject(error);
           }

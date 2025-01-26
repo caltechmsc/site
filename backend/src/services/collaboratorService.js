@@ -28,6 +28,7 @@ const createCollaborator = async (collaborator) => {
         collaborator.latitude,
         collaborator.longitude,
         (error) => {
+          statement.finalize();
           if (error) {
             return reject(error);
           }
@@ -118,6 +119,7 @@ const updateCollaborator = async (id, collaborator) => {
         collaborator.longitude,
         id,
         (error) => {
+          statement.finalize();
           if (error) {
             return reject(error);
           }

@@ -24,6 +24,7 @@ const createAdmin = async (email, password) => {
       );
 
       statement.run(email, hashedPassword, (error) => {
+        statement.finalize();
         if (error) {
           return reject(error);
         }
@@ -187,6 +188,7 @@ const updateAdminEmail = async (id, email) => {
       );
 
       statement.run(email, id, (error) => {
+        statement.finalize();
         if (error) {
           return reject(error);
         }
@@ -218,6 +220,7 @@ const updateAdminPassword = async (id, password) => {
       );
 
       statement.run(hashedPassword, id, (error) => {
+        statement.finalize();
         if (error) {
           return reject(error);
         }
@@ -244,6 +247,7 @@ const deleteAdmin = async (id) => {
       const statement = adminsDb.prepare('DELETE FROM admins WHERE id = ?');
 
       statement.run(id, (error) => {
+        statement.finalize();
         if (error) {
           return reject(error);
         }
