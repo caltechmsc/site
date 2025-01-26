@@ -22,6 +22,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Get About William Andrew Goddard III](#get-about-william-andrew-goddard-iii)
       - [Get CV of William Andrew Goddard III](#get-cv-of-william-andrew-goddard-iii)
       - [Get About Materials and Process Simulation Center](#get-about-materials-and-process-simulation-center)
+      - [Update About-Bio of William Andrew Goddard III](#update-about-bio-of-william-andrew-goddard-iii)
 
 ## Authentication
 
@@ -623,6 +624,59 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error getting MSC.",
       "error": {
         "code": "GET_MSC_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Update About-Bio of William Andrew Goddard III
+
+- **URL**: `/api/about/wag/bio`
+- **Method**: `PUT`
+
+- **Request Body**:
+
+  ```json
+  {
+    "bio": "New bio text."
+  }
+  ```
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "Bio updated successfully."
+    }
+    ```
+
+    > **Note:** The updated bio data will be returned in the response (`data` field).
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid bio.",
+      "error": {
+        "code": "INVALID_BIO",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error updating bio.",
+      "error": {
+        "code": "UPDATE_BIO_ERROR",
         "details": {}
       }
     }

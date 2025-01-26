@@ -50,8 +50,36 @@ const getMsc = async (req, res) => {
   }
 };
 
+/**
+ * @function updateWagBio - Update the wag bio.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const updateWagBio = async (req, res) => {
+  const { bio } = req.body;
+
+  // Check if the bio is valid
+  if (typeof bio !== 'string') {
+    return res.badRequest('Invalid bio.', 'INVALID_BIO');
+  }
+
+  try {
+    const updatedBio = await aboutService.updateAboutWagBio(bio);
+    return res.success(
+      {
+        bio: updatedBio,
+      },
+      'Bio updated successfully.',
+    );
+  } catch (error) {
+    console.error('Error updating bio: ', error);
+    return res.internalServerError('Error updating bio.', 'UPDATE_BIO_ERROR');
+  }
+};
+
 module.exports = {
   getWag,
   getWagCv,
   getMsc,
+  updateWagBio,
 };
