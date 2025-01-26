@@ -16,5 +16,6 @@ const RATE_LIMIT_WINDOW_1_HOUR = 3600000; // 1 hour (60 * 60 * 1000)
 router.use(rateLimiter(RATE_LIMIT_MAX_15, RATE_LIMIT_WINDOW_1_HOUR));
 
 router.post('/login', authControllers.loginAdmin);
+router.post('/oauth', authControllers.loginAdminOAuth);
 
 module.exports = router;

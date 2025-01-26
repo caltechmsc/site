@@ -11,6 +11,7 @@ The API documentation provides detailed information about the backend API endpoi
   - [📂 Endpoints](#-endpoints)
     - [Authentication Endpoints](#authentication-endpoints)
       - [Admin Login](#admin-login)
+      - [Admin Login (OAuth)](#admin-login-oauth)
 
 ## Authentication
 
@@ -95,6 +96,89 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Invalid password.",
       "error": {
         "code": "INVALID_PASSWORD",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `404 Not Found`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Admin not found.",
+      "error": {
+        "code": "ADMIN_NOT_FOUND",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error logging in admin.",
+      "error": {
+        "code": "LOGIN_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Admin Login (OAuth)
+
+- **URL**: `/api/auth/oauth`
+- **Method**: `POST`
+
+- **Request Body**:
+
+  ```json
+  {
+    "token": "OAUTH_TOKEN"
+  }
+  ```
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {
+        "admin": {},
+        "refreshToken": "JWT_TOKEN",
+        "accessToken": "JWT_TOKEN"
+      },
+      "message": "Admin logged in successfully."
+    }
+    ```
+
+    > **Note:** The admin data, refresh token, and access token will be returned in the response (`data` field). The access token should be used to access protected routes, and the refresh token should be used to generate a new access token when it expires.
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid token.",
+      "error": {
+        "code": "INVALID_TOKEN",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `401 Unauthorized`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Token expired.",
+      "error": {
+        "code": "TOKEN_EXPIRED",
         "details": {}
       }
     }
