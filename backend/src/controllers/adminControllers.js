@@ -100,8 +100,43 @@ const updateAdminEmail = async (req, res) => {
   }
 };
 
+/**
+ * @function updateAdminPassword - Update an admin's password.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const updateAdminPassword = async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+
+  // Check if the password is valid
+  if (!validationUtils.validatePassword(password)) {
+    return res.badRequest('Invalid password.', 'INVALID_PASSWORD');
+  }
+
+  // Update the admin's password
+  try {
+    // Check if the admin exists
+    const adminExists = await adminService.getAdminById(id);
+    if (!adminExists) {
+      return res.notFound('Admin not found.', 'ADMIN_NOT_FOUND');
+    }
+
+    // Update the admin's password
+    const admin = await adminService.updateAdminPassword(id, password);
+    return res.success(admin, 'Admin password updated successfully.');
+  } catch (error) {
+    console.error('Error updating admin password: ', error);
+    return res.internalServerError(
+      'Error updating admin password.',
+      'UPDATE_ADMIN_PASSWORD_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getAdmins,
   createAdmin,
   updateAdminEmail,
+  updateAdminPassword,
 };

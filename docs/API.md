@@ -16,6 +16,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Get All Admins](#get-all-admins)
       - [Create Admin](#create-admin)
       - [Update Admin Email](#update-admin-email)
+      - [Update Admin Password](#update-admin-password)
 
 ## Authentication
 
@@ -406,6 +407,74 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error updating admin email.",
       "error": {
         "code": "UPDATE_ADMIN_EMAIL_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Update Admin Password
+
+- **URL**: `/api/admins/:id/password`
+- **Method**: `PUT`
+
+- **Request Body**:
+
+  ```json
+  {
+    "password": "new_password"
+  }
+  ```
+
+  > **Note:** The password will be hashed and salted automatically before storing it in the database.
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "Admin password updated successfully."
+    }
+    ```
+
+    > **Note:** The updated admin data will be returned in the response (`data` field).
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid password.",
+      "error": {
+        "code": "INVALID_PASSWORD",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `404 Not Found`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Admin not found.",
+      "error": {
+        "code": "ADMIN_NOT_FOUND",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error updating admin password.",
+      "error": {
+        "code": "UPDATE_ADMIN_PASSWORD_ERROR",
         "details": {}
       }
     }
