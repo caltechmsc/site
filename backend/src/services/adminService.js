@@ -1,6 +1,6 @@
 /**
  * @fileoverview Admin Service
- * @description Admin service for interacting with the admin database.
+ * @description Admin service for interacting with the admins database.
  */
 
 const { adminsDb } = require('../db/db');
