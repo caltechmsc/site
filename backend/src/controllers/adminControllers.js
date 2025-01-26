@@ -122,7 +122,7 @@ const updateAdminPassword = async (req, res) => {
       return res.notFound('Admin not found.', 'ADMIN_NOT_FOUND');
     }
 
-    // Update the admin's password
+    // If the admin exists, update the admin's password
     const admin = await adminService.updateAdminPassword(id, password);
     return res.success(admin, 'Admin password updated successfully.');
   } catch (error) {
@@ -134,9 +134,38 @@ const updateAdminPassword = async (req, res) => {
   }
 };
 
+/**
+ * @function deleteAdmin - Delete an admin.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const deleteAdmin = async (req, res) => {
+  const { id } = req.params;
+
+  // Delete the admin
+  try {
+    // Check if the admin exists
+    const adminExists = await adminService.getAdminById(id);
+    if (!adminExists) {
+      return res.notFound('Admin not found.', 'ADMIN_NOT_FOUND');
+    }
+
+    // If the admin exists, delete the admin
+    await adminService.deleteAdmin(id);
+    return res.success(null, 'Admin deleted successfully.');
+  } catch (error) {
+    console.error('Error deleting admin: ', error);
+    return res.internalServerError(
+      'Error deleting admin.',
+      'DELETE_ADMIN_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getAdmins,
   createAdmin,
   updateAdminEmail,
   updateAdminPassword,
+  deleteAdmin,
 };

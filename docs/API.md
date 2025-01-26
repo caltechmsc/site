@@ -17,6 +17,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Create Admin](#create-admin)
       - [Update Admin Email](#update-admin-email)
       - [Update Admin Password](#update-admin-password)
+      - [Delete Admin](#delete-admin)
 
 ## Authentication
 
@@ -475,6 +476,51 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error updating admin password.",
       "error": {
         "code": "UPDATE_ADMIN_PASSWORD_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Delete Admin
+
+- **URL**: `/api/admins/:id`
+- **Method**: `DELETE`
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "Admin deleted successfully."
+    }
+    ```
+
+    > **Note:** The deleted admin data will be returned in the response (`data` field).
+
+  - **Status:** `404 Not Found`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Admin not found.",
+      "error": {
+        "code": "ADMIN_NOT_FOUND",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error deleting admin.",
+      "error": {
+        "code": "DELETE_ADMIN_ERROR",
         "details": {}
       }
     }
