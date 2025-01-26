@@ -14,6 +14,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Admin Login (OAuth)](#admin-login-oauth)
     - [Admin Endpoints](#admin-endpoints)
       - [Get All Admins](#get-all-admins)
+      - [Create Admin](#create-admin)
 
 ## Authentication
 
@@ -242,9 +243,93 @@ The API has specific rate limits for different functionalities to ensure fair us
     ```json
     {
       "status": "error",
-      "message": "Error in getting admins.",
+      "message": "Error getting admins.",
       "error": {
         "code": "GET_ADMINS_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Create Admin
+
+- **URL**: `/api/admins`
+- **Method**: `POST`
+
+- **Request Body**:
+
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "password"
+  }
+  ```
+
+  > **Note:** The password will be hashed and salted automatically before storing it in the database.
+
+- **Response**:
+
+  - **Status:** `201 Created`
+
+    ```json
+    {
+      "status": "success",
+      "data": {
+        "admin": {}
+      },
+      "message": "Admin created successfully."
+    }
+    ```
+
+    > **Note:** The newly created admin data will be returned in the response (`data` field).
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid email address.",
+      "error": {
+        "code": "INVALID_EMAIL",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid password.",
+      "error": {
+        "code": "INVALID_PASSWORD",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `409 Conflict`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Admin already exists.",
+      "error": {
+        "code": "ADMIN_EXISTS",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error creating admin.",
+      "error": {
+        "code": "CREATE_ADMIN_ERROR",
         "details": {}
       }
     }

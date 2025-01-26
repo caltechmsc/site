@@ -14,4 +14,6 @@ router.use(rateLimiter());
 
 router.get('/', adminControllers.getAdmins);
 
+router.post('/', adminControllers.createAdmin);
+
 module.exports = router;
