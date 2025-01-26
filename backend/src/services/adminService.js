@@ -126,7 +126,7 @@ const getAdminById = async (id) => {
     });
 
     if (!admin) {
-      throw new Error('Admin not found');
+      return null;
     }
 
     delete admin.password;
@@ -160,7 +160,7 @@ const getAdminByEmail = async (email) => {
     });
 
     if (!admin) {
-      throw new Error('Admin not found');
+      return null;
     }
 
     delete admin.password;
