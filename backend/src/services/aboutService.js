@@ -68,7 +68,7 @@ const updateAboutWagBio = async (bio) => {
     const aboutWag = (await aboutWagDb).read();
 
     aboutWag.bio = bio;
-    await aboutWagDb.write();
+    (await aboutWagDb).write();
     return aboutWag.bio;
   } catch (error) {
     console.error('Error in updating bio for WAG: ', error);
@@ -87,7 +87,7 @@ const updateAboutWagAbout = async (about) => {
     const aboutWag = (await aboutWagDb).read();
 
     aboutWag.about = about;
-    await aboutWagDb.write();
+    (await aboutWagDb).write();
     return aboutWag.about;
   } catch (error) {
     console.error('Error in updating about information for WAG: ', error);
@@ -106,7 +106,7 @@ const updateAboutWagPhoto = async (photo) => {
     const aboutWag = (await aboutWagDb).read();
 
     aboutWag.photo = photo;
-    await aboutWagDb.write();
+    (await aboutWagDb).write();
     return aboutWag.photo;
   } catch (error) {
     console.error('Error in updating photo for WAG: ', error);
@@ -125,7 +125,7 @@ const updateWagCv = async (cv) => {
     const aboutWag = (await aboutWagDb).read();
 
     aboutWag.cv = cv;
-    await aboutWagDb.write();
+    (await aboutWagDb).write();
   } catch (error) {
     console.error('Error in updating CV for WAG: ', error);
     throw error;
@@ -143,7 +143,7 @@ const updateAboutMsc = async (aboutMsc) => {
     const currentAboutMsc = (await aboutMscDb).read();
 
     currentAboutMsc.about = aboutMsc;
-    await aboutMscDb.write();
+    (await aboutMscDb).write();
     return aboutMsc.about;
   } catch (error) {
     console.error('Error in updating about information for MSC: ', error);

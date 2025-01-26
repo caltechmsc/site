@@ -48,7 +48,7 @@ const updatePublications = async (publications) => {
     const publicationsData = (await publicationsDb).read();
 
     publicationsData.publications = publications;
-    await publicationsDb.write();
+    (await publicationsDb).write();
     return publicationsData.publications;
   } catch (error) {
     console.error('Error in updating publications: ', error);
@@ -73,7 +73,7 @@ const updateCrawlStatus = async (crawlStatus) => {
       error: crawlStatus.error,
       message: crawlStatus.message,
     };
-    await publicationsDb.write();
+    (await publicationsDb).write();
     return publications.crawlStatus;
   } catch (error) {
     console.error('Error in updating crawl status: ', error);

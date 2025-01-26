@@ -32,7 +32,7 @@ const addGroupPhoto = async (photo) => {
     const events = (await eventsDb).read();
 
     events.groupPhotos.push(photo);
-    await eventsDb.write();
+    (await eventsDb).write();
     return events.groupPhotos;
   } catch (error) {
     console.error('Error in adding group photo: ', error);
@@ -51,7 +51,7 @@ const removeGroupPhoto = async (index) => {
     const events = (await eventsDb).read();
 
     events.groupPhotos.splice(index, 1);
-    await eventsDb.write();
+    (await eventsDb).write();
     return events.groupPhotos;
   } catch (error) {
     console.error('Error in removing group photo: ', error);

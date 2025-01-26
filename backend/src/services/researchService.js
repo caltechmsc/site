@@ -48,7 +48,7 @@ const updateResearchAreas = async (areas) => {
     const research = (await researchDb).read();
 
     research.areas = areas;
-    await researchDb.write();
+    (await researchDb).write();
     return research.areas;
   } catch (error) {
     console.error('Error in updating research areas: ', error);
@@ -67,7 +67,7 @@ const updateResearchAbout = async (about) => {
     const research = (await researchDb).read();
 
     research.about = about;
-    await researchDb.write();
+    (await researchDb).write();
     return research.about;
   } catch (error) {
     console.error('Error in updating research about information: ', error);

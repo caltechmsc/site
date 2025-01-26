@@ -191,7 +191,7 @@ const updateCollaboratorsAbout = async (about) => {
     const aboutCollaborators = (await collaboratorsLowDb).read();
 
     aboutCollaborators.about = about;
-    await collaboratorsLowDb.write();
+    (await collaboratorsLowDb).write();
     return about.about;
   } catch (error) {
     console.error(
