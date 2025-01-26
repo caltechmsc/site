@@ -94,7 +94,7 @@ adminsDb.serialize(() => {
 });
 membersDb.serialize(() => {
   membersDb.run(
-    'CREATE TABLE IF NOT EXISTS members (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, identity TEXT NOT NULL, email TEXT NOT NULL, expertise TEXT NOT NULL, profile TEXT)',
+    'CREATE TABLE IF NOT EXISTS members (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, position TEXT NOT NULL, education TEXT NOT NULL, area TEXT NOT NULL, email TEXT NOT NULL, organization TEXT, country TEXT, website TEXT, photo TEXT)',
   );
 });
 collaboratorsDb.serialize(() => {
