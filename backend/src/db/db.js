@@ -14,7 +14,7 @@ if (!fs.existsSync(dbPath)) {
   fs.mkdirSync(dbPath);
 }
 
-// Connect to the admins, members, and papers databases
+// Connect to the admins, and members databases
 const adminsDb = new sqlite3.Database(dbPath + '/admins.db', (err) => {
   if (err) {
     console.error(err.message);
@@ -29,15 +29,8 @@ const membersDb = new sqlite3.Database(dbPath + '/members.db', (err) => {
     console.log('Connected to the members database.');
   }
 });
-const papersDb = new sqlite3.Database(dbPath + '/papers.db', (err) => {
-  if (err) {
-    console.error(err.message);
-  } else {
-    console.log('Connected to the papers database.');
-  }
-});
 
-// Close the admins, members, and papers databases
+// Close the admins, and members databases
 const closeDbs = () => {
   adminsDb.close((err) => {
     if (err) {
@@ -54,17 +47,9 @@ const closeDbs = () => {
       console.log('Closed the members database connection.');
     }
   });
-
-  papersDb.close((err) => {
-    if (err) {
-      console.error(err.message);
-    } else {
-      console.log('Closed the papers database connection.');
-    }
-  });
 };
 
-// Create the admins, members, and papers tables if they do not exist
+// Create the admins, and members tables if they do not exist
 adminsDb.serialize(() => {
   adminsDb.run(
     'CREATE TABLE IF NOT EXISTS admins (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT NOT NULL UNIQUE, password TEXT NOT NULL)',
@@ -75,10 +60,5 @@ membersDb.serialize(() => {
     'CREATE TABLE IF NOT EXISTS members (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, identity TEXT NOT NULL, email TEXT NOT NULL, expertise TEXT NOT NULL, profile TEXT)',
   );
 });
-papersDb.serialize(() => {
-  papersDb.run(
-    'CREATE TABLE IF NOT EXISTS papers (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, authors TEXT NOT NULL, abstract TEXT, thumbnail TEXT)',
-  );
-});
 
-module.exports = { adminsDb, membersDb, papersDb, closeDbs };
+module.exports = { adminsDb, membersDb, closeDbs };
