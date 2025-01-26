@@ -35,7 +35,23 @@ const getWagCv = async (req, res) => {
   }
 };
 
+/**
+ * @function getMsc - Get about msc.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const getMsc = async (req, res) => {
+  try {
+    const msc = await aboutService.getAboutMsc();
+    return res.success(msc, 'About MSC retrieved successfully.');
+  } catch (error) {
+    console.error('Error getting MSC: ', error);
+    return res.internalServerError('Error getting MSC.', 'GET_MSC_ERROR');
+  }
+};
+
 module.exports = {
   getWag,
   getWagCv,
+  getMsc,
 };

@@ -13,6 +13,7 @@ const aboutControllers = require('../controllers/aboutControllers');
 router.use(rateLimiter());
 
 router.get('/wag', aboutControllers.getWag);
-router.get('/wag/cv', aboutControllers.getWagCV);
+router.get('/wag/cv', aboutControllers.getWagCv);
+router.get('/msc', aboutControllers.getMsc);
 
 module.exports = router;
