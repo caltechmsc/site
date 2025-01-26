@@ -7,6 +7,7 @@ const MAX_EMAIL_LENGTH = 254; // The maximum length of an email address
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Check if the email is valid (contains an @ symbol and a period)
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_])[^\s]{8,}$/; // Check if the password is valid (at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character)
+const BASE64_IMAGE_REGEX = /^data:image\/[a-z]+;base64,/; // Check if the image is valid (starts with data:image)
 
 /**
  * @function validateEmail - Validate an email address.
@@ -41,7 +42,23 @@ const validatePassword = (password) => {
   }
 };
 
+/**
+ * @function validateBase64Image - Validate a base64 image.
+ * @param {string} image - The base64 image to validate.
+ * @returns {boolean} - True if the image is valid, false otherwise.
+ */
+const validateBase64Image = (image) => {
+  if (!image) {
+    // Check if the image is empty
+    return false;
+  } else {
+    // Check if the image matches the regex pattern
+    return BASE64_IMAGE_REGEX.test(image);
+  }
+};
+
 module.exports = {
   validateEmail,
   validatePassword,
+  validateBase64Image,
 };
