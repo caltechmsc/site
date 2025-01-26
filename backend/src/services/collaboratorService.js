@@ -181,7 +181,7 @@ const getCollaboratorsAbout = async () => {
 /**
  * @function updateCollaboratorsAbout - Update the about information for the collaborators.
  * @param {Object} about - The about information for the collaborators.
- * @returns {Promise<void>} A promise that resolves when the about information is updated.
+ * @returns {Promise<Object>} The updated about information for the collaborators.
  * @throws {Error} Throws an error if the about information cannot be updated.
  */
 const updateCollaboratorsAbout = async (about) => {
@@ -190,6 +190,7 @@ const updateCollaboratorsAbout = async (about) => {
 
     aboutCollaborators.about = about;
     await collaboratorsLowDb.write();
+    return about.about;
   } catch (error) {
     console.error(
       'Error in updating about information for collaborators: ',

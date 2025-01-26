@@ -58,16 +58,58 @@ const getAboutMsc = async () => {
 };
 
 /**
- * @function updateAboutWag - Update the about information for William Andrew Goddard III.
- * @param {Object} aboutWag - The about information for William Andrew Goddard III.
- * @returns {Promise<void>} A promise that resolves when the about information is updated.
+ * @function updateAboutWagBio - Update the bio for William Andrew Goddard III.
+ * @param {string} bio - The bio for William Andrew Goddard III.
+ * @returns {Promise<string>} The updated bio for William Andrew Goddard III.
+ * @throws {Error} Throws an error if the bio cannot be updated.
+ */
+const updateAboutWagBio = async (bio) => {
+  try {
+    const aboutWag = await aboutWagDb.read();
+
+    aboutWag.bio = bio;
+    await aboutWagDb.write();
+    return aboutWag.bio;
+  } catch (error) {
+    console.error('Error in updating bio for WAG: ', error);
+    throw error;
+  }
+};
+
+/**
+ * @function updateAboutWagAbout - Update the about information for William Andrew Goddard III.
+ * @param {Object} about - The about information for William Andrew Goddard III.
+ * @returns {Promise<Object>} The updated about information for William Andrew Goddard III.
  * @throws {Error} Throws an error if the about information cannot be updated.
  */
-const updateAboutWag = async (aboutWag) => {
+const updateAboutWagAbout = async (about) => {
   try {
-    await aboutWagDb.write(aboutWag);
+    const aboutWag = await aboutWagDb.read();
+
+    aboutWag.about = about;
+    await aboutWagDb.write();
+    return aboutWag.about;
   } catch (error) {
     console.error('Error in updating about information for WAG: ', error);
+    throw error;
+  }
+};
+
+/**
+ * @function updateAboutWagPhoto - Update the photo for William Andrew Goddard III.
+ * @param {string} photo - The photo for William Andrew Goddard III. (Base64 encoded)
+ * @returns {Promise<string>} The updated photo for William Andrew Goddard III.
+ * @throws {Error} Throws an error if the photo cannot be updated.
+ */
+const updateAboutWagPhoto = async (photo) => {
+  try {
+    const aboutWag = await aboutWagDb.read();
+
+    aboutWag.photo = photo;
+    await aboutWagDb.write();
+    return aboutWag.photo;
+  } catch (error) {
+    console.error('Error in updating photo for WAG: ', error);
     throw error;
   }
 };
@@ -93,7 +135,7 @@ const updateWagCv = async (cv) => {
 /**
  * @function updateAboutMsc - Update the about information for the Materials and Process Simulation Center.
  * @param {Object} aboutMsc - The about information for the Materials and Process Simulation Center.
- * @returns {Promise<void>} A promise that resolves when the about information is updated.
+ * @returns {Promise<Object>} The updated about information for the Materials and Process Simulation Center.
  * @throws {Error} Throws an error if the about information cannot be updated.
  */
 const updateAboutMsc = async (aboutMsc) => {
@@ -102,6 +144,7 @@ const updateAboutMsc = async (aboutMsc) => {
 
     currentAboutMsc.about = aboutMsc;
     await aboutMscDb.write();
+    return aboutMsc.about;
   } catch (error) {
     console.error('Error in updating about information for MSC: ', error);
     throw error;
@@ -112,7 +155,9 @@ module.exports = {
   getAboutWag,
   getWagCv,
   getAboutMsc,
-  updateAboutWag,
+  updateAboutWagBio,
+  updateAboutWagAbout,
+  updateAboutWagPhoto,
   updateWagCv,
   updateAboutMsc,
 };
