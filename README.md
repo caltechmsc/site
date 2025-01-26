@@ -123,6 +123,10 @@ The MSC website is designed to offer:
 
 > **Note:** If you are developing the application, you need to install the development dependencies in the root directory to use linting and formatting tools.
 
+## 📂 Documentation
+
+- **[Backend API Documentation](docs/API.md)**: Detailed documentation for the backend API endpoints.
+
 ## 📝 Licens
 
 This project is not licensed under any open-source license currently. All rights are reserved by the Caltech Materials and Process Simulation Center (MSC).
