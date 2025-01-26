@@ -58,16 +58,16 @@ const researchDb = getDbConnection('research', {
   about: null,
   areas: {},
 });
-const publicationsCrawlingStatusDb = getDbConnection(
-  'publications_crawling_status',
-  {
+const publicationsDb = getDbConnection('publications', {
+  publications: [],
+  crawlingStatus: {
     status: 'idle',
     lastCrawled: null,
     lastUpdated: null,
     error: false,
     message: null,
   },
-);
+});
 const eventsGroupPhotosDb = getDbConnection('events_group_photos', {
   photos: [],
 });
@@ -90,7 +90,7 @@ module.exports = {
   aboutMscDb,
   collaboratorsDb,
   researchDb,
-  publicationsCrawlingStatusDb,
+  publicationsDb,
   eventsGroupPhotosDb,
   closeDbs,
 };
