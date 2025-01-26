@@ -15,56 +15,75 @@ if (!fs.existsSync(dbPath)) {
 }
 
 // Connect to the admins, members, and collaborators databases
-const adminsDb = new sqlite3.Database(dbPath + '/admins.db', (err) => {
-  if (err) {
-    console.error(err.message);
+const adminsDb = new sqlite3.Database(dbPath + '/admins.db', (error) => {
+  if (error) {
+    console.error(error.message);
   } else {
     console.log('Connected to the admins database.');
   }
 });
-const membersDb = new sqlite3.Database(dbPath + '/members.db', (err) => {
-  if (err) {
-    console.error(err.message);
+const membersDb = new sqlite3.Database(dbPath + '/members.db', (error) => {
+  if (error) {
+    console.error(error.message);
   } else {
     console.log('Connected to the members database.');
   }
 });
 const collaboratorsDb = new sqlite3.Database(
   dbPath + '/collaborators.db',
-  (err) => {
-    if (err) {
-      console.error(err.message);
+  (error) => {
+    if (error) {
+      console.error(error.message);
     } else {
       console.log('Connected to the collaborators database.');
     }
   },
 );
 
-// Close the admins, members, and collaborators databases
-const closeDbs = () => {
-  adminsDb.close((err) => {
-    if (err) {
-      console.error(err.message);
-    } else {
-      console.log('Closed the admins database connection.');
-    }
-  });
+// Function to close all database connections
+const closeDbs = async () => {
+  const closePromises = [
+    new Promise((resolve, reject) => {
+      adminsDb.close((error) => {
+        if (error) {
+          console.error(error.message);
+          reject(error);
+        } else {
+          console.log('Closed the admins database connection.');
+          resolve();
+        }
+      });
+    }),
+    new Promise((resolve, reject) => {
+      membersDb.close((error) => {
+        if (error) {
+          console.error(error.message);
+          reject(error);
+        } else {
+          console.log('Closed the members database connection.');
+          resolve();
+        }
+      });
+    }),
+    new Promise((resolve, reject) => {
+      collaboratorsDb.close((error) => {
+        if (error) {
+          console.error(error.message);
+          reject(error);
+        } else {
+          console.log('Closed the collaborators database connection.');
+          resolve();
+        }
+      });
+    }),
+  ];
 
-  membersDb.close((err) => {
-    if (err) {
-      console.error(err.message);
-    } else {
-      console.log('Closed the members database connection.');
-    }
-  });
-
-  collaboratorsDb.close((err) => {
-    if (err) {
-      console.error(err.message);
-    } else {
-      console.log('Closed the collaborators database connection.');
-    }
-  });
+  try {
+    await Promise.all(closePromises);
+  } catch (error) {
+    console.error('Error closing databases:', error);
+    throw error;
+  }
 };
 
 // Create the admins, members, and collaborators tables if they do not exist

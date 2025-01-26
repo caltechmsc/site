@@ -41,8 +41,8 @@ process.on('SIGINT', async () => {
 
 app.close = async () => {
   server.close();
-  db.closeDbs();
-  lowdb.closeDbs();
+  await db.closeDbs();
+  await lowdb.closeDbs();
 };
 
 module.exports = app;

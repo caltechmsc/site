@@ -5,7 +5,6 @@
 
 const path = require('path');
 const fs = require('fs');
-const low = require('lowdb');
 
 const dbPath = path.join(__dirname, '../../data');
 
@@ -14,47 +13,75 @@ if (!fs.existsSync(dbPath)) {
   fs.mkdirSync(dbPath);
 }
 
-// Connect to the about_wag, about_msc, collaborators, research, publications_crawling_status, and events_group_photos databases
-const aboutWagDb = low(new FileSync(dbPath + '/about_wag.json'));
-const aboutMscDb = low(new FileSync(dbPath + '/about_msc.json'));
-const collaboratorsDb = low(new FileSync(dbPath + '/collaborators.json'));
-const researchDb = low(new FileSync(dbPath + '/research.json'));
-const publicationsCrawlingStatusDb = low(
-  new FileSync(dbPath + '/publications_crawling_status.json'),
-);
-const eventsGroupPhotosDb = low(
-  new FileSync(dbPath + '/events_group_photos.json'),
-);
+// Store the database connection instances
+const dbInstances = {};
 
-// Set default values for the about_wag, about_msc, collaborators, research, publications_crawling_status, and events_group_photos databases
-aboutWagDb.defaults({ bio: '', about: null, cv: null, photo: null }).write();
-aboutMscDb.defaults({ about: null }).write();
-collaboratorsDb.defaults({ about: null }).write();
-researchDb.defaults({ about: null, areas: {} }).write();
-publicationsCrawlingStatusDb
-  .defaults({
+/**
+ * @function getDbConnection - Get the database connection instance.
+ * @param {string} dbName - The name of the database.
+ * @param {Object} defaultValue - The default value for the database.
+ * @returns {Promise<Object>} The database connection instance.
+ */
+const getDbConnection = async (dbName, defaultValue) => {
+  // If the database is already initialized, return the existing instance
+  if (dbInstances[dbName]) {
+    return dbInstances[dbName];
+  }
+
+  // Dynamically import LowDB when needed
+  const { JSONFilePreset } = await import('lowdb/node');
+
+  // Initialize the database and store the connection
+  const dbConnection = await JSONFilePreset(
+    path.join(dbPath, `${dbName}.json`),
+    defaultValue,
+  );
+  dbInstances[dbName] = dbConnection; // Store the connection
+
+  return dbConnection;
+};
+
+// Initialize and get the database connections
+const aboutWagDb = getDbConnection('about_wag', {
+  bio: '',
+  about: null,
+  cv: null,
+  photo: null,
+});
+const aboutMscDb = getDbConnection('about_msc', {
+  about: null,
+});
+const collaboratorsDb = getDbConnection('collaborators', {
+  about: null,
+});
+const researchDb = getDbConnection('research', {
+  about: null,
+  areas: {},
+});
+const publicationsCrawlingStatusDb = getDbConnection(
+  'publications_crawling_status',
+  {
     status: 'idle',
     lastCrawled: null,
     lastUpdated: null,
     error: false,
     message: null,
-  })
-  .write();
-eventsGroupPhotosDb.defaults({ photos: [] }).write();
+  },
+);
+const eventsGroupPhotosDb = getDbConnection('events_group_photos', {
+  photos: [],
+});
 
-// Close the about_wag, about_msc, collaborators, research, publications_crawling_status, and events_group_photos databases
-const closeDbs = () => {
+// Function to close all open connections
+const closeDbs = async () => {
   try {
-    aboutWagDb.write();
-    aboutMscDb.write();
-    collaboratorsDb.write();
-    researchDb.write();
-    publicationsCrawlingStatusDb.write();
-    eventsGroupPhotosDb.write();
-
-    console.log('Closed lowdb connections.');
+    for (const dbName in dbInstances) {
+      await dbInstances[dbName].write();
+    }
+    console.log('Closed all lowdb connections.');
   } catch (error) {
-    console.error(error.message);
+    console.error('Error closing databases:', error.message);
+    throw error;
   }
 };
 
