@@ -14,6 +14,7 @@ const bodyParser = require('body-parser');
 const preprocessRequestDetailsMiddleware = require('./src/middlewares/preprocessRequestDetailsMiddleware');
 const responseMiddleware = require('./src/middlewares/responseMiddleware');
 const authMiddleware = require('./src/middlewares/authMiddleware');
+const routes = require('./src/routes');
 
 const DEFAULT_PORT = 5000;
 const port = process.env.PORT || DEFAULT_PORT;
@@ -29,6 +30,9 @@ app.use(bodyParser.json({ limit: '15mb' }));
 app.use(preprocessRequestDetailsMiddleware);
 app.use(responseMiddleware);
 app.use(authMiddleware);
+
+// Routes setup
+app.use('/api', routes);
 
 // Start the server
 const server = app.listen(port, host, () => {
