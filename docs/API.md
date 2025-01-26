@@ -18,6 +18,8 @@ The API documentation provides detailed information about the backend API endpoi
       - [Update Admin Email](#update-admin-email)
       - [Update Admin Password](#update-admin-password)
       - [Delete Admin](#delete-admin)
+    - [About Endpoints](#about-endpoints)
+      - [Get About William Andrew Goddard III](#get-about-william-andrew-goddard-iii)
 
 ## Authentication
 
@@ -521,6 +523,40 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error deleting admin.",
       "error": {
         "code": "DELETE_ADMIN_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+### About Endpoints
+
+#### Get About William Andrew Goddard III
+
+- **URL**: `/api/about/wag`
+- **Method**: `GET`
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "About WAG retrieved successfully."
+    }
+    ```
+
+    > **Note:** The about information will be returned in the response (`data` field).
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error getting WAG.",
+      "error": {
+        "code": "GET_WAG_ERROR",
         "details": {}
       }
     }
