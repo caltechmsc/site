@@ -14,14 +14,11 @@ if (!fs.existsSync(dbPath)) {
   fs.mkdirSync(dbPath);
 }
 
-// Connect to the about_wag, about_msc, members_collaborators, research, research_about, publications_crawling_status, and events_group_photos databases
+// Connect to the about_wag, about_msc, collaborators, research, publications_crawling_status, and events_group_photos databases
 const aboutWagDb = low(new FileSync(dbPath + '/about_wag.json'));
 const aboutMscDb = low(new FileSync(dbPath + '/about_msc.json'));
-const membersCollaboratorsDb = low(
-  new FileSync(dbPath + '/members_collaborators.json'),
-);
+const collaboratorsDb = low(new FileSync(dbPath + '/collaborators.json'));
 const researchDb = low(new FileSync(dbPath + '/research.json'));
-const researchAboutDb = low(new FileSync(dbPath + '/research_about.json'));
 const publicationsCrawlingStatusDb = low(
   new FileSync(dbPath + '/publications_crawling_status.json'),
 );
@@ -29,12 +26,11 @@ const eventsGroupPhotosDb = low(
   new FileSync(dbPath + '/events_group_photos.json'),
 );
 
-// Set default values for the about_wag, about_msc, members_collaborators, research, research_about, publications_crawling_status, and events_group_photos databases
+// Set default values for the about_wag, about_msc, collaborators, research, publications_crawling_status, and events_group_photos databases
 aboutWagDb.defaults({ bio: '', about: null, cv: null, photo: null }).write();
 aboutMscDb.defaults({ about: null }).write();
-membersCollaboratorsDb.defaults({ about: null }).write();
-researchDb.defaults({ researchAreas: null }).write();
-researchAboutDb.defaults({ about: null }).write();
+collaboratorsDb.defaults({ about: null }).write();
+researchDb.defaults({ about: null, areas: {} }).write();
 publicationsCrawlingStatusDb
   .defaults({
     status: 'idle',
@@ -46,16 +42,16 @@ publicationsCrawlingStatusDb
   .write();
 eventsGroupPhotosDb.defaults({ photos: [] }).write();
 
-// Close the about_wag, about_msc, members_collaborators, research, research_about, publications_crawling_status, and events_group_photos databases
+// Close the about_wag, about_msc, collaborators, research, publications_crawling_status, and events_group_photos databases
 const closeDbs = () => {
   try {
     aboutWagDb.write();
     aboutMscDb.write();
-    membersCollaboratorsDb.write();
+    collaboratorsDb.write();
     researchDb.write();
-    researchAboutDb.write();
     publicationsCrawlingStatusDb.write();
     eventsGroupPhotosDb.write();
+
     console.log('Closed lowdb connections.');
   } catch (error) {
     console.error(error.message);
@@ -65,9 +61,8 @@ const closeDbs = () => {
 module.exports = {
   aboutWagDb,
   aboutMscDb,
-  membersCollaboratorsDb,
+  collaboratorsDb,
   researchDb,
-  researchAboutDb,
   publicationsCrawlingStatusDb,
   eventsGroupPhotosDb,
   closeDbs,
