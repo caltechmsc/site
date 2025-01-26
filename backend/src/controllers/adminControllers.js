@@ -60,7 +60,48 @@ const createAdmin = async (req, res) => {
   }
 };
 
+/**
+ * @function updateAdminEmail - Update an admin's email.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const updateAdminEmail = async (req, res) => {
+  const { id } = req.params;
+  const { email } = req.body;
+
+  // Check if the email is valid
+  if (!validationUtils.validateEmail(email)) {
+    return res.badRequest('Invalid email address.', 'INVALID_EMAIL');
+  }
+
+  // Update the admin's email
+  try {
+    // Check if the admin exists
+    const adminExists = await adminService.getAdminById(id);
+    if (!adminExists) {
+      return res.notFound('Admin not found.', 'ADMIN_NOT_FOUND');
+    }
+
+    // Check if the email is already in use
+    const existingAdmin = await adminService.getAdminByEmail(email);
+    if (existingAdmin) {
+      return res.conflict('Email already in use.', 'EMAIL_IN_USE');
+    }
+
+    // If the email is not in use, update the admin's email
+    const admin = await adminService.updateAdminEmail(id, email);
+    return res.success(admin, 'Admin email updated successfully.');
+  } catch (error) {
+    console.error('Error updating admin email: ', error);
+    return res.internalServerError(
+      'Error updating admin email.',
+      'UPDATE_ADMIN_EMAIL_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getAdmins,
   createAdmin,
+  updateAdminEmail,
 };

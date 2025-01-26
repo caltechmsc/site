@@ -16,4 +16,6 @@ router.get('/', adminControllers.getAdmins);
 
 router.post('/', adminControllers.createAdmin);
 
+router.put('/:id/email', adminControllers.updateAdminEmail);
+
 module.exports = router;

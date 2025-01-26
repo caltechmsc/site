@@ -15,6 +15,7 @@ The API documentation provides detailed information about the backend API endpoi
     - [Admin Endpoints](#admin-endpoints)
       - [Get All Admins](#get-all-admins)
       - [Create Admin](#create-admin)
+      - [Update Admin Email](#update-admin-email)
 
 ## Authentication
 
@@ -229,9 +230,7 @@ The API has specific rate limits for different functionalities to ensure fair us
     ```json
     {
       "status": "success",
-      "data": {
-        "admins": []
-      },
+      "data": [],
       "message": "Admins retrieved successfully."
     }
     ```
@@ -274,9 +273,7 @@ The API has specific rate limits for different functionalities to ensure fair us
     ```json
     {
       "status": "success",
-      "data": {
-        "admin": {}
-      },
+      "data": {},
       "message": "Admin created successfully."
     }
     ```
@@ -330,6 +327,85 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error creating admin.",
       "error": {
         "code": "CREATE_ADMIN_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Update Admin Email
+
+- **URL**: `/api/admins/:id/email`
+- **Method**: `PUT`
+
+- **Request Body**:
+
+  ```json
+  {
+    "email": "new_email@example.com"
+  }
+  ```
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "Admin email updated successfully."
+    }
+    ```
+
+    > **Note:** The updated admin data will be returned in the response (`data` field).
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid email address.",
+      "error": {
+        "code": "INVALID_EMAIL",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `404 Not Found`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Admin not found.",
+      "error": {
+        "code": "ADMIN_NOT_FOUND",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `409 Conflict`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Email already in use.",
+      "error": {
+        "code": "EMAIL_IN_USE",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error updating admin email.",
+      "error": {
+        "code": "UPDATE_ADMIN_EMAIL_ERROR",
         "details": {}
       }
     }
