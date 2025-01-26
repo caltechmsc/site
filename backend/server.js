@@ -10,6 +10,7 @@ require('dotenv').config();
 const express = require('express');
 const db = require('./src/db/db');
 const lowdb = require('./src/db/lowdb');
+const preprocessRequestDetailsMiddleware = require('./src/middlewares/preprocessRequestDetailsMiddleware');
 const authMiddleware = require('./src/middlewares/authMiddleware');
 
 const DEFAULT_PORT = 5000;
@@ -22,6 +23,7 @@ const app = express();
 app.set('trust proxy', 1);
 
 // Middleware setup
+app.use(preprocessRequestDetailsMiddleware);
 app.use(authMiddleware);
 
 // Start the server
