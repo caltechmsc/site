@@ -11,6 +11,7 @@ const express = require('express');
 const db = require('./src/db/db');
 const lowdb = require('./src/db/lowdb');
 const preprocessRequestDetailsMiddleware = require('./src/middlewares/preprocessRequestDetailsMiddleware');
+const responseMiddleware = require('./src/middlewares/responseMiddleware');
 const authMiddleware = require('./src/middlewares/authMiddleware');
 
 const DEFAULT_PORT = 5000;
@@ -24,6 +25,7 @@ app.set('trust proxy', 1);
 
 // Middleware setup
 app.use(preprocessRequestDetailsMiddleware);
+app.use(responseMiddleware);
 app.use(authMiddleware);
 
 // Start the server
