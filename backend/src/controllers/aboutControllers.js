@@ -20,6 +20,22 @@ const getWag = async (req, res) => {
   }
 };
 
+/**
+ * @function getWagCv - Get the wag cv.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const getWagCv = async (req, res) => {
+  try {
+    const cv = await aboutService.getWagCv();
+    return res.success(cv, 'CV retrieved successfully.');
+  } catch (error) {
+    console.error('Error getting CV: ', error);
+    return res.internalServerError('Error getting CV.', 'GET_CV_ERROR');
+  }
+};
+
 module.exports = {
   getWag,
+  getWagCv,
 };

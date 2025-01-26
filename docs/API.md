@@ -20,6 +20,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Delete Admin](#delete-admin)
     - [About Endpoints](#about-endpoints)
       - [Get About William Andrew Goddard III](#get-about-william-andrew-goddard-iii)
+      - [Get CV of William Andrew Goddard III](#get-cv-of-william-andrew-goddard-iii)
 
 ## Authentication
 
@@ -557,6 +558,38 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error getting WAG.",
       "error": {
         "code": "GET_WAG_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Get CV of William Andrew Goddard III
+
+- **URL**: `/api/about/wag/cv`
+- **Method**: `GET`
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": "BASE64_ENCODED_CV",
+      "message": "CV retrieved successfully."
+    }
+    ```
+
+    > **Note:** The CV data will be returned in the response (`data` field) as a base64 encoded string.
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error getting CV.",
+      "error": {
+        "code": "GET_CV_ERROR",
         "details": {}
       }
     }
