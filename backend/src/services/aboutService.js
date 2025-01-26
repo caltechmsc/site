@@ -12,7 +12,7 @@ const { aboutWagDb, aboutMscDb } = require('../db/lowdb');
  */
 const getAboutWag = async () => {
   try {
-    const aboutWag = await aboutWagDb.read();
+    const aboutWag = (await aboutWagDb).read();
 
     return {
       bio: aboutWag.bio,
@@ -32,7 +32,7 @@ const getAboutWag = async () => {
  */
 const getWagCv = async () => {
   try {
-    const aboutWag = await aboutWagDb.read();
+    const aboutWag = (await aboutWagDb).read();
 
     return aboutWag.cv;
   } catch (error) {
@@ -48,7 +48,7 @@ const getWagCv = async () => {
  */
 const getAboutMsc = async () => {
   try {
-    const aboutMsc = await aboutMscDb.read();
+    const aboutMsc = (await aboutMscDb).read();
 
     return aboutMsc.about;
   } catch (error) {
@@ -65,7 +65,7 @@ const getAboutMsc = async () => {
  */
 const updateAboutWagBio = async (bio) => {
   try {
-    const aboutWag = await aboutWagDb.read();
+    const aboutWag = (await aboutWagDb).read();
 
     aboutWag.bio = bio;
     await aboutWagDb.write();
@@ -84,7 +84,7 @@ const updateAboutWagBio = async (bio) => {
  */
 const updateAboutWagAbout = async (about) => {
   try {
-    const aboutWag = await aboutWagDb.read();
+    const aboutWag = (await aboutWagDb).read();
 
     aboutWag.about = about;
     await aboutWagDb.write();
@@ -103,7 +103,7 @@ const updateAboutWagAbout = async (about) => {
  */
 const updateAboutWagPhoto = async (photo) => {
   try {
-    const aboutWag = await aboutWagDb.read();
+    const aboutWag = (await aboutWagDb).read();
 
     aboutWag.photo = photo;
     await aboutWagDb.write();
@@ -122,7 +122,7 @@ const updateAboutWagPhoto = async (photo) => {
  */
 const updateWagCv = async (cv) => {
   try {
-    const aboutWag = await aboutWagDb.read();
+    const aboutWag = (await aboutWagDb).read();
 
     aboutWag.cv = cv;
     await aboutWagDb.write();
@@ -140,7 +140,7 @@ const updateWagCv = async (cv) => {
  */
 const updateAboutMsc = async (aboutMsc) => {
   try {
-    const currentAboutMsc = await aboutMscDb.read();
+    const currentAboutMsc = (await aboutMscDb).read();
 
     currentAboutMsc.about = aboutMsc;
     await aboutMscDb.write();

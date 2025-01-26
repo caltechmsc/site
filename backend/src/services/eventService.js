@@ -12,7 +12,7 @@ const { eventsDb } = require('../db/lowdb');
  */
 const getGroupPhotos = async () => {
   try {
-    const events = await eventsDb.read();
+    const events = (await eventsDb).read();
 
     return events.groupPhotos;
   } catch (error) {
@@ -29,7 +29,7 @@ const getGroupPhotos = async () => {
  */
 const addGroupPhoto = async (photo) => {
   try {
-    const events = await eventsDb.read();
+    const events = (await eventsDb).read();
 
     events.groupPhotos.push(photo);
     await eventsDb.write();
@@ -48,7 +48,7 @@ const addGroupPhoto = async (photo) => {
  */
 const removeGroupPhoto = async (index) => {
   try {
-    const events = await eventsDb.read();
+    const events = (await eventsDb).read();
 
     events.groupPhotos.splice(index, 1);
     await eventsDb.write();

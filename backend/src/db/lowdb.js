@@ -1,5 +1,5 @@
 /**
- * @fileoverview Database Connection (LowDB)
+ * @fileoverview Database Connection (Simulate LowDB)
  * @description Database connection and initialization.
  */
 
@@ -7,6 +7,8 @@ const path = require('path');
 const fs = require('fs');
 
 const dbPath = path.join(__dirname, '../../data');
+
+const JSON_SPACING = 2;
 
 // Create the data directory if it does not exist
 if (!fs.existsSync(dbPath)) {
@@ -28,15 +30,37 @@ const getDbConnection = async (dbName, defaultValue) => {
     return dbInstances[dbName];
   }
 
-  // Dynamically import LowDB when needed
-  const { JSONFilePreset } = await import('lowdb/node');
+  const filePath = path.join(dbPath, `${dbName}.json`);
 
-  // Initialize the database and store the connection
-  const dbConnection = await JSONFilePreset(
-    path.join(dbPath, `${dbName}.json`),
-    defaultValue,
-  );
-  dbInstances[dbName] = dbConnection; // Store the connection
+  // If the database file does not exist, create it with default value
+  if (!fs.existsSync(filePath)) {
+    fs.writeFileSync(
+      filePath,
+      JSON.stringify(defaultValue, null, JSON_SPACING),
+    );
+  }
+
+  // Read the existing data from the database file
+  const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+
+  // Database instance to store and retrieve data
+  const dbConnection = {
+    data,
+    // Function to save the data back to the file
+    write: (overwriteData = dbConnection.data) => {
+      fs.writeFileSync(
+        filePath,
+        JSON.stringify(overwriteData, null, JSON_SPACING),
+      );
+    },
+    // Function to read data from the file
+    read: () => {
+      return dbConnection.data;
+    },
+  };
+
+  // Store the connection instance
+  dbInstances[dbName] = dbConnection;
 
   return dbConnection;
 };
@@ -76,7 +100,7 @@ const eventsGroupPhotosDb = getDbConnection('events_group_photos', {
 const closeDbs = async () => {
   try {
     for (const dbName in dbInstances) {
-      await dbInstances[dbName].write();
+      dbInstances[dbName].write(); // Save data back to the file
     }
     console.log('Closed all lowdb connections.');
   } catch (error) {

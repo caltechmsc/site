@@ -12,7 +12,7 @@ const { researchDb } = require('../db/lowdb');
  */
 const getResearchAreas = async () => {
   try {
-    const research = await researchDb.read();
+    const research = (await researchDb).read();
 
     return research.areas;
   } catch (error) {
@@ -28,7 +28,7 @@ const getResearchAreas = async () => {
  */
 const getResearchAbout = async () => {
   try {
-    const research = await researchDb.read();
+    const research = (await researchDb).read();
 
     return research.about;
   } catch (error) {
@@ -45,7 +45,7 @@ const getResearchAbout = async () => {
  */
 const updateResearchAreas = async (areas) => {
   try {
-    const research = await researchDb.read();
+    const research = (await researchDb).read();
 
     research.areas = areas;
     await researchDb.write();
@@ -64,7 +64,7 @@ const updateResearchAreas = async (areas) => {
  */
 const updateResearchAbout = async (about) => {
   try {
-    const research = await researchDb.read();
+    const research = (await researchDb).read();
 
     research.about = about;
     await researchDb.write();

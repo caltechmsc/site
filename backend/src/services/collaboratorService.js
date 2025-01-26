@@ -168,7 +168,7 @@ const deleteCollaborator = async (id) => {
  */
 const getCollaboratorsAbout = async () => {
   try {
-    const about = await collaboratorsLowDb.read();
+    const about = (await collaboratorsLowDb).read();
 
     return about.about;
   } catch (error) {
@@ -188,7 +188,7 @@ const getCollaboratorsAbout = async () => {
  */
 const updateCollaboratorsAbout = async (about) => {
   try {
-    const aboutCollaborators = await collaboratorsLowDb.read();
+    const aboutCollaborators = (await collaboratorsLowDb).read();
 
     aboutCollaborators.about = about;
     await collaboratorsLowDb.write();

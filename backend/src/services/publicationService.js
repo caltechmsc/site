@@ -12,7 +12,7 @@ const { publicationsDb } = require('../db/lowdb');
  */
 const getPublications = async () => {
   try {
-    const publications = await publicationsDb.read();
+    const publications = (await publicationsDb).read();
 
     return publications.publications;
   } catch (error) {
@@ -28,7 +28,7 @@ const getPublications = async () => {
  */
 const getCrawlStatus = async () => {
   try {
-    const publications = await publicationsDb.read();
+    const publications = (await publicationsDb).read();
 
     return publications.crawlStatus;
   } catch (error) {
@@ -45,7 +45,7 @@ const getCrawlStatus = async () => {
  */
 const updatePublications = async (publications) => {
   try {
-    const publicationsData = await publicationsDb.read();
+    const publicationsData = (await publicationsDb).read();
 
     publicationsData.publications = publications;
     await publicationsDb.write();
@@ -64,7 +64,7 @@ const updatePublications = async (publications) => {
  */
 const updateCrawlStatus = async (crawlStatus) => {
   try {
-    const publications = await publicationsDb.read();
+    const publications = (await publicationsDb).read();
 
     publications.crawlStatus = {
       status: crawlStatus.status,
