@@ -9,6 +9,7 @@ require('dotenv').config();
 // Load required modules
 const express = require('express');
 const db = require('./src/db/db');
+const lowdb = require('./src/db/lowdb');
 
 const DEFAULT_PORT = 5000;
 const port = process.env.PORT || DEFAULT_PORT;
@@ -41,6 +42,7 @@ process.on('SIGINT', async () => {
 app.close = async () => {
   server.close();
   db.closeDbs();
+  lowdb.closeDbs();
 };
 
 module.exports = app;

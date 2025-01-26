@@ -1,5 +1,5 @@
 /**
- * @fileoverview Database Connection
+ * @fileoverview Database Connection (SQLite3)
  * @description Database connection and initialization.
  */
 
