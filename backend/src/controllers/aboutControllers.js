@@ -107,10 +107,33 @@ const updateWagAbout = async (req, res) => {
   }
 };
 
+const updateWagCv = async (req, res) => {
+  const { cv } = req.body;
+
+  // Check if the cv is valid
+  if (typeof cv !== 'string') {
+    return res.badRequest('Invalid CV data.', 'INVALID_CV');
+  }
+
+  try {
+    const updatedCv = await aboutService.updateWagCv(cv);
+    return res.success(
+      {
+        cv: updatedCv,
+      },
+      'CV updated successfully.',
+    );
+  } catch (error) {
+    console.error('Error updating cv: ', error);
+    return res.internalServerError('Error updating CV.', 'UPDATE_CV_ERROR');
+  }
+};
+
 module.exports = {
   getWag,
   getWagCv,
   getMsc,
   updateWagBio,
   updateWagAbout,
+  updateWagCv,
 };
