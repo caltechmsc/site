@@ -38,6 +38,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Update Collaborator](#update-collaborator)
       - [Delete Collaborator](#delete-collaborator)
       - [Get About Collaborators](#get-about-collaborators)
+      - [Update About Collaborators](#update-about-collaborators)
 
 ## Authentication
 
@@ -1740,6 +1741,59 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error getting about information.",
       "error": {
         "code": "GET_ABOUT_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Update About Collaborators
+
+- **URL**: `/api/collaborators/about`
+- **Method**: `PUT`
+
+- **Request Body**:
+
+  ```json
+  {
+    "about": {}
+  }
+  ```
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "About information updated successfully."
+    }
+    ```
+
+    > **Note:** The updated about information will be returned in the response (`data` field).
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid about data.",
+      "error": {
+        "code": "INVALID_ABOUT",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error updating about information.",
+      "error": {
+        "code": "UPDATE_ABOUT_ERROR",
         "details": {}
       }
     }

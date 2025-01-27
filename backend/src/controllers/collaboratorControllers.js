@@ -207,10 +207,38 @@ const getAbout = async (req, res) => {
   }
 };
 
+/**
+ * @function updateAbout - Update the about information.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const updateAbout = async (req, res) => {
+  const { about } = req.body;
+
+  // Check if the about is valid
+  if (typeof about !== 'object') {
+    return res.badRequest('Invalid about data.', 'INVALID_ABOUT');
+  }
+
+  // Update the about information
+  try {
+    const updatedAbout =
+      await collaboratorService.updateCollaboratorsAbout(about);
+    return res.success(updatedAbout, 'About information updated successfully.');
+  } catch (error) {
+    console.error('Error updating about information: ', error);
+    return res.internalServerError(
+      'Error updating about information.',
+      'UPDATE_ABOUT_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getCollaborators,
   createCollaborator,
   updateCollaborator,
   deleteCollaborator,
   getAbout,
+  updateAbout,
 };
