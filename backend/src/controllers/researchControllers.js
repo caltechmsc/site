@@ -44,7 +44,34 @@ const getResearchAbout = async (req, res) => {
   }
 };
 
+/**
+ * @function updateResearchAreas - Update the research areas in the database.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const updateResearchAreas = async (req, res) => {
+  const { areas } = req.body;
+
+  // Check if the areas is valid
+  if (typeof areas !== 'object') {
+    return res.badRequest('Invalid research areas.', 'INVALID_AREAS');
+  }
+
+  // Update the research areas
+  try {
+    const updatedAreas = await researchService.updateResearchAreas(areas);
+    return res.success(updatedAreas, 'Research areas updated successfully.');
+  } catch (error) {
+    console.error('Error updating research areas: ', error);
+    return res.internalServerError(
+      'Error updating research areas.',
+      'UPDATE_RESEARCH_AREAS_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getResearch,
   getResearchAbout,
+  updateResearchAreas,
 };

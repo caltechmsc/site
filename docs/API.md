@@ -42,6 +42,7 @@ The API documentation provides detailed information about the backend API endpoi
     - [Research Endpoints](#research-endpoints)
       - [Get Research Areas](#get-research-areas)
       - [Get Research About](#get-research-about)
+      - [Update Research Areas](#update-research-areas)
 
 ## Authentication
 
@@ -1865,6 +1866,59 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error getting research about information.",
       "error": {
         "code": "GET_RESEARCH_ABOUT_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Update Research Areas
+
+- **URL**: `/api/research`
+- **Method**: `PUT`
+
+- **Request Body**:
+
+  ```json
+  {
+    "areas": {}
+  }
+  ```
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "Research areas updated successfully."
+    }
+    ```
+
+    > **Note:** The updated research areas will be returned in the response (`data` field).
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid research areas.",
+      "error": {
+        "code": "INVALID_AREAS",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error updating research areas.",
+      "error": {
+        "code": "UPDATE_RESEARCH_AREAS_ERROR",
         "details": {}
       }
     }
