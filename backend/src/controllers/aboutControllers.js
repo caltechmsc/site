@@ -5,6 +5,8 @@
 
 const aboutService = require('../services/aboutService');
 
+const validationUtils = require('../utils/validationUtils');
+
 /**
  * @function getWag - Get the wag.
  * @param {Object} req - The request object.
@@ -129,6 +131,36 @@ const updateWagCv = async (req, res) => {
   }
 };
 
+/**
+ * @function updateWagPhoto - Update the wag photo.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const updateWagPhoto = async (req, res) => {
+  const { photo } = req.body;
+
+  // Check if the photo is valid
+  if (!validationUtils.validateBase64Image(photo)) {
+    return res.badRequest('Invalid photo.', 'INVALID_PHOTO');
+  }
+
+  try {
+    const updatedPhoto = await aboutService.updateAboutWagPhoto(photo);
+    return res.success(
+      {
+        photo: updatedPhoto,
+      },
+      'Photo updated successfully.',
+    );
+  } catch (error) {
+    console.error('Error updating photo: ', error);
+    return res.internalServerError(
+      'Error updating photo.',
+      'UPDATE_PHOTO_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getWag,
   getWagCv,
@@ -136,4 +168,5 @@ module.exports = {
   updateWagBio,
   updateWagAbout,
   updateWagCv,
+  updateWagPhoto,
 };
