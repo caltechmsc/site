@@ -51,6 +51,7 @@ The API documentation provides detailed information about the backend API endpoi
     - [Events Endpoints](#events-endpoints)
       - [Get Group Photos](#get-group-photos)
       - [Add Group Photo](#add-group-photo)
+      - [Remove Group Photo](#remove-group-photo)
 
 ## Authentication
 
@@ -2182,6 +2183,70 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error adding group photo.",
       "error": {
         "code": "ADD_GROUP_PHOTO_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Remove Group Photo
+
+- **URL**: `/api/events/group-photos/:index`
+- **Method**: `DELETE`
+
+- **Request Parameters**:
+
+  - `index`: The index of the group photo to delete. (0-based index)
+
+    > **Note:** The index should be a valid number between 0 and the number of group photos. Be careful with the index, because the index will change after deleting a group photo.
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": null,
+      "message": "Group photo removed successfully."
+    }
+    ```
+
+    > **Note:** The group photo data after deletion will be returned in the response (`data` field).
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid index.",
+      "error": {
+        "code": "INVALID_INDEX",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `404 Not Found`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Group photo not found.",
+      "error": {
+        "code": "GROUP_PHOTO_NOT_FOUND",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error removing group photo.",
+      "error": {
+        "code": "REMOVE_GROUP_PHOTO_ERROR",
         "details": {}
       }
     }

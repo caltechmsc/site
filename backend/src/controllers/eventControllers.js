@@ -51,7 +51,41 @@ const addGroupPhoto = async (req, res) => {
   }
 };
 
+/**
+ * @function removeGroupPhoto - Remove a group photo.
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ */
+const removeGroupPhoto = async (req, res) => {
+  const { index } = req.params;
+
+  // Check if the index is valid
+  if (typeof index !== 'number') {
+    return res.badRequest('Invalid index.', 'INVALID_INDEX');
+  }
+
+  // Remove the group photo
+  try {
+    // Check if the index is out of bounds
+    const groupPhotos = await eventsService.getGroupPhotos();
+    if (index < 0 || index >= groupPhotos.length) {
+      return res.notFound('Group photo not found.', 'GROUP_PHOTO_NOT_FOUND');
+    }
+
+    // If the index is valid, remove the group photo
+    const updatedGroupPhotos = await eventsService.removeGroupPhoto(index);
+    return res.success(updatedGroupPhotos, 'Group photo removed successfully.');
+  } catch (error) {
+    console.error('Error removing group photo: ', error);
+    return res.internalServerError(
+      'Error removing group photo.',
+      'REMOVE_GROUP_PHOTO_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getGroupPhotos,
   addGroupPhoto,
+  removeGroupPhoto,
 };
