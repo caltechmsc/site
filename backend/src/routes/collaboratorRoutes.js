@@ -13,5 +13,6 @@ const collaboratorControllers = require('../controllers/collaboratorControllers'
 router.use(rateLimiter());
 
 router.get('/', collaboratorControllers.getCollaborators);
+router.post('/', collaboratorControllers.createCollaborator);
 
 module.exports = router;

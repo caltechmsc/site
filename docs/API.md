@@ -34,6 +34,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Delete Member](#delete-member)
     - [Collaborators Endpoints](#collaborators-endpoints)
       - [Get All Collaborators](#get-all-collaborators)
+      - [Create Collaborator](#create-collaborator)
 
 ## Authentication
 
@@ -1386,6 +1387,132 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error getting collaborators.",
       "error": {
         "code": "GET_COLLABORATORS_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Create Collaborator
+
+- **URL**: `/api/collaborators`
+- **Method**: `POST`
+
+- **Request Body**:
+
+  ```json
+  {
+    "organization": "Collaborator Organization",
+    "country": "Collaborator Country",
+    "leader": "Collaborator Leader",
+    "email": "collaborator@example.com",
+    "website": "Collaborator Website",
+    "latitude": 0.0,
+    "longitude": 0.0
+  }
+  ```
+
+  > **Note:** Some fields are required (`organization`, `country`, `leader`, `email`), and the latitude and longitude should be floating-point numbers.
+
+- **Response**:
+
+  - **Status:** `201 Created`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "Collaborator created successfully."
+    }
+    ```
+
+    > **Note:** The newly created collaborator data will be returned in the response (`data` field).
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid organization.",
+      "error": {
+        "code": "INVALID_ORGANIZATION",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid country.",
+      "error": {
+        "code": "INVALID_COUNTRY",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid leader.",
+      "error": {
+        "code": "INVALID_LEADER",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid email address.",
+      "error": {
+        "code": "INVALID_EMAIL",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid website.",
+      "error": {
+        "code": "INVALID_WEBSITE",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid coordinates.",
+      "error": {
+        "code": "INVALID_COORDINATES",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error creating collaborator.",
+      "error": {
+        "code": "CREATE_COLLABORATOR_ERROR",
         "details": {}
       }
     }
