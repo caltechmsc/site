@@ -37,6 +37,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Create Collaborator](#create-collaborator)
       - [Update Collaborator](#update-collaborator)
       - [Delete Collaborator](#delete-collaborator)
+      - [Get About Collaborators](#get-about-collaborators)
 
 ## Authentication
 
@@ -1707,6 +1708,38 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error deleting collaborator.",
       "error": {
         "code": "DELETE_COLLABORATOR_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Get About Collaborators
+
+- **URL**: `/api/collaborators/about`
+- **Method**: `GET`
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "About information retrieved successfully."
+    }
+    ```
+
+    > **Note:** The about information will be returned in the response (`data` field).
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error getting about information.",
+      "error": {
+        "code": "GET_ABOUT_ERROR",
         "details": {}
       }
     }

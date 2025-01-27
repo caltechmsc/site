@@ -189,9 +189,28 @@ const deleteCollaborator = async (req, res) => {
   }
 };
 
+/**
+ * @function getAbout - Get the about information.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const getAbout = async (req, res) => {
+  try {
+    const about = await collaboratorService.getCollaboratorsAbout();
+    return res.success(about, 'About information retrieved successfully.');
+  } catch (error) {
+    console.error('Error getting about information: ', error);
+    return res.internalServerError(
+      'Error getting about information.',
+      'GET_ABOUT_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getCollaborators,
   createCollaborator,
   updateCollaborator,
   deleteCollaborator,
+  getAbout,
 };
