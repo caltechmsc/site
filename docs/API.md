@@ -353,6 +353,10 @@ The API has specific rate limits for different functionalities to ensure fair us
 - **URL**: `/api/admins/:id/email`
 - **Method**: `PUT`
 
+- **Request Parameters**:
+
+  - `id`: The ID of the admin to update.
+
 - **Request Body**:
 
   ```json
@@ -432,6 +436,10 @@ The API has specific rate limits for different functionalities to ensure fair us
 - **URL**: `/api/admins/:id/password`
 - **Method**: `PUT`
 
+- **Request Parameters**:
+
+  - `id`: The ID of the admin to update.
+
 - **Request Body**:
 
   ```json
@@ -499,6 +507,10 @@ The API has specific rate limits for different functionalities to ensure fair us
 
 - **URL**: `/api/admins/:id`
 - **Method**: `DELETE`
+
+- **Request Parameters**:
+
+  - `id`: The ID of the admin to delete.
 
 - **Response**:
 
@@ -1113,6 +1125,10 @@ The API has specific rate limits for different functionalities to ensure fair us
 - **URL**: `/api/members/:id`
 - **Method**: `PUT`
 
+- **Request Parameters**:
+
+  - `id`: The ID of the member to update.
+
 - **Request Body**:
 
   ```json
@@ -1292,6 +1308,10 @@ The API has specific rate limits for different functionalities to ensure fair us
 
 - **URL**: `/api/members/:id`
 - **Method**: `DELETE`
+
+- **Request Parameters**:
+
+  - `id`: The ID of the member to delete.
 
 - **Response**:
 
