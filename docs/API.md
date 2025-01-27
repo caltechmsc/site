@@ -39,6 +39,8 @@ The API documentation provides detailed information about the backend API endpoi
       - [Delete Collaborator](#delete-collaborator)
       - [Get About Collaborators](#get-about-collaborators)
       - [Update About Collaborators](#update-about-collaborators)
+    - [Research Endpoints](#research-endpoints)
+      - [Get Research Areas](#get-research-areas)
 
 ## Authentication
 
@@ -1794,6 +1796,42 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error updating about information.",
       "error": {
         "code": "UPDATE_ABOUT_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+### Research Endpoints
+
+> **Note:** The following `PUT` endpoints are protected and require a valid JWT token to access.
+
+#### Get Research Areas
+
+- **URL**: `/api/research`
+- **Method**: `GET`
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "Research areas retrieved successfully."
+    }
+    ```
+
+    > **Note:** The research areas will be returned in the response (`data` field).
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error getting research areas.",
+      "error": {
+        "code": "GET_RESEARCH_ERROR",
         "details": {}
       }
     }
