@@ -69,22 +69,22 @@ const createMember = async (req, res) => {
   }
 
   // Check if the organization is valid
-  if (typeof organization !== 'string') {
+  if (organization !== undefined && typeof organization !== 'string') {
     return res.badRequest('Invalid organization.', 'INVALID_ORGANIZATION');
   }
 
   // Check if the country is valid
-  if (typeof country !== 'string') {
+  if (country !== undefined && typeof country !== 'string') {
     return res.badRequest('Invalid country.', 'INVALID_COUNTRY');
   }
 
   // Check if the website is valid
-  if (!validationUtils.validateURL(website)) {
+  if (website !== undefined && !validationUtils.validateURL(website)) {
     return res.badRequest('Invalid website.', 'INVALID_WEBSITE');
   }
 
   // Check if the photo is valid
-  if (!validationUtils.validateBase64Image(photo)) {
+  if (photo !== undefined && !validationUtils.validateBase64Image(photo)) {
     return res.badRequest('Invalid photo.', 'INVALID_PHOTO');
   }
 
@@ -156,22 +156,22 @@ const updateMember = async (req, res) => {
   }
 
   // Check if the organization is valid
-  if (typeof organization !== 'string') {
+  if (organization !== undefined && typeof organization !== 'string') {
     return res.badRequest('Invalid organization.', 'INVALID_ORGANIZATION');
   }
 
   // Check if the country is valid
-  if (typeof country !== 'string') {
+  if (country !== undefined && typeof country !== 'string') {
     return res.badRequest('Invalid country.', 'INVALID_COUNTRY');
   }
 
   // Check if the website is valid
-  if (!validationUtils.validateURL(website)) {
+  if (website !== undefined && !validationUtils.validateURL(website)) {
     return res.badRequest('Invalid website.', 'INVALID_WEBSITE');
   }
 
   // Check if the photo is valid
-  if (!validationUtils.validateBase64Image(photo)) {
+  if (photo !== undefined && !validationUtils.validateBase64Image(photo)) {
     return res.badRequest('Invalid photo.', 'INVALID_PHOTO');
   }
 
