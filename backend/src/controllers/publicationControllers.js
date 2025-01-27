@@ -23,6 +23,25 @@ const getPublications = async (req, res) => {
   }
 };
 
+/**
+ * @function getCrawlStatus - Get the status of the publication crawler.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const getCrawlStatus = async (req, res) => {
+  try {
+    const crawlStatus = await publicationService.getCrawlStatus();
+    return res.success(crawlStatus, 'Crawl status retrieved successfully.');
+  } catch (error) {
+    console.error('Error getting crawl status: ', error);
+    return res.internalServerError(
+      'Error getting crawl status.',
+      'GET_CRAWL_STATUS_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getPublications,
+  getCrawlStatus,
 };

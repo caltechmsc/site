@@ -46,6 +46,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Update Research About](#update-research-about)
     - [Publications Endpoints](#publications-endpoints)
       - [Get All Publications](#get-all-publications)
+      - [Get Crawl Status](#get-crawl-status)
 
 ## Authentication
 
@@ -1982,7 +1983,7 @@ The API has specific rate limits for different functionalities to ensure fair us
 
 ### Publications Endpoints
 
-> **Note:** The following `POST` endpoint is protected and requires a valid JWT token to access.
+> **Note:** The following `POST`, and `GET /api/publications/crawl-status` endpoints are protected and require a valid JWT token to access.
 
 #### Get All Publications
 
@@ -2011,6 +2012,38 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error getting publications.",
       "error": {
         "code": "GET_PUBLICATIONS_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Get Crawl Status
+
+- **URL**: `/api/publications/crawl-status`
+- **Method**: `GET`
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "Crawl status retrieved successfully."
+    }
+    ```
+
+    > **Note:** The crawl status will be returned in the response (`data` field).
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error getting crawl status.",
+      "error": {
+        "code": "GET_CRAWL_STATUS_ERROR",
         "details": {}
       }
     }

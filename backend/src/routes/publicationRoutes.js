@@ -14,4 +14,6 @@ router.use(rateLimiter());
 
 router.get('/', publicationControllers.getPublications);
 
+router.get('/crawl-status', publicationControllers.getCrawlStatus);
+
 module.exports = router;
