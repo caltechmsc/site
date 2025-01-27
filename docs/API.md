@@ -44,6 +44,8 @@ The API documentation provides detailed information about the backend API endpoi
       - [Get Research About](#get-research-about)
       - [Update Research Areas](#update-research-areas)
       - [Update Research About](#update-research-about)
+    - [Publications Endpoints](#publications-endpoints)
+      - [Get All Publications](#get-all-publications)
 
 ## Authentication
 
@@ -1973,6 +1975,42 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error updating research about information.",
       "error": {
         "code": "UPDATE_RESEARCH_ABOUT_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+### Publications Endpoints
+
+> **Note:** The following `POST` endpoint is protected and requires a valid JWT token to access.
+
+#### Get All Publications
+
+- **URL**: `/api/publications`
+- **Method**: `GET`
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": [],
+      "message": "Publications retrieved successfully."
+    }
+    ```
+
+    > **Note:** The list of publications will be returned in the response (`data` field).
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error getting publications.",
+      "error": {
+        "code": "GET_PUBLICATIONS_ERROR",
         "details": {}
       }
     }
