@@ -16,4 +16,6 @@ router.get('/', memberControllers.getMembers);
 
 router.post('/', memberControllers.createMember);
 
+router.put('/:id', memberControllers.updateMember);
+
 module.exports = router;

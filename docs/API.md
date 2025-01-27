@@ -30,6 +30,7 @@ The API documentation provides detailed information about the backend API endpoi
     - [Members Endpoints](#members-endpoints)
       - [Get All Members](#get-all-members)
       - [Create Member](#create-member)
+      - [Update Member](#update-member)
 
 ## Authentication
 
@@ -1101,6 +1102,186 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error creating member.",
       "error": {
         "code": "CREATE_MEMBER_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Update Member
+
+- **URL**: `/api/members/:id`
+- **Method**: `PUT`
+
+- **Request Body**:
+
+  ```json
+  {
+    "name": "Member Name",
+    "position": "Member Position",
+    "education": "Member Education",
+    "area": "Member Area",
+    "email": "member@example.com",
+    "organization": "Member Organization",
+    "country": "Member Country",
+    "website": "Member Website",
+    "photo": "BASE64_ENCODED_PHOTO"
+  }
+  ```
+
+  > **Note:** Some fields are required (`name`, `position`, `education`, `area`, `email`), and the photo should be a base64 encoded string.
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "Member updated successfully."
+    }
+    ```
+
+    > **Note:** The updated member data will be returned in the response (`data` field).
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid name.",
+      "error": {
+        "code": "INVALID_NAME",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid position.",
+      "error": {
+        "code": "INVALID_POSITION",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid education.",
+      "error": {
+        "code": "INVALID_EDUCATION",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid area.",
+      "error": {
+        "code": "INVALID_AREA",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid email address.",
+      "error": {
+        "code": "INVALID_EMAIL",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid organization.",
+      "error": {
+        "code": "INVALID_ORGANIZATION",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid country.",
+      "error": {
+        "code": "INVALID_COUNTRY",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid website.",
+      "error": {
+        "code": "INVALID_WEBSITE",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid photo.",
+      "error": {
+        "code": "INVALID_PHOTO",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `404 Not Found`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Member not found.",
+      "error": {
+        "code": "MEMBER_NOT_FOUND",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error updating member.",
+      "error": {
+        "code": "UPDATE_MEMBER_ERROR",
         "details": {}
       }
     }

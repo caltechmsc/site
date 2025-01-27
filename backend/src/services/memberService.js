@@ -89,6 +89,10 @@ const getMemberById = async (id) => {
       );
     });
 
+    if (!member) {
+      return null;
+    }
+
     return member;
   } catch (error) {
     console.error('Error in getting member by id: ', error);
