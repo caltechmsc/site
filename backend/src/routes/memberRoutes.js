@@ -14,4 +14,6 @@ router.use(rateLimiter());
 
 router.get('/', memberControllers.getMembers);
 
+router.post('/', memberControllers.createMember);
+
 module.exports = router;
