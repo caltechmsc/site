@@ -26,6 +26,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Update About of William Andrew Goddard III](#update-about-of-william-andrew-goddard-iii)
       - [Update CV of William Andrew Goddard III](#update-cv-of-william-andrew-goddard-iii)
       - [Update Photo of William Andrew Goddard III](#update-photo-of-william-andrew-goddard-iii)
+      - [Update About of Materials and Process Simulation Center](#update-about-of-materials-and-process-simulation-center)
 
 ## Authentication
 
@@ -839,6 +840,59 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error updating photo.",
       "error": {
         "code": "UPDATE_PHOTO_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Update About of Materials and Process Simulation Center
+
+- **URL**: `/api/about/msc`
+- **Method**: `PUT`
+
+- **Request Body**:
+
+  ```json
+  {
+    "about": {}
+  }
+  ```
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "MSC updated successfully."
+    }
+    ```
+
+    > **Note:** The updated about data will be returned in the response (`data` field).
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid MSC data.",
+      "error": {
+        "code": "INVALID_MSC",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error updating MSC.",
+      "error": {
+        "code": "UPDATE_MSC_ERROR",
         "details": {}
       }
     }

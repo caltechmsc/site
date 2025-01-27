@@ -20,5 +20,6 @@ router.put('/wag/bio', aboutControllers.updateWagBio);
 router.put('/wag/about', aboutControllers.updateWagAbout);
 router.put('/wag/cv', aboutControllers.updateWagCv);
 router.put('/wag/photo', aboutControllers.updateWagPhoto);
+router.put('/msc', aboutControllers.updateMsc);
 
 module.exports = router;

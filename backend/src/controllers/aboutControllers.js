@@ -161,6 +161,33 @@ const updateWagPhoto = async (req, res) => {
   }
 };
 
+/**
+ * @function updateMsc - Update about msc.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const updateMsc = async (req, res) => {
+  const { msc } = req.body;
+
+  // Check if the msc is valid
+  if (typeof msc !== 'object') {
+    return res.badRequest('Invalid MSC data.', 'INVALID_MSC');
+  }
+
+  try {
+    const updatedMsc = await aboutService.updateAboutMsc(msc);
+    return res.success(
+      {
+        msc: updatedMsc,
+      },
+      'MSC updated successfully.',
+    );
+  } catch (error) {
+    console.error('Error updating msc: ', error);
+    return res.internalServerError('Error updating MSC.', 'UPDATE_MSC_ERROR');
+  }
+};
+
 module.exports = {
   getWag,
   getWagCv,
@@ -169,4 +196,5 @@ module.exports = {
   updateWagAbout,
   updateWagCv,
   updateWagPhoto,
+  updateMsc,
 };
