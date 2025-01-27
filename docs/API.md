@@ -50,6 +50,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Request Re-Crawl](#request-re-crawl)
     - [Events Endpoints](#events-endpoints)
       - [Get Group Photos](#get-group-photos)
+      - [Add Group Photo](#add-group-photo)
 
 ## Authentication
 
@@ -2128,6 +2129,59 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error getting group photos.",
       "error": {
         "code": "GET_GROUP_PHOTOS_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Add Group Photo
+
+- **URL**: `/api/events/group-photos`
+- **Method**: `POST`
+
+- **Request Body**:
+
+  ```json
+  {
+    "photo": "BASE64_ENCODED_PHOTO"
+  }
+  ```
+
+- **Response**:
+
+  - **Status:** `201 Created`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "Group photo added successfully."
+    }
+    ```
+
+    > **Note:** The newly added group photo data will be returned in the response (`data` field).
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid photo.",
+      "error": {
+        "code": "INVALID_PHOTO",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error adding group photo.",
+      "error": {
+        "code": "ADD_GROUP_PHOTO_ERROR",
         "details": {}
       }
     }

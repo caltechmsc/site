@@ -14,4 +14,6 @@ router.use(rateLimiter());
 
 router.get('/group-photos', eventControllers.getGroupPhotos);
 
+router.post('/group-photos', eventControllers.addGroupPhoto);
+
 module.exports = router;
