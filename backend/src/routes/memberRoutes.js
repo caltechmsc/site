@@ -18,4 +18,6 @@ router.post('/', memberControllers.createMember);
 
 router.put('/:id', memberControllers.updateMember);
 
+router.delete('/:id', memberControllers.deleteMember);
+
 module.exports = router;

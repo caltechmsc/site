@@ -205,8 +205,37 @@ const updateMember = async (req, res) => {
   }
 };
 
+/**
+ * @function deleteMember - Delete a member.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const deleteMember = async (req, res) => {
+  const { id } = req.params;
+
+  // Delete the member
+  try {
+    // Check if the member exists
+    const memberExists = await memberService.getMemberById(id);
+    if (!memberExists) {
+      return res.notFound('Member not found.', 'MEMBER_NOT_FOUND');
+    }
+
+    // If the member exists, delete the member
+    await memberService.deleteMember(id);
+    return res.success(null, 'Member deleted successfully.');
+  } catch (error) {
+    console.error('Error deleting member: ', error);
+    return res.internalServerError(
+      'Error deleting member.',
+      'DELETE_MEMBER_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getMembers,
   createMember,
   updateMember,
+  deleteMember,
 };

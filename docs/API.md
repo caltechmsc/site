@@ -31,6 +31,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Get All Members](#get-all-members)
       - [Create Member](#create-member)
       - [Update Member](#update-member)
+      - [Delete Member](#delete-member)
 
 ## Authentication
 
@@ -1282,6 +1283,51 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error updating member.",
       "error": {
         "code": "UPDATE_MEMBER_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Delete Member
+
+- **URL**: `/api/members/:id`
+- **Method**: `DELETE`
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": null,
+      "message": "Member deleted successfully."
+    }
+    ```
+
+    > **Note:** The deleted member data will be returned in the response (`data` field).
+
+  - **Status:** `404 Not Found`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Member not found.",
+      "error": {
+        "code": "MEMBER_NOT_FOUND",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error deleting member.",
+      "error": {
+        "code": "DELETE_MEMBER_ERROR",
         "details": {}
       }
     }
