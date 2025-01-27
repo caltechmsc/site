@@ -47,6 +47,7 @@ The API documentation provides detailed information about the backend API endpoi
     - [Publications Endpoints](#publications-endpoints)
       - [Get All Publications](#get-all-publications)
       - [Get Crawl Status](#get-crawl-status)
+      - [Request Re-Crawl](#request-re-crawl)
 
 ## Authentication
 
@@ -2044,6 +2045,51 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error getting crawl status.",
       "error": {
         "code": "GET_CRAWL_STATUS_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Request Re-Crawl
+
+- **URL**: `/api/publications/re-crawl`
+- **Method**: `POST`
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "Crawling publications..."
+    }
+    ```
+
+    > **Note:** The crawl request data will be returned in the response (`data` field).
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Crawl already in progress.",
+      "error": {
+        "code": "CRAWL_IN_PROGRESS",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error requesting re-crawl.",
+      "error": {
+        "code": "RE_CRAWL_ERROR",
         "details": {}
       }
     }

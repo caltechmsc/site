@@ -5,6 +5,12 @@
 
 const publicationService = require('../services/publicationService');
 
+const PaperCrawler = require('../services/paperCrawler');
+const paperCrawler = new PaperCrawler(
+  process.env.PUBLICATIONS_URL,
+  publicationService,
+);
+
 /**
  * @function getPublications - Get the papers list.
  * @param {Object} req - The request object.
@@ -41,7 +47,36 @@ const getCrawlStatus = async (req, res) => {
   }
 };
 
+/**
+ * @function reCrawl - Re-crawl the publications.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const reCrawl = async (req, res) => {
+  try {
+    // Check if the crawl is already in progress
+    const isCrawling = await paperCrawler.isCrawling();
+    if (isCrawling) {
+      return res.badRequest(
+        'Crawl is already in progress.',
+        'CRAWL_IN_PROGRESS',
+      );
+    }
+
+    // Crawl the publications
+    await paperCrawler.crawlPublications();
+    return res.success(null, 'Crawling publications...');
+  } catch (error) {
+    console.error('Error re-crawling publications: ', error);
+    return res.internalServerError(
+      'Error re-crawling publications.',
+      'RE_CRAWL_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getPublications,
   getCrawlStatus,
+  reCrawl,
 };

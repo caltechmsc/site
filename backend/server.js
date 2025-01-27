@@ -10,8 +10,6 @@ require('dotenv').config();
 const express = require('express');
 const db = require('./src/db/db');
 const lowdb = require('./src/db/lowdb');
-const publicationService = require('./src/services/publicationService');
-const paperCrawler = require('./src/services/paperCrawler');
 const bodyParser = require('body-parser');
 const preprocessRequestDetailsMiddleware = require('./src/middlewares/preprocessRequestDetailsMiddleware');
 const responseMiddleware = require('./src/middlewares/responseMiddleware');
@@ -26,9 +24,6 @@ const app = express();
 
 // Trust the first proxy
 app.set('trust proxy', 1);
-
-// Initialize the crawler
-new paperCrawler(process.env.PUBLICATIONS_URL, publicationService);
 
 // Middleware setup
 app.use(bodyParser.json({ limit: '15mb' }));
