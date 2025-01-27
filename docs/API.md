@@ -32,6 +32,8 @@ The API documentation provides detailed information about the backend API endpoi
       - [Create Member](#create-member)
       - [Update Member](#update-member)
       - [Delete Member](#delete-member)
+    - [Collaborators Endpoints](#collaborators-endpoints)
+      - [Get All Collaborators](#get-all-collaborators)
 
 ## Authentication
 
@@ -1348,6 +1350,42 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error deleting member.",
       "error": {
         "code": "DELETE_MEMBER_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+### Collaborators Endpoints
+
+> **Note:** The following `POST`, `PUT`, and `DELETE` endpoints are protected and require a valid JWT token to access.
+
+#### Get All Collaborators
+
+- **URL**: `/api/collaborators`
+- **Method**: `GET`
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": [],
+      "message": "Collaborators retrieved successfully."
+    }
+    ```
+
+    > **Note:** The list of collaborators will be returned in the response (`data` field).
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error getting collaborators.",
+      "error": {
+        "code": "GET_COLLABORATORS_ERROR",
         "details": {}
       }
     }
