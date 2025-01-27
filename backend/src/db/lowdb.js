@@ -84,12 +84,25 @@ const researchDb = getDbConnection('research', {
 });
 const publicationsDb = getDbConnection('publications', {
   publications: [],
-  crawlingStatus: {
-    status: 'idle',
-    lastCrawled: null,
-    lastUpdated: null,
-    error: false,
-    message: null,
+  crawlStatus: {
+    publications: {
+      status: 'idle',
+      progress: 0,
+      crawled: 0,
+      lastCrawled: null,
+      lastUpdated: null,
+      error: null,
+      message: '',
+    },
+    thumbnails: {
+      status: 'idle',
+      progress: 0,
+      crawled: 0,
+      lastCrawled: null,
+      lastUpdated: null,
+      error: null,
+      message: '',
+    },
   },
 });
 const eventsGroupPhotosDb = getDbConnection('events_group_photos', {

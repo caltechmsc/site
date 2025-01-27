@@ -58,21 +58,35 @@ const updatePublications = async (publications) => {
 
 /**
  * @function updateCrawlStatus - Update the status of the publication crawler.
+ * @param {string} updateType - The type of update to perform.
  * @param {Object} crawlStatus - The status of the publication crawler.
  * @returns {Promise<Object>} The updated status of the publication crawler.
  * @throws {Error} Throws an error if the status cannot be updated.
  */
-const updateCrawlStatus = async (crawlStatus) => {
+const updateCrawlStatus = async (updateType, crawlStatus) => {
   try {
     const publications = (await publicationsDb).read();
 
-    publications.crawlStatus = {
-      status: crawlStatus.status,
-      lastCrawled: crawlStatus.lastCrawled,
-      lastUpdated: crawlStatus.lastUpdated,
-      error: crawlStatus.error,
-      message: crawlStatus.message,
+    publications.crawlStatus[updateType] = {
+      status: crawlStatus.status || publications.crawlStatus[updateType].status,
+      progress:
+        crawlStatus.progress || publications.crawlStatus[updateType].progress,
+      crawled:
+        crawlStatus.crawled || publications.crawlStatus[updateType].crawled,
+      lastCrawled:
+        crawlStatus.lastCrawled ||
+        publications.crawlStatus[updateType].lastCrawled,
+      lastUpdated:
+        crawlStatus.lastUpdated ||
+        publications.crawlStatus[updateType].lastUpdated,
+      error:
+        crawlStatus.error === undefined
+          ? publications.crawlStatus[updateType].error
+          : crawlStatus.error,
+      message:
+        crawlStatus.message || publications.crawlStatus[updateType].message,
     };
+
     (await publicationsDb).write();
     return publications.crawlStatus;
   } catch (error) {
