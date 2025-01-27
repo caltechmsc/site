@@ -27,6 +27,8 @@ The API documentation provides detailed information about the backend API endpoi
       - [Update CV of William Andrew Goddard III](#update-cv-of-william-andrew-goddard-iii)
       - [Update Photo of William Andrew Goddard III](#update-photo-of-william-andrew-goddard-iii)
       - [Update About of Materials and Process Simulation Center](#update-about-of-materials-and-process-simulation-center)
+    - [Members Endpoints](#members-endpoints)
+      - [Get All Members](#get-all-members)
 
 ## Authentication
 
@@ -537,6 +539,8 @@ The API has specific rate limits for different functionalities to ensure fair us
 
 ### About Endpoints
 
+> **Note:** The following `PUT` endpoints are protected and require a valid JWT token to access.
+
 #### Get About William Andrew Goddard III
 
 - **URL**: `/api/about/wag`
@@ -893,6 +897,42 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error updating MSC.",
       "error": {
         "code": "UPDATE_MSC_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+### Members Endpoints
+
+> **Note:** The following `POST`, `PUT`, and `DELETE` endpoints are protected and require a valid JWT token to access.
+
+#### Get All Members
+
+- **URL**: `/api/members`
+- **Method**: `GET`
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": [],
+      "message": "Members retrieved successfully."
+    }
+    ```
+
+    > **Note:** The list of members will be returned in the response (`data` field).
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error getting members.",
+      "error": {
+        "code": "GET_MEMBERS_ERROR",
         "details": {}
       }
     }
