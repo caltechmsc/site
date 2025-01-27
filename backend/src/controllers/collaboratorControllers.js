@@ -160,8 +160,38 @@ const updateCollaborator = async (req, res) => {
   }
 };
 
+/**
+ * @function deleteCollaborator - Delete a collaborator.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const deleteCollaborator = async (req, res) => {
+  const { id } = req.params;
+
+  // Delete the collaborator
+  try {
+    // Check if the collaborator exists
+    const collaboratorExists =
+      await collaboratorService.getCollaboratorById(id);
+    if (!collaboratorExists) {
+      return res.notFound('Collaborator not found.', 'COLLABORATOR_NOT_FOUND');
+    }
+
+    // If the collaborator exists, delete it
+    await collaboratorService.deleteCollaborator(id);
+    return res.success(null, 'Collaborator deleted successfully.');
+  } catch (error) {
+    console.error('Error deleting collaborator: ', error);
+    return res.internalServerError(
+      'Error deleting collaborator.',
+      'DELETE_COLLABORATOR_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getCollaborators,
   createCollaborator,
   updateCollaborator,
+  deleteCollaborator,
 };

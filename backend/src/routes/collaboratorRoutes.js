@@ -15,5 +15,6 @@ router.use(rateLimiter());
 router.get('/', collaboratorControllers.getCollaborators);
 router.post('/', collaboratorControllers.createCollaborator);
 router.put('/:id', collaboratorControllers.updateCollaborator);
+router.delete('/:id', collaboratorControllers.deleteCollaborator);
 
 module.exports = router;

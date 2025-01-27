@@ -36,6 +36,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Get All Collaborators](#get-all-collaborators)
       - [Create Collaborator](#create-collaborator)
       - [Update Collaborator](#update-collaborator)
+      - [Delete Collaborator](#delete-collaborator)
 
 ## Authentication
 
@@ -1657,6 +1658,55 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error updating collaborator.",
       "error": {
         "code": "UPDATE_COLLABORATOR_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Delete Collaborator
+
+- **URL**: `/api/collaborators/:id`
+- **Method**: `DELETE`
+
+- **Request Parameters**:
+
+  - `id`: The ID of the collaborator to delete.
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": null,
+      "message": "Collaborator deleted successfully."
+    }
+    ```
+
+    > **Note:** The deleted collaborator data will be returned in the response (`data` field).
+
+  - **Status:** `404 Not Found`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Collaborator not found.",
+      "error": {
+        "code": "COLLABORATOR_NOT_FOUND",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error deleting collaborator.",
+      "error": {
+        "code": "DELETE_COLLABORATOR_ERROR",
         "details": {}
       }
     }
