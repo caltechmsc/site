@@ -88,7 +88,80 @@ const createCollaborator = async (req, res) => {
   }
 };
 
+/**
+ * @function updateCollaborator - Update a collaborator.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const updateCollaborator = async (req, res) => {
+  const { id } = req.params;
+  const { organization, country, leader, email, website, latitude, longitude } =
+    req.body;
+
+  // Check if the organization is valid
+  if (typeof organization !== 'string' || organization.length === 0) {
+    return res.badRequest('Invalid organization.', 'INVALID_ORGANIZATION');
+  }
+
+  // Check if the country is valid
+  if (typeof country !== 'string' || country.length === 0) {
+    return res.badRequest('Invalid country.', 'INVALID_COUNTRY');
+  }
+
+  // Check if the leader is valid
+  if (typeof leader !== 'string' || leader.length === 0) {
+    return res.badRequest('Invalid leader.', 'INVALID_LEADER');
+  }
+
+  // Check if the email is valid
+  if (!validationUtils.validateEmail(email)) {
+    return res.badRequest('Invalid email address.', 'INVALID_EMAIL');
+  }
+
+  // Check if the website is valid
+  if (website !== undefined && !validationUtils.validateURL(website)) {
+    return res.badRequest('Invalid website.', 'INVALID_WEBSITE');
+  }
+
+  // Check if the latitude and longitude are valid
+  if (
+    !(latitude === undefined && longitude === undefined) &&
+    !validationUtils.validateCoordinates(latitude, longitude)
+  ) {
+    return res.badRequest('Invalid coordinates.', 'INVALID_COORDINATES');
+  }
+
+  // Update the collaborator
+  try {
+    // Check if the collaborator exists
+    const collaboratorExists =
+      await collaboratorService.getCollaboratorById(id);
+    if (!collaboratorExists) {
+      return res.notFound('Collaborator not found.', 'COLLABORATOR_NOT_FOUND');
+    }
+
+    // If the collaborator exists, update it
+    const collaborator = await collaboratorService.updateCollaborator(id, {
+      organization,
+      country,
+      leader,
+      email,
+      website,
+      latitude,
+      longitude,
+    });
+    return res.success(collaborator, 'Collaborator updated successfully.');
+  } catch (error) {
+    console.error('Error updating collaborator: ', error);
+    return res.internalServerError(
+      'Error updating collaborator.',
+      'UPDATE_COLLABORATOR_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getCollaborators,
   createCollaborator,
+  updateCollaborator,
 };
