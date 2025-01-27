@@ -17,5 +17,6 @@ router.get('/wag/cv', aboutControllers.getWagCv);
 router.get('/msc', aboutControllers.getMsc);
 
 router.put('/wag/bio', aboutControllers.updateWagBio);
+router.put('/wag/about', aboutControllers.updateWagAbout);
 
 module.exports = router;

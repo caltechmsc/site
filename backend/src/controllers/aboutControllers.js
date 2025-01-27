@@ -77,9 +77,40 @@ const updateWagBio = async (req, res) => {
   }
 };
 
+/**
+ * @function updateWagAbout - Update the wag about.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const updateWagAbout = async (req, res) => {
+  const { about } = req.body;
+
+  // Check if the about is valid
+  if (typeof about !== 'object') {
+    return res.badRequest('Invalid about data.', 'INVALID_ABOUT');
+  }
+
+  try {
+    const updatedAbout = await aboutService.updateAboutWagAbout(about);
+    return res.success(
+      {
+        about: updatedAbout,
+      },
+      'About updated successfully.',
+    );
+  } catch (error) {
+    console.error('Error updating about: ', error);
+    return res.internalServerError(
+      'Error updating about.',
+      'UPDATE_ABOUT_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getWag,
   getWagCv,
   getMsc,
   updateWagBio,
+  updateWagAbout,
 };
