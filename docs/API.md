@@ -41,6 +41,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Update About Collaborators](#update-about-collaborators)
     - [Research Endpoints](#research-endpoints)
       - [Get Research Areas](#get-research-areas)
+      - [Get Research About](#get-research-about)
 
 ## Authentication
 
@@ -1832,6 +1833,38 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error getting research areas.",
       "error": {
         "code": "GET_RESEARCH_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Get Research About
+
+- **URL**: `/api/research/about`
+- **Method**: `GET`
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "Research about information retrieved successfully."
+    }
+    ```
+
+    > **Note:** The research about information will be returned in the response (`data` field).
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error getting research about information.",
+      "error": {
+        "code": "GET_RESEARCH_ABOUT_ERROR",
         "details": {}
       }
     }
