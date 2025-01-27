@@ -5,6 +5,11 @@
 
 const MAX_EMAIL_LENGTH = 254; // The maximum length of an email address
 
+const LATITUDE_MIN = -90; // The minimum latitude value
+const LATITUDE_MAX = 90; // The maximum latitude value
+const LONGITUDE_MIN = -180; // The minimum longitude value
+const LONGITUDE_MAX = 180; // The maximum longitude value
+
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Check if the email is valid (contains an @ symbol and a period)
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_])[^\s]{8,}$/; // Check if the password is valid (at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character)
 const URL_REGEX = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/; // Check if the URL is valid (starts with http or https)
@@ -59,6 +64,28 @@ const validateURL = (url) => {
 };
 
 /**
+ * @function validateCoordinates - Validate latitude and longitude coordinates.
+ * @param {number} latitude - The latitude coordinate to validate.
+ * @param {number} longitude - The longitude coordinate to validate.
+ * @returns {boolean} - True if the coordinates are valid, false otherwise.
+ */
+const validateCoordinates = (latitude, longitude) => {
+  if (latitude === undefined || longitude === undefined) {
+    // Check if the coordinates are undefined
+    return false;
+  } else if (latitude < LATITUDE_MIN || latitude > LATITUDE_MAX) {
+    // Check if the latitude is out of range
+    return false;
+  } else if (longitude < LONGITUDE_MIN || longitude > LONGITUDE_MAX) {
+    // Check if the longitude is out of range
+    return false;
+  } else {
+    // The coordinates are valid
+    return true;
+  }
+};
+
+/**
  * @function validateBase64Image - Validate a base64 image.
  * @param {string} image - The base64 image to validate.
  * @returns {boolean} - True if the image is valid, false otherwise.
@@ -77,5 +104,6 @@ module.exports = {
   validateEmail,
   validatePassword,
   validateURL,
+  validateCoordinates,
   validateBase64Image,
 };
