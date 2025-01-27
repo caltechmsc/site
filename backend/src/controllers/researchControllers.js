@@ -45,11 +45,11 @@ const getResearchAbout = async (req, res) => {
 };
 
 /**
- * @function updateResearchAreas - Update the research areas in the database.
+ * @function updateResearch - Update the research areas object.
  * @param {Object} req - The request object.
  * @param {Object} res - The response object.
  */
-const updateResearchAreas = async (req, res) => {
+const updateResearch = async (req, res) => {
   const { areas } = req.body;
 
   // Check if the areas is valid
@@ -70,8 +70,41 @@ const updateResearchAreas = async (req, res) => {
   }
 };
 
+/**
+ * @function updateResearchAbout - Update the about information for a research area.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const updateResearchAbout = async (req, res) => {
+  const { about } = req.body;
+
+  // Check if the about is valid
+  if (typeof about !== 'object') {
+    return res.badRequest(
+      'Invalid research about information.',
+      'INVALID_ABOUT',
+    );
+  }
+
+  // Update the research about information
+  try {
+    const updatedAbout = await researchService.updateResearchAbout(about);
+    return res.success(
+      updatedAbout,
+      'Research about information updated successfully.',
+    );
+  } catch (error) {
+    console.error('Error updating research about information: ', error);
+    return res.internalServerError(
+      'Error updating research about information.',
+      'UPDATE_RESEARCH_ABOUT_ERROR',
+    );
+  }
+};
+
 module.exports = {
   getResearch,
   getResearchAbout,
-  updateResearchAreas,
+  updateResearch,
+  updateResearchAbout,
 };

@@ -16,5 +16,6 @@ router.get('/', researchControllers.getResearch);
 router.get('/about', researchControllers.getResearchAbout);
 
 router.put('/', researchControllers.updateResearch);
+router.put('/about', researchControllers.updateResearchAbout);
 
 module.exports = router;
