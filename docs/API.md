@@ -48,6 +48,8 @@ The API documentation provides detailed information about the backend API endpoi
       - [Get All Publications](#get-all-publications)
       - [Get Crawl Status](#get-crawl-status)
       - [Request Re-Crawl](#request-re-crawl)
+    - [Events Endpoints](#events-endpoints)
+      - [Get Group Photos](#get-group-photos)
 
 ## Authentication
 
@@ -2090,6 +2092,42 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error requesting re-crawl.",
       "error": {
         "code": "RE_CRAWL_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+### Events Endpoints
+
+> **Note:** The following `POST`, and `DELETE` endpoints are protected and require a valid JWT token to access.
+
+#### Get Group Photos
+
+- **URL**: `/api/events/group-photos`
+- **Method**: `GET`
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": [],
+      "message": "Group photos retrieved successfully."
+    }
+    ```
+
+    > **Note:** The list of group photos will be returned in the response (`data` field). Each group photo will be a base64 encoded string.
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error getting group photos.",
+      "error": {
+        "code": "GET_GROUP_PHOTOS_ERROR",
         "details": {}
       }
     }
