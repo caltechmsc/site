@@ -15,7 +15,11 @@ router.get('/about', (req, res) => {
 });
 
 router.get('/about/wag', (req, res) => {
-  return res.render('pages/about');
+  return res.render('pages/about-wag');
+});
+
+router.get('/about/msc', (req, res) => {
+  return res.render('pages/about-msc');
 });
 
 router.get('/404', (req, res) => {
