@@ -2066,12 +2066,10 @@ The API has specific rate limits for different functionalities to ensure fair us
     ```json
     {
       "status": "success",
-      "data": {},
+      "data": null,
       "message": "Crawling publications..."
     }
     ```
-
-    > **Note:** The crawl request data will be returned in the response (`data` field).
 
   - **Status:** `400 Bad Request`
 
