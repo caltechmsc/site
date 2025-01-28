@@ -107,7 +107,7 @@ class Collaborator {
 
   /**
    * @function updateAboutCollaborator - Sends an update about collaborator request to the backend.
-   * @param {string} about - The new about of collaborator.
+   * @param {Object} about - The new about of collaborator.
    * @returns {Promise<Object>} - The response from the backend.
    */
   async updateAboutCollaborator(about) {

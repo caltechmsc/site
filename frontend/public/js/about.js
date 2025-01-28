@@ -86,7 +86,7 @@ class About {
 
   /**
    * @function updateWagAbout - Sends an update wag about request to the backend.
-   * @param {string} about - The new about of wag.
+   * @param {Object} about - The new about of wag.
    * @returns {Promise<Object>} - The response from the backend.
    */
   async updateWagAbout(about) {
@@ -143,7 +143,7 @@ class About {
 
   /**
    * @function updateMsc - Sends an update msc about request to the backend.
-   * @param {string} about - The new about of msc.
+   * @param {Object} about - The new about of msc.
    * @returns {Promise<Object>} - The response from the backend.
    */
   async updateMsc(about) {
