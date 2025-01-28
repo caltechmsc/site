@@ -55,6 +55,7 @@ const getDbConnection = async (dbName, defaultValue) => {
     },
     // Function to read data from the file
     read: () => {
+      dbConnection.data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
       return dbConnection.data;
     },
   };
