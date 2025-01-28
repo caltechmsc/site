@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../components/head.ejs") %>
+  <meta name="description" content="The Material and Process Simulation Center (MSC) at Caltech focuses on developing advanced computational methods to predict materials properties, catalysis, and biochemical systems, enabling innovation across industries like nanotechnology, pharmaceuticals, and energy.">
+  <title>Material and Process Simulation Center | Goddard Group</title>
+</head>
+
+<body class="bg-background-100 text-text">
+  <!-- Header Section -->
+  <%- include("../components/main-header.ejs") %>
+
+  <!-- Hero Section with Full-Width Background Image -->
+  <section class="relative bg-cover bg-center bg-no-repeat h-[60vh] lg:h-[75vh]" style="background-image: url('img/main.jpg');">
+    <div class="container mx-auto flex flex-col justify-center items-center h-full text-center text-white">
+      <h1 class="text-4xl lg:text-5xl font-bold drop-shadow-lg">Welcome to MSC</h1>
+      <p class="mt-4 text-lg lg:text-xl drop-shadow-lg">Material and Process Simulation Center at Caltech</p>
+    </div>
+  </section>
+
+  <!-- Quick Menu Section -->
+  <section class="py-16">
+    <div class="container mx-auto px-6 grid gap-12 lg:grid-cols-3">
+      <!-- Card: W.A. Goddard -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-all">
+        <h2 class="text-xl font-semibold text-primary-500">W.A. Goddard</h2>
+        <p class="mt-4 text-gray-700">Goddard joined the chemistry faculty in November 1964, where he is now Charles and Mary Ferkel Professor...</p>
+        <a href="/about/wag" class="inline-block mt-4 text-secondary-500 hover:underline">Learn more</a>
+      </div>
+      <!-- Card: Research -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-all">
+        <h2 class="text-xl font-semibold text-primary-500">Research</h2>
+        <p class="mt-4 text-gray-700">Professor Goddard's research has focused on describing the properties of chemical, biological, and materials systems...</p>
+        <a href="/research" class="inline-block mt-4 text-secondary-500 hover:underline">Learn more</a>
+      </div>
+      <!-- Card: Publications -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-all">
+        <h2 class="text-xl font-semibold text-primary-500">Publications</h2>
+        <p class="mt-4 text-gray-700">The number of his publications is currently over 1548 (1967-2022). Total yearly average of publications is over 27...</p>
+        <a href="/publications" class="inline-block mt-4 text-secondary-500 hover:underline">Learn more</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calendar Section -->
+  <section class="bg-gray-100 py-16">
+    <div class="container mx-auto px-6">
+      <h2 class="text-2xl font-semibold text-primary-500 mb-6">Calendar</h2>
+      <iframe src="https://calendar.google.com/calendar/embed?src=wagoddard3%40gmail.com&ctz=America%2FLos_Angeles" style="border: 0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <%- include("../components/footer.ejs") %>
+</body>
+
+</html>
