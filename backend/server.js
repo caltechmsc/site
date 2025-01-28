@@ -8,8 +8,6 @@ require('dotenv').config();
 
 // Load required modules
 const express = require('express');
-const db = require('./src/db/db');
-const lowdb = require('./src/db/lowdb');
 const bodyParser = require('body-parser');
 const preprocessRequestDetailsMiddleware = require('./src/middlewares/preprocessRequestDetailsMiddleware');
 const responseMiddleware = require('./src/middlewares/responseMiddleware');
@@ -35,28 +33,8 @@ app.use(authMiddleware);
 app.use('/api', routes);
 
 // Start the server
-const server = app.listen(port, host, () => {
+app.listen(port, host, () => {
   console.log(`Backend server is running on http://${host}:${port}`);
 });
-
-// Handle SIGTERM gracefully
-process.on('SIGTERM', async () => {
-  console.info('SIGTERM signal received.');
-  console.log('Closing backend server...');
-  await app.close();
-});
-
-// Handle SIGINT gracefully
-process.on('SIGINT', async () => {
-  console.info('SIGINT signal received.');
-  console.log('Closing backend server...');
-  await app.close();
-});
-
-app.close = async () => {
-  server.close();
-  await db.closeDbs();
-  await lowdb.closeDbs();
-};
 
 module.exports = app;
