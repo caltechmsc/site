@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../components/head.ejs") %>
+  <%- include("../components/quilljs-head.ejs") %>
+  <script src="/js/about.js"></script>
+  <meta name="description" content="Professor William A. Goddard III leads groundbreaking research in computational chemistry at Caltech. His work focuses on developing advanced methods to predict material properties, enabling 'materials genomics' and revolutionizing materials design.">
+  <title>MSC | About William A. Goddard III</title>
+</head>
+
+<body class="bg-background-100 text-text">
+  <!-- Header Section -->
+  <%- include("../components/main-header.ejs") %>
+
+  <!-- Hero Section -->
+  <section class="info-section bg-background-100 p-8">
+    <div class="info-container max-w-7xl mx-auto flex flex-col md:flex-row gap-8">
+      <div class="info-image">
+        <img id="about-photo" alt="William A. Goddard III" class="hidden w-full rounded-lg lg:w-96" />
+      </div>
+      <div class="info-text flex-1">
+        <h3 class="text-primary-600 text-3xl font-semibold mb-4">William Andrew Goddard III</h3>
+        <p id="about-bio" class="text-text mb-4">Goddard joined the chemistry faculty in November 1964, where he is now Charles and Mary Ferkel Professor of Chemistry, Materials Science, and Applied Physics and Director of the Materials and Process Simulation Center (MSC).</p>
+        <div class="cv-btn-container">
+          <button id="about-cv" class="cv-btn bg-primary-500 text-white px-6 py-2 rounded-lg transition duration-300 hover:bg-primary-600">
+            View CV
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Description Section -->
+  <section class=" description-section bg-background-50 p-8">
+    <div class="max-w-7xl mx-auto">
+      <div id="about" class="read-only bg-white rounded-lg p-6 shadow-lg">
+        <!-- This will be the Quill.js container for rendering content -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Book Section -->
+  <section class="book-section bg-background-100 p-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-8">
+      <div class="book-info flex-1">
+        <h3 class="text-primary-600 text-3xl font-semibold mb-4">Book | Computational Materials, Chemistry, and Biochemistry: From Bold Initiatives to the Last Mile</h3>
+        <p class="text-text mb-4">Published 2021 (volume 284 of the Springer Series in Materials science)</p>
+        <p class="text-text mb-4">Downloaded over 108,000 times (cited 21 times)</p>
+        <p class="text-text mb-4">Based on talks at symposia in honor of William A. Goddard's Contributions to Science and Engineering (timed for Goddard's 77 th birthday) at Caltech on March 22, 2014 and organized by Guanhua Chen at Hong Kong university November 7, 2014 and organized by Prof. Wei-Qiao Deng at Dalian Institute of Chemical Physics, on April 27, 2016.</p>
+        <p class="text-text mb-4">Editors: Sadasivan Shankar, Richard Muller, Thom Dunning, Guan Hua Chen</p>
+      </div>
+      <div class="book-image flex-1">
+        <img alt="Book cover of Computational Materials, Chemistry, and Biochemistry" class="w-full h-auto rounded-lg" src="/img/book.webp" />
+        <div class="mt-4">
+          <a class="book-btn bg-primary-500 text-white px-6 py-2 rounded-lg transition duration-300 hover:bg-primary-600" href="https://link.springer.com/book/10.1007/978-3-030-18778-1" target="_blank">
+            Download
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Book Content Section -->
+  <section class="book-content-section bg-background-50 p-8">
+    <div class="max-w-7xl mx-auto">
+      <details class="mb-6">
+        <summary class="text-primary-600 text-xl font-semibold">Contents</summary>
+        <div class="book-con-wrap flex justify-between items-center mt-4">
+          <span class="book-con text-text">Table of Contents</span>
+          <a class="go-btn bg-accent-500 text-white px-4 py-2 rounded-lg hover:bg-accent-600" href="https://link.springer.com/content/pdf/10.1007/978-3-030-18778-1.pdf?pdf=button%20sticky#page=21" target="_blank">Go</a>
+        </div>
+        <div class="book-con-wrap flex justify-between items-center mt-4">
+          <span class="book-con text-text">Part I. Methods</span>
+          <a class="go-btn bg-accent-500 text-white px-4 py-2 rounded-lg hover:bg-accent-600" href="https://link.springer.com/content/pdf/10.1007/978-3-030-18778-1.pdf?pdf=button%20sticky#page=107" target="_blank">Go</a>
+        </div>
+        <div class="book-con-wrap flex justify-between items-center mt-4">
+          <span class="book-con text-text">Part II. Bulk Materials, Surfaces, Interfaces, Nonomaterials</span>
+          <a class="go-btn bg-accent-500 text-white px-4 py-2 rounded-lg hover:bg-accent-600" href="https://link.springer.com/content/pdf/10.1007/978-3-030-18778-1.pdf?pdf=button%20sticky#page=431" target="_blank">Go</a>
+        </div>
+        <div class="book-con-wrap flex justify-between items-center mt-4">
+          <span class="book-con text-text">Part III. Chemistry, Catalysis</span>
+          <a class="go-btn bg-accent-500 text-white px-4 py-2 rounded-lg hover:bg-accent-600" href="https://link.springer.com/content/pdf/10.1007/978-3-030-18778-1.pdf?pdf=button%20sticky#page=755" target="_blank">Go</a>
+        </div>
+        <div class="book-con-wrap flex justify-between items-center mt-4">
+          <span class="book-con text-text">Part IV. Biological Materials, Devices, Polymers</span>
+          <a class="go-btn bg-accent-500 text-white px-4 py-2 rounded-lg hover:bg-accent-600" href="https://link.springer.com/content/pdf/10.1007/978-3-030-18778-1.pdf?pdf=button%20sticky#page=850" target="_blank">Go</a>
+        </div>
+        <div class="book-con-wrap flex justify-between items-center mt-4">
+          <span class="book-con text-text">Part V. Methods</span>
+          <a class="go-btn bg-accent-500 text-white px-4 py-2 rounded-lg hover:bg-accent-600" href="https://link.springer.com/content/pdf/10.1007/978-3-030-18778-1.pdf?pdf=button%20sticky#page=1021" target="_blank">Go</a>
+        </div>
+        <div class="book-con-wrap flex justify-between items-center mt-4">
+          <span class="book-con text-text">Part VI. Bulk Materials, Surfaces, Interfaces, Nanomaterials</span>
+          <a class="go-btn bg-accent-500 text-white px-4 py-2 rounded-lg hover:bg-accent-600" href="https://link.springer.com/content/pdf/10.1007/978-3-030-18778-1.pdf?pdf=button%20sticky#page=1141" target="_blank">Go</a>
+        </div>
+        <div class="book-con-wrap flex justify-between items-center mt-4">
+          <span class="book-con text-text">Part VII. Chemistry, Catalysis</span>
+          <a class="go-btn bg-accent-500 text-white px-4 py-2 rounded-lg hover:bg-accent-600" href="https://link.springer.com/content/pdf/10.1007/978-3-030-18778-1.pdf?pdf=button%20sticky#page=1233" target="_blank">Go</a>
+        </div>
+        <div class="book-con-wrap flex justify-between items-center mt-4">
+          <span class="book-con text-text">Part VIII. Biological Materials, Devices, Polymers</span>
+          <a class="go-btn bg-accent-500 text-white px-4 py-2 rounded-lg hover:bg-accent-600" href="https://link.springer.com/content/pdf/10.1007/978-3-030-18778-1.pdf?pdf=button%20sticky#page=1294" target="_blank">Go</a>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <%- include("../components/footer.ejs") %>
+
+  <script>
+    const about = new About(app);
+
+    // Initialize Quill.js for rendering content
+    const aboutContents = new Quill("#about", {
+      modules: {
+        syntax: true,
+        toolbar: false,
+      },
+      theme: "bubble",
+      readOnly: true
+    });
+
+    // Fetch and render about content
+    about.getAboutWag().then((response) => {
+      if (response.status === "success") {
+        const data = response.data;
+
+        document.getElementById("about-photo").src = data.photo;
+        document.getElementById("about-photo").classList.remove("hidden");
+
+        document.getElementById("about-bio").textContent = data.bio;
+        aboutContents.updateContents(data.about);
+      }
+    });
+
+    // Fetch and render CV
+    document.getElementById("about-cv").addEventListener("click", () => {
+      about.getWagCv().then((response) => {
+        if (response.status === "success") {
+          const data = response.data;
+
+          const base64Parts = data.split(",");
+          const mimeType = base64Parts[0].split(":")[1].split(";")[0];
+          const base64Data = base64Parts[1];
+
+          const byteCharacters = atob(base64Data);
+          const byteArrays = new Uint8Array(byteCharacters.length);
+
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteArrays[i] = byteCharacters.charCodeAt(i);
+          }
+
+          const blob = new Blob([byteArrays], {
+            type: mimeType
+          });
+
+          const url = URL.createObjectURL(blob);
+          window.open(url);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

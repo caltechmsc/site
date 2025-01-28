@@ -10,6 +10,14 @@ router.get('/', (req, res) => {
   return res.render('pages/home');
 });
 
+router.get('/about', (req, res) => {
+  return res.redirect('/about/wag');
+});
+
+router.get('/about/wag', (req, res) => {
+  return res.render('pages/about');
+});
+
 router.get('/404', (req, res) => {
   return res.render('pages/404', { path: req.query.path || '/' });
 });
