@@ -24,19 +24,19 @@
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li class="relative group">
-            <a href="/members" id="features-link" class="block py-2 pr-4 pl-3 lg:p-0">Members</a>
+            <a href="/members" id="members-link" class="block py-2 pr-4 pl-3 lg:p-0">Members</a>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li class="relative group">
-            <a href="/research" id="api-link" class="block py-2 pr-4 pl-3 lg:p-0">Research</a>
+            <a href="/research" id="research-link" class="block py-2 pr-4 pl-3 lg:p-0">Research</a>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li class="relative group">
-            <a href="/publications" id="team-link" class="block py-2 pr-4 pl-3 lg:p-0">Publications</a>
+            <a href="/publications" id="publications-link" class="block py-2 pr-4 pl-3 lg:p-0">Publications</a>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li class="relative group">
-            <a href="/events/photos" id="contact-link" class="block py-2 pr-4 pl-3 lg:p-0">Events</a>
+            <a href="/events/photos" id="events-link" class="block py-2 pr-4 pl-3 lg:p-0">Events</a>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li class="relative group">
@@ -65,19 +65,24 @@
     const links = {
       "/": document.getElementById("home-link"),
       "/about/wag": document.getElementById("about-link"),
-      "/members": document.getElementById("features-link"),
-      "/research": document.getElementById("api-link"),
-      "/publications": document.getElementById("team-link"),
-      "/events/photos": document.getElementById("contact-link"),
+      "/about/msc": document.getElementById("about-link"),
+      "/members": document.getElementById("members-link"),
+      "/collaborators": document.getElementById("members-link"),
+      "/research": document.getElementById("research-link"),
+      "/publications": document.getElementById("publications-link"),
+      "/events/photos": document.getElementById("events-link"),
+      "/events/calendar": document.getElementById("events-link"),
       "/contact": document.getElementById("contact-link"),
     };
 
-    const activeClass = "bg-primary-600 rounded lg:bg-transparent lg:border-b-2 lg:border-white";
+    const activeClass = "bg-primary-600 rounded lg:bg-transparent lg:border-b-2 lg:border-primary-600 lg:text-primary-600 lg:rounded-none";
     const inactiveClass = "hover:bg-primary-500 lg:hover:bg-transparent lg:border-0";
 
     Object.keys(links).forEach((path) => {
       links[path].className =
         currentPath === path ?
+        `block py-2 pr-4 pl-3 lg:p-0 text-black ${activeClass}` :
+        links[path].className.includes(activeClass) ?
         `block py-2 pr-4 pl-3 lg:p-0 text-black ${activeClass}` :
         `block py-2 pr-4 pl-3 lg:p-0 text-black ${inactiveClass}`;
     });
