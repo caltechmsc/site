@@ -22,6 +22,8 @@ router.get('/about/msc', (req, res) => {
   return res.render('pages/about-msc');
 });
 
+router.use('/admin', require('./admin'));
+
 router.get('/404', (req, res) => {
   return res.render('pages/404', { path: req.query.path || '/' });
 });

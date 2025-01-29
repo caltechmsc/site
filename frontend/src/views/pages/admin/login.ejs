@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../../components/head.ejs") %>
+  <script src="/js/auth.js"></script>
+  <!-- Google OAuth -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <title>MSC Admin | Log in</title>
+  <style>
+    body {
+      background: url('/img/beckman.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .glass {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+
+<body class="h-screen w-screen flex items-center justify-center">
+  <main class="login-container w-full max-w-xl p-8">
+    <div class="glass w-full max-w-lg p-8 rounded-2xl">
+      <h1 class="text-4xl font-bold text-center text-white mb-6">Log in</h1>
+      <form id="auth-form" class="space-y-6">
+        <!-- Email input field -->
+        <div class="relative z-0 w-full group">
+          <input type="email" name="email" id="email" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-400 peer" placeholder=" " required />
+          <label for="email" class="absolute text-sm text-gray-300 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            Email
+          </label>
+        </div>
+
+        <!-- Password input field -->
+        <div class="relative z-0 w-full group">
+          <input type="password" name="password" id="password" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-400 peer" placeholder=" " required />
+          <label for="password" class="absolute text-sm text-gray-300 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            Password
+          </label>
+        </div>
+
+        <!-- Sign in button -->
+        <button id="login" class="w-full py-3 bg-blue-500 text-white rounded-lg font-medium text-sm hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 transition-shadow shadow-md">
+          Sign in
+        </button>
+
+        <!-- Google OAuth button -->
+        <div id="g_id_onload" data-client_id="<%= googleClientId %>" data-auto_prompt="false"></div>
+
+        <!-- Back to home page link -->
+        <div class="text-center">
+          <a href="/" class="text-white hover:text-blue-400 duration-300">Back to home</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    const auth = new Authentication(app);
+
+    // Add event listener to login button
+    const loginButton = document.getElementById('login');
+    loginButton.addEventListener('click', async (event) => {
+      loginButton.disabled = true; // Disable the button to prevent multiple clicks
+      event.preventDefault(); // Prevent the form from submitting
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Attempt to log in the
+      const response = await auth.login(email, password);
+
+      if (response.status === "success") {
+        app.auth.set(response.data.admin.id, response.data.accessToken, response.data.refreshToken);
+        app.location.redirect("<%= redirect %>" || "/admin"); // Redirect on success
+      } else {
+        loginButton.disabled = false; // Re-enable button on error
+        app.ui.notification(
+          "alert",
+          response.message,
+          "error",
+          document.getElementById("auth-form"),
+          "login"
+        );
+      }
+    });
+
+    // Google OAuth (Get the JWT token, and send it to the server)
+    window.addEventListener('load', () => {
+      google.accounts.id.initialize({
+        client_id: "<%= googleClientId %>",
+        callback: async (response) => {
+          if (response.credential) {
+            const token = response.credential;
+            const loginResponse = await auth.oauth(token);
+            if (loginResponse.status === "success") {
+              app.auth.set(loginResponse.data.admin.id, loginResponse.data.accessToken, loginResponse.data.refreshToken);
+              app.location.redirect("<%= redirect %>" || "/admin"); // Redirect on success
+            } else {
+              app.ui.notification(
+                "alert",
+                loginResponse.message,
+                "error",
+                document.getElementById("auth-form"),
+                "login"
+              );
+            }
+          }
+        }
+      });
+
+      // Render the Google OAuth button
+      google.accounts.id.renderButton(
+        document.getElementById("g_id_onload"), {
+          theme: "outline",
+          size: "large",
+          text: "continue_with",
+          shape: "circle",
+          width: "auto",
+        }
+      );
+    });
+  </script>
+</body>
+
+</html>
