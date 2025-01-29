@@ -308,7 +308,7 @@ class Location {
    * @returns {boolean} - True if the route is public, false otherwise.
    */
   isPublicRoute(route) {
-    return !route.startsWith('/admin');
+    return !route.startsWith('/admin') || route === '/admin/login';
   }
 
   /**
