@@ -21,7 +21,7 @@ class Authentication {
    * @returns {Promise<Object>} - The response from the backend.
    */
   async login(email, password) {
-    const response = await fetch(`${this.apiURL}/login`, {
+    const response = await fetch(`${this.apiURL}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ class Authentication {
    * @returns {Promise<Object>} - The response from the backend.
    */
   async oauth(token) {
-    const response = await fetch(`${this.apiURL}/oauth`, {
+    const response = await fetch(`${this.apiURL}/auth/oauth`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
