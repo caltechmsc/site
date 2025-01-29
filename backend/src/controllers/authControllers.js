@@ -80,10 +80,7 @@ const loginAdminOAuth = async (req, res) => {
 
   // Verify the token
   try {
-    const payload = jwtUtils.verifyToken(
-      token,
-      process.env.GOOGLE_OAUTH_SECRET,
-    );
+    const payload = await jwtUtils.verifyGoogleToken(token);
     const admin = await adminService.getAdminByEmail(payload.email);
     if (!admin) {
       return res.notFound('Admin not found.', 'ADMIN_NOT_FOUND');

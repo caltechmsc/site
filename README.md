@@ -59,11 +59,8 @@ The MSC website is designed to offer:
       PORT=5000 # Port number for the server (default: 5000)
       HOST=localhost # Host address for the server (default: localhost)
       JWT_SECRET=secret # Secret key for JWT token generation
-      GOOGLE_OAUTH_SECRET=secret # Secret key for Google OAuth 2.0
       PUBLICATIONS_URL=https://feeds.library.caltech.edu/people/Goddard-W-A-III/article.json # URL for the Caltech Library publications
       ```
-
-      > **Note:** The `GOOGLE_OAUTH_SECRET` is required for the admin dashboard for google login. You can generate the secret key from the [Google Cloud Console](https://console.cloud.google.com/).
 
    2. Install the dependencies:
 
