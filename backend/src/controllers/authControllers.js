@@ -131,17 +131,14 @@ const refreshToken = async (req, res) => {
   const { refreshToken: refreshTokenBody } = req.body;
 
   // Check if the refresh token is valid
-  if (!refreshToken) {
+  if (!refreshTokenBody) {
     return res.badRequest('Invalid refresh token.', 'INVALID_REFRESH_TOKEN');
   }
 
   // Verify the refresh token
   try {
-    const id = jwtUtils.verifyToken(
-      refreshTokenBody,
-      process.env.JWT_SECRET,
-    ).id;
-    const secret = await userService.getRefreshTokenSecret(
+    const id = jwtUtils.decodeToken(refreshTokenBody).id;
+    const secret = await adminService.getRefreshTokenSecret(
       id,
       process.env.JWT_SECRET,
     );
