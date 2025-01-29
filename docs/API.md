@@ -12,6 +12,7 @@ The API documentation provides detailed information about the backend API endpoi
     - [Authentication Endpoints](#authentication-endpoints)
       - [Admin Login](#admin-login)
       - [Admin Login (OAuth)](#admin-login-oauth)
+      - [Refresh Token](#refresh-token)
     - [Admin Endpoints](#admin-endpoints)
       - [Get All Admins](#get-all-admins)
       - [Create Admin](#create-admin)
@@ -245,6 +246,74 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error logging in admin.",
       "error": {
         "code": "LOGIN_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Refresh Token
+
+- **URL**: `/api/auth/refresh-token`
+- **Method**: `POST`
+
+- **Request Body**:
+
+  ```json
+  {
+    "refreshToken": "JWT_REFRESH_TOKEN"
+  }
+  ```
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {
+        "accessToken": "JWT_ACCESS_TOKEN"
+      },
+      "message": "Access token refreshed successfully."
+    }
+    ```
+
+    > **Note:** The new access token will be returned in the response (`data` field).
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid refresh token.",
+      "error": {
+        "code": "INVALID_REFRESH_TOKEN",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `401 Unauthorized`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Token expired.",
+      "error": {
+        "code": "TOKEN_EXPIRED",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error refreshing token.",
+      "error": {
+        "code": "REFRESH_TOKEN_ERROR",
         "details": {}
       }
     }

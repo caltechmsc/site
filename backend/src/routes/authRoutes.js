@@ -18,4 +18,6 @@ router.use(rateLimiter(RATE_LIMIT_MAX_15, RATE_LIMIT_WINDOW_1_HOUR));
 router.post('/login', authControllers.loginAdmin);
 router.post('/oauth', authControllers.loginAdminOAuth);
 
+router.post('/refresh-token', authControllers.refreshToken);
+
 module.exports = router;
