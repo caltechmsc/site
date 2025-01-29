@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../../components/head.ejs") %>
+  <script src="/js/member.js"></script>
+  <title>MSC Admin | Current Members</title>
+</head>
+
+<body>
+  <%- include("../../components/admin/sidebar.ejs") %>
+
+  <main class="sm:ml-64 p-6">
+    <h1 class="text-2xl font-semibold mb-6">Current Members</h1>
+
+    <!-- Add member button -->
+    <button onclick="openAddMemberModal()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400">Add Member</button>
+
+    <!-- Members table -->
+    <div class="overflow-x-auto bg-gray-50 shadow-md rounded-lg mt-4">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Photo</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Name</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Position</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Education</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Area</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Email</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Organization</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Country</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Website</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="members-table" class="bg-white divide-y divide-gray-200">
+          <tr class="border-b">
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="10">No members found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Add Member Modal -->
+  <div id="add-member-modal" class="z-50 fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded shadow-lg w-96">
+      <h2 class="text-xl font-semibold mb-4">Add New Member</h2>
+      <img src="/img/default-avatar.png" alt="Member Photo" class="w-24 h-24 rounded-full mx-auto mb-4 cursor-pointer" onclick="document.getElementById('member-photo').click()">
+      <input id="member-photo" type="file" class="hidden w-[50px] h-[50px] object-cover">
+      <input id="member-name" type="text" placeholder="Name" class="w-full p-2 border rounded mb-2">
+      <input id="member-position" type="text" placeholder="Position" class="w-full p-2 border rounded mb-2">
+      <input id="member-education" type="text" placeholder="Education" class="w-full p-2 border rounded mb-2">
+      <input id="member-area" type="text" placeholder="Area" class="w-full p-2 border rounded mb-2">
+      <input id="member-email" type="email" placeholder="Email" class="w-full p-2 border rounded mb-2">
+      <input id="member-organization" type="text" placeholder="Organization" class="w-full p-2 border rounded mb-2">
+      <input id="member-country" type="text" placeholder="Country" class="w-full p-2 border rounded mb-2">
+      <input id="member-website" type="text" placeholder="Website" class="w-full p-2 border rounded mb-2">
+      <div class="flex justify-end">
+        <button onclick="closeAddMemberModal()" class="bg-gray-500 text-white px-3 py-1 rounded mr-2 hover:bg-gray-400">Cancel</button>
+        <button onclick="addMember()" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-400">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Member Modal -->
+  <div id="update-member-modal" class="z-50 fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded shadow-lg w-96">
+      <img id="update-member-photo-img" src="" alt="Member Photo" class="w-24 h-24 rounded-full mx-auto mb-4 cursor-pointer" onclick="triggerPhotoUpload()">
+      <input id="update-member-photo" type="file" class="hidden" onchange="previewPhoto(event)">
+      <h2 class="text-xl font-semibold mb-4">Update Member</h2>
+      <input id="update-member-name" type="text" placeholder="Name" class="w-full p-2 border rounded mb-2">
+      <input id="update-member-position" type="text" placeholder="Position" class="w-full p-2 border rounded mb-2">
+      <input id="update-member-education" type="text" placeholder="Education" class="w-full p-2 border rounded mb-2">
+      <input id="update-member-area" type="text" placeholder="Area" class="w-full p-2 border rounded mb-2">
+      <input id="update-member-email" type="email" placeholder="Email" class="w-full p-2 border rounded mb-2">
+      <input id="update-member-organization" type="text" placeholder="Organization" class="w-full p-2 border rounded mb-2">
+      <input id="update-member-country" type="text" placeholder="Country" class="w-full p-2 border rounded mb-2">
+      <input id="update-member-website" type="text" placeholder="Website" class="w-full p-2 border rounded mb-2">
+      <div class="flex justify-end">
+        <button onclick="closeUpdateMemberModal()" class="bg-gray-500 text-white px-3 py-1 rounded mr-2 hover:bg-gray-400">Cancel</button>
+        <button id="update-member-button" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-400">Update</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const member = new Member(app);
+
+    let membersData = [];
+
+    // Function to load members and maintain a global array
+    const loadMembers = async () => {
+      const response = await member.getMembers();
+      const membersTable = document.getElementById("members-table");
+      if (response.status === "success" && response.data.length > 0) {
+        membersData = response.data; // Store the members data globally
+        membersTable.innerHTML = "";
+        response.data.forEach(member => {
+          const memberRow = document.createElement("tr");
+          memberRow.innerHTML = `
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 min-w-[100px]"><img src="${member.photo || "/img/default-avatar.png"}" alt="${member.name}" class="w-12 h-12 rounded-full"></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.name}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.position}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.education}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.area}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.email}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.organization || '-'}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.country || '-'}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.website || '-'}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                <button onclick="openUpdateMemberModal('${member.id}')" class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-400">Update</button>
+                <button onclick="removeMember('${member.id}')" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-400">Remove</button>
+              </td>
+            `;
+          membersTable.appendChild(memberRow);
+        });
+      }
+    };
+
+    loadMembers();
+
+    // Function to open the add member modal
+    const openAddMemberModal = () => {
+      document.getElementById("add-member-modal").classList.remove("hidden");
+    };
+
+    // Function to close the add member modal
+    const closeAddMemberModal = () => {
+      document.getElementById("add-member-modal").classList.add("hidden");
+    };
+
+    // Function to open the update member modal
+    const openUpdateMemberModal = (memberId) => {
+      document.getElementById("update-member-modal").classList.remove("hidden");
+      const memberData = membersData.find(member => member.id === Number(memberId));
+      document.getElementById("update-member-photo-img").src = memberData.photo || "/img/default-avatar.png";
+      document.getElementById("update-member-name").value = memberData.name || '';
+      document.getElementById("update-member-position").value = memberData.position || '';
+      document.getElementById("update-member-education").value = memberData.education || '';
+      document.getElementById("update-member-area").value = memberData.area || '';
+      document.getElementById("update-member-email").value = memberData.email || '';
+      document.getElementById("update-member-organization").value = memberData.organization || '';
+      document.getElementById("update-member-country").value = memberData.country || '';
+      document.getElementById("update-member-website").value = memberData.website || '';
+
+      document.getElementById("update-member-button").onclick = () => updateMember(memberId);
+    };
+
+    // Function to close the update member modal
+    const closeUpdateMemberModal = () => {
+      document.getElementById("update-member-modal").classList.add("hidden");
+    };
+
+    // Function to add member
+    const addMember = async () => {
+      const name = document.getElementById("member-name").value;
+      const position = document.getElementById("member-position").value;
+      const education = document.getElementById("member-education").value;
+      const area = document.getElementById("member-area").value;
+      const email = document.getElementById("member-email").value;
+      const organization = document.getElementById("member-organization").value || undefined;
+      const country = document.getElementById("member-country").value || undefined;
+      const website = document.getElementById("member-website").value || undefined;
+      const photoFile = document.getElementById("member-photo").files[0] || undefined;
+
+      if (photoFile) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const photo = e.target.result;
+          const newMember = {
+            name,
+            position,
+            education,
+            area,
+            email,
+            organization,
+            country,
+            website,
+            photo
+          };
+          saveMember(newMember);
+        };
+        reader.readAsDataURL(photoFile);
+      } else {
+        const newMember = {
+          name,
+          position,
+          education,
+          area,
+          email,
+          organization,
+          country,
+          website,
+        };
+        saveMember(newMember);
+      }
+    };
+
+    // Function to save member
+    const saveMember = async (newMember) => {
+      const response = await member.createMember(newMember);
+      if (response.status === "success") {
+        app.ui.alert(response.message, "success");
+        closeAddMemberModal();
+        loadMembers();
+      } else {
+        app.ui.alert(response.message, "error");
+      }
+    };
+
+    // Function to update member
+    const updateMember = async (memberId) => {
+      const name = document.getElementById("update-member-name").value;
+      const position = document.getElementById("update-member-position").value;
+      const education = document.getElementById("update-member-education").value;
+      const area = document.getElementById("update-member-area").value;
+      const email = document.getElementById("update-member-email").value;
+      const organization = document.getElementById("update-member-organization").value || undefined;
+      const country = document.getElementById("update-member-country").value || undefined;
+      const website = document.getElementById("update-member-website").value || undefined;
+      const photoFile = document.getElementById("update-member-photo").files[0] || undefined;
+
+      if (photoFile) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const photo = e.target.result;
+          const updatedMember = {
+            name,
+            position,
+            education,
+            area,
+            email,
+            organization,
+            country,
+            website,
+            photo
+          };
+          saveUpdatedMember(memberId, updatedMember);
+        };
+        reader.readAsDataURL(photoFile);
+      } else {
+        const updatedMember = {
+          name,
+          position,
+          education,
+          area,
+          email,
+          organization,
+          country,
+          website,
+          photo: !document.getElementById("update-member-photo-img").src.includes("/img/default-avatar.png") ? document.getElementById("update-member-photo-img").src : undefined
+        };
+        saveUpdatedMember(memberId, updatedMember);
+      }
+    };
+
+    // Function to save updated member to the server
+    const saveUpdatedMember = async (memberId, updaedMember) => {
+      const response = await member.updateMember(memberId, updaedMember);
+      if (response.status === "success") {
+        app.ui.alert(response.message, "success");
+        closeUpdateMemberModal();
+        loadMembers();
+      } else {
+        app.ui.alert(response.message, "error");
+      }
+    };
+
+    // Function to remove member from the server
+    const removeMember = async (memberId) => {
+      const response = await member.deleteMember(memberId);
+      if (response.status === "success") {
+        app.ui.alert(response.message, "success");
+        loadMembers();
+      } else {
+        app.ui.alert(response.message, "error");
+      }
+    };
+
+    // Function to trigger photo upload
+    const triggerPhotoUpload = () => {
+      document.getElementById("update-member-photo").click();
+    };
+
+    // Function to preview photo before uploading
+    const previewPhoto = (event) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        document.getElementById("update-member-photo-img").src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    };
+  </script>
+</body>
+
+</html>

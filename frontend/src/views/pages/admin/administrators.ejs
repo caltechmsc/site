@@ -85,14 +85,17 @@
 
     loadAdmins();
 
+    // Function to open add admin modal
     const openAddAdminModal = () => {
       document.getElementById("add-admin-modal").classList.remove("hidden");
     };
 
+    // Function to close add admin modal
     const closeAddAdminModal = () => {
       document.getElementById("add-admin-modal").classList.add("hidden");
     };
 
+    // Function to open change admin modal
     const openChangeAdminModal = (adminId, type) => {
       document.getElementById("change-admin-modal").classList.remove("hidden");
       const confirmBtn = document.getElementById("confirm-change-btn");
@@ -111,6 +114,7 @@
       };
     };
 
+    // Function to close change admin modal
     const closeChangeAdminModal = () => {
       document.getElementById("change-admin-modal").classList.add("hidden");
     };
