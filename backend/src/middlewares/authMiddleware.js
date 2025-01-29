@@ -11,6 +11,10 @@ const PUBLIC_ROUTES = [
     method: 'POST',
   },
   {
+    path: '/api/auth/oauth',
+    method: 'POST',
+  },
+  {
     path: '/api/about/wag',
     method: 'GET',
   },
