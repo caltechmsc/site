@@ -10,6 +10,10 @@ router.get('/', (req, res) => {
   return res.render('pages/admin/dashboard');
 });
 
+router.get('/administrators', (req, res) => {
+  return res.render('pages/admin/administrators');
+});
+
 router.get('/login', (req, res) => {
   return res.render('pages/admin/login', {
     redirect: req.query.redirect,

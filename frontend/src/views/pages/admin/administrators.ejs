@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../../components/head.ejs") %>
+  <script src="/js/admin.js"></script>
+  <title>MSC Admin | Administrators</title>
+</head>
+
+<body>
+  <%- include("../../components/admin/sidebar.ejs") %>
+
+  <main class="sm:ml-64 p-6">
+    <h1 class="text-2xl font-semibold mb-6">Administrators</h1>
+
+    <!-- Add admin button -->
+    <button onclick="openAddAdminModal()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400 transition-colors duration-200">Add Admin</button>
+
+    <!-- Admins table -->
+    <div class="overflow-x-auto bg-background-50 shadow-md rounded-lg mt-4">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="admins-table" class="bg-background-50 divide-y divide-gray-200">
+          <tr class="border-b">
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700" colspan="2">No admins found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Add Admin Modal -->
+  <div id="add-admin-modal" class="z-50 fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded shadow-lg w-96">
+      <h2 class="text-xl font-semibold mb-4">Add New Admin</h2>
+      <input id="admin-email" type="email" placeholder="Admin Email" class="w-full p-2 border rounded mb-2">
+      <input id="admin-password" type="password" placeholder="Admin Password" class="w-full p-2 border rounded mb-4">
+      <div class="flex justify-end">
+        <button onclick="closeAddAdminModal()" class="bg-gray-500 text-white px-3 py-1 rounded mr-2 hover:bg-gray-400 transition-colors duration-200">Cancel</button>
+        <button onclick="addAdmin()" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-400 transition-colors duration-200">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change Admin Details Modal -->
+  <div id="change-admin-modal" class="z-50 fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded shadow-lg w-96">
+      <h2 class="text-xl font-semibold mb-4">Change Admin Details</h2>
+      <input id="new-admin-detail" type="text" placeholder="New Value" class="w-full p-2 border rounded mb-4">
+      <div class="flex justify-end">
+        <button onclick="closeChangeAdminModal()" class="bg-gray-500 text-white px-3 py-1 rounded mr-2 hover:bg-gray-400 transition-colors duration-200">Cancel</button>
+        <button id="confirm-change-btn" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-400 transition-colors duration-200">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const admin = new Admin(app);
+
+    // Function to load admins
+    const loadAdmins = async () => {
+      const response = await admin.getAdmins();
+      const adminsTable = document.getElementById("admins-table");
+      if (response.status === "success" && response.data.length > 0) {
+        adminsTable.innerHTML = "";
+        response.data.forEach(admin => {
+          const adminRow = document.createElement("tr");
+          adminRow.innerHTML = `
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${admin.email}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                <button onclick="openChangeAdminModal('${admin.id}', 'email')" class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-400 transition-colors duration-200">Change Email</button>
+                <button onclick="openChangeAdminModal('${admin.id}', 'password')" class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-400 transition-colors duration-200">Change Password</button>
+                <button onclick="removeAdmin('${admin.id}')" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-400 transition-colors duration-200">Remove</button>
+              </td>
+            `;
+          adminsTable.appendChild(adminRow);
+        });
+      }
+    };
+
+    loadAdmins();
+
+    const openAddAdminModal = () => {
+      document.getElementById("add-admin-modal").classList.remove("hidden");
+    };
+
+    const closeAddAdminModal = () => {
+      document.getElementById("add-admin-modal").classList.add("hidden");
+    };
+
+    const openChangeAdminModal = (adminId, type) => {
+      document.getElementById("change-admin-modal").classList.remove("hidden");
+      const confirmBtn = document.getElementById("confirm-change-btn");
+      confirmBtn.onclick = async () => {
+        const newValue = document.getElementById("new-admin-detail").value;
+        if (newValue) {
+          const response = type === "email" ? await admin.updateAdminEmail(adminId, newValue) : await admin.updateAdminPassword(adminId, newValue);
+          if (response.status === "success") {
+            app.ui.alert(response.message, "success");
+            closeChangeAdminModal();
+            loadAdmins();
+          } else {
+            app.ui.alert(response.message, "error");
+          }
+        }
+      };
+    };
+
+    const closeChangeAdminModal = () => {
+      document.getElementById("change-admin-modal").classList.add("hidden");
+    };
+
+    // Function to add admin
+    const addAdmin = async () => {
+      const email = document.getElementById("admin-email").value;
+      const password = document.getElementById("admin-password").value;
+      if (email && password) {
+        const response = await admin.createAdmin(email, password);
+        if (response.status === "success") {
+          app.ui.alert(response.message, "success");
+          closeAddAdminModal();
+          loadAdmins();
+        } else {
+          app.ui.alert(response.message, "error");
+        }
+      }
+    };
+
+    // Function to remove admin
+    const removeAdmin = async (adminId) => {
+      const response = await admin.deleteAdmin(adminId);
+      if (response.status === "success") {
+        app.ui.alert(response.message, "success");
+        setTimeout(() => {
+          app.ui.alert("It may take less than 15 minutes to logout the admin from all devices", "info");
+        }, 3000);
+        loadAdmins();
+      } else {
+        app.ui.alert(response.message, "error");
+      }
+    };
+  </script>
+</body>
+
+</html>
