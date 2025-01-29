@@ -13,4 +13,8 @@ router.get('/login', (req, res) => {
   });
 });
 
+router.get('/', (req, res) => {
+  return res.render('pages/admin/dashboard');
+});
+
 module.exports = router;

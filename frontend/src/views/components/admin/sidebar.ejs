@@ -1,0 +1,247 @@
+<button id="sidebar-toggle" type="button" class="fixed top-0 left-0 z-40 inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-400 rounded-lg sm:hidden focus:outline-none focus:ring-2 focus:ring-gray-600">
+  <span class="sr-only">Open sidebar</span>
+  <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+  </svg>
+</button>
+
+<aside id="sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-gray-900 text-gray-200" aria-label="Sidebar">
+  <div class="h-full flex flex-col justify-between">
+    <div class="px-3 py-4 overflow-y-auto">
+      <a href="/" class="flex items-center ps-2.5 mb-5">
+        <img src="/img/logo-dark.svg" class="h-20 me-3" alt="MSC Logo" />
+      </a>
+      <ul class="space-y-2 font-medium">
+        <li>
+          <a href="/admin" class="flex items-center p-2 text-white rounded-lg group hover:bg-gray-700">
+            <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M13.5 2c-.178 0-.356.013-.492.022l-.074.005a1 1 0 0 0-.934.998V11a1 1 0 0 0 1 1h7.975a1 1 0 0 0 .998-.934l.005-.074A7.04 7.04 0 0 0 22 10.5 8.5 8.5 0 0 0 13.5 2Z" />
+              <path d="M11 6.025a1 1 0 0 0-1.065-.998 8.5 8.5 0 1 0 9.038 9.039A1 1 0 0 0 17.975 13H11V6.025Z" />
+            </svg>
+            <span class="ms-3">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/administrators" class="flex items-center p-2 text-white rounded-lg group hover:bg-gray-700">
+            <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 20C27.866 20 31 16.866 31 13C31 9.13401 27.866 6 24 6C20.134 6 17 9.13401 17 13C17 16.866 20.134 20 24 20Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M12 7.25488C10.1865 8.51983 9 10.6214 9 13.0002C9 15.5465 10.3596 17.7753 12.3924 19.0002" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M36 7.25488C37.8135 8.51983 39 10.6214 39 13.0002C39 15.3789 37.8135 17.4806 36 18.7455" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M12 40V42H36V40C36 36.2725 36 34.4087 35.391 32.9385C34.5791 30.9783 33.0217 29.4209 31.0615 28.609C29.5913 28 27.7275 28 24 28C20.2725 28 18.4087 28 16.9385 28.609C14.9783 29.4209 13.4209 30.9783 12.609 32.9385C12 34.4087 12 36.2725 12 40Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M43.9999 42.0001V40.8001C43.9999 36.3197 43.9999 34.0795 43.128 32.3682C42.361 30.8629 41.1371 29.6391 39.6318 28.8721" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M4.00009 42.0001V40.8001C4.00009 36.3197 4.00009 34.0795 4.87204 32.3682C5.63902 30.8629 6.86287 29.6391 8.36816 28.8721" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="ms-3">Administrators</span>
+          </a>
+        </li>
+        <li>
+          <button type="button" class="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-gray-700" aria-controls="sidebar-about-menu" data-collapse-toggle="sidebar-about-menu">
+            <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 44C29.5228 44 34.5228 41.7614 38.1421 38.1421C41.7614 34.5228 44 29.5228 44 24C44 18.4772 41.7614 13.4772 38.1421 9.85786C34.5228 6.23858 29.5228 4 24 4C18.4772 4 13.4772 6.23858 9.85786 9.85786C6.23858 13.4772 4 18.4772 4 24C4 29.5228 6.23858 34.5228 9.85786 38.1421C13.4772 41.7614 18.4772 44 24 44Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" />
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M24 11C25.3807 11 26.5 12.1193 26.5 13.5C26.5 14.8807 25.3807 16 24 16C22.6193 16 21.5 14.8807 21.5 13.5C21.5 12.1193 22.6193 11 24 11Z" fill="currentColor" />
+              <path d="M24.5 34V20H23.5H22.5" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M21 34H28" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">About</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+            </svg>
+          </button>
+          <ul id="sidebar-about-menu" class="hidden py-2 space-y-2">
+            <li>
+              <a href="/admin/about/wag" class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-700">
+                <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 17.4L23.0222 9L44.0444 17.4L23.0222 25.8L2 17.4Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" />
+                  <path d="M44.0444 17.51V26.7332" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M11.5557 21.8252V34.2666C11.5557 34.2666 16.3658 38.9999 23.0224 38.9999C29.679 38.9999 34.4891 34.2666 34.4891 34.2666V21.8252" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="flex-1 ms-3 whitespace-nowrap">William A. Goddard</span>
+              </a>
+            </li>
+            <li>
+              <a href="/admin/about/msc" class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-700">
+                <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M17 14L44 24V44H17L17 14Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M17 14L4 24L4 44H17" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M35 44V32L26 29L26 44" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M44 44H17" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="flex-1 ms-3 whitespace-nowrap">MSC</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="/admin/members" class="flex items-center p-2 text-white rounded-lg group hover:bg-gray-700">
+            <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="14" cy="29" r="5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="34" cy="29" r="5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="24" cy="9" r="5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M24 44C24 38.4772 19.5228 34 14 34C8.47715 34 4 38.4772 4 44" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M44 44C44 38.4772 39.5228 34 34 34C28.4772 34 24 38.4772 24 44" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M34 24C34 18.4772 29.5228 14 24 14C18.4772 14 14 18.4772 14 24" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="ms-3">Current Members</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/collaborators" class="flex items-center p-2 text-white rounded-lg group hover:bg-gray-700">
+            <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 36V44H40V4H8V12" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M6 30H10" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M6 24H10" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M6 18H10" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="24" cy="17" r="4" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M32 35C32 30.5817 28.4183 27 24 27C19.5817 27 16 30.5817 16 35" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="ms-3">Collaborators</span>
+          </a>
+        </li>
+        <li>
+          <button type="button" class="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-gray-700" aria-controls="sidebar-research-menu" data-collapse-toggle="sidebar-research-menu">
+            <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M44 5H3.99998V17H44V5Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" />
+              <path d="M3.99998 41.0301L16.1756 28.7293L22.7549 35.0301L30.7982 27L35.2786 31.368" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M44 16.1719V42.1719" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+              <path d="M3.99998 16.1719V30.1719" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+              <path d="M13.0155 43H44" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+              <path d="M17 11H38" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+              <path d="M9.99998 10.9966H11" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+            </svg>
+            <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Research</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+            </svg>
+          </button>
+          <ul id="sidebar-research-menu" class="hidden py-2 space-y-2">
+            <li>
+              <a href="/admin/research/about" class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-700">
+                <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M24 44C29.5228 44 34.5228 41.7614 38.1421 38.1421C41.7614 34.5228 44 29.5228 44 24C44 18.4772 41.7614 13.4772 38.1421 9.85786C34.5228 6.23858 29.5228 4 24 4C18.4772 4 13.4772 6.23858 9.85786 9.85786C6.23858 13.4772 4 18.4772 4 24C4 29.5228 6.23858 34.5228 9.85786 38.1421C13.4772 41.7614 18.4772 44 24 44Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M24 11C25.3807 11 26.5 12.1193 26.5 13.5C26.5 14.8807 25.3807 16 24 16C22.6193 16 21.5 14.8807 21.5 13.5C21.5 12.1193 22.6193 11 24 11Z" fill="currentColor" />
+                  <path d="M24.5 34V20H23.5H22.5" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M21 34H28" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="flex-1 ms-3 whitespace-nowrap">About</span>
+              </a>
+            </li>
+            <li>
+              <a href="/admin/research/areas" class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-700">
+                <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="8" width="40" height="32" rx="2" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M4 29H44H4Z" fill="none" />
+                  <path d="M4 29H44" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M4 19H44H4Z" fill="none" />
+                  <path d="M4 19H44" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M17 40V19V40Z" fill="none" />
+                  <path d="M17 40V19" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M4 38V17V38Z" fill="none" />
+                  <path d="M4 38V17" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M44 38V17V38Z" fill="none" />
+                  <path d="M44 38V17" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M31 40V19V40Z" fill="none" />
+                  <path d="M31 40V19" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M9 40H39" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="flex-1 ms-3 whitespace-nowrap">Research Areas</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="/admin/publications" class="flex items-center p-2 text-white rounded-lg group hover:bg-gray-700">
+            <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 6H39C39 6 43 8 43 13C43 18 39 20 39 20H5C5 20 9 18 9 13C9 8 5 6 5 6Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M43 28H9C9 28 5 30 5 35C5 40 9 42 9 42H43C43 42 39 40 39 35C39 30 43 28 43 28Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="ms-3">Publications</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/group-photos" class="flex items-center p-2 text-white rounded-lg group hover:bg-gray-700">
+            <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="6" y="6" width="30" height="30" rx="2" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" />
+              <path d="M42 12V39C42 40.6569 40.6569 42 39 42H12" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M6 25L13.6562 18.1944C14.4204 17.5152 15.5738 17.5216 16.3303 18.2094L26 27" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M22 23L26.7849 19.0125C27.4971 18.4191 28.5237 18.3928 29.2653 18.949L36 24" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M6 19L6 27" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M36 19V27" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="ms-3">Group Photos</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/logout" class="flex items-center p-2 text-white transition duration-75 rounded-lg group hover:bg-gray-700">
+            <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M23.9917 6H6V42H24" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M33 33L42 24L33 15" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M16 23.9917H42" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="ms-3 whitespace-nowrap">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</aside>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const sidebarToggle = document.getElementById("sidebar-toggle");
+    const sidebar = document.getElementById("sidebar");
+
+    sidebarToggle.addEventListener("click", function() {
+      sidebar.classList.toggle("-translate-x-full");
+    });
+
+    document.addEventListener("click", function(event) {
+      if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+        sidebar.classList.add("-translate-x-full");
+      }
+    });
+
+    const toggleButtons = document.querySelectorAll("[data-collapse-toggle]");
+
+    toggleButtons.forEach((button) => {
+      button.addEventListener("click", function() {
+        const target = document.getElementById(button.getAttribute("aria-controls"));
+        target.classList.toggle("hidden");
+        const isExpanded = !target.classList.contains("hidden");
+        button.setAttribute("aria-expanded", isExpanded);
+      });
+    });
+
+    const currentPath = window.location.pathname;
+
+    const links = {
+      "/admin": document.querySelector("[href='/admin']"),
+      "/admin/administrators": document.querySelector("[href='/admin/administrators']"),
+      "/admin/about/wag": document.querySelector("[href='/admin/about/wag']"),
+      "/admin/about/msc": document.querySelector("[href='/admin/about/msc']"),
+      "/admin/members": document.querySelector("[href='/admin/members']"),
+      "/admin/collaborators": document.querySelector("[href='/admin/collaborators']"),
+      "/admin/research/about": document.querySelector("[href='/admin/research/about']"),
+      "/admin/research/areas": document.querySelector("[href='/admin/research/areas']"),
+      "/admin/publications": document.querySelector("[href='/admin/publications']"),
+      "/admin/group-photos": document.querySelector("[href='/admin/group-photos']"),
+      "/admin/logout": document.querySelector("[href='/admin/logout']"),
+    };
+
+    Object.keys(links).forEach((path) => {
+      if (currentPath.startsWith(path)) {
+        const link = links[path];
+        if (currentPath === path) {
+          link.classList.add("bg-gray-700");
+        }
+        const parentMenu = link.closest("ul");
+        if (parentMenu && parentMenu.classList.contains("hidden")) {
+          parentMenu.classList.remove("hidden");
+          const toggleButton = document.querySelector(`[aria-controls='${parentMenu.id}']`);
+          if (toggleButton) {
+            toggleButton.setAttribute("aria-expanded", "true");
+          }
+        }
+      }
+    });
+  });
+</script>
