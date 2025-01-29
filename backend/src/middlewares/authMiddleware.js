@@ -15,6 +15,10 @@ const PUBLIC_ROUTES = [
     method: 'POST',
   },
   {
+    path: '/api/auth/refresh-token',
+    method: 'POST',
+  },
+  {
     path: '/api/about/wag',
     method: 'GET',
   },
