@@ -6,23 +6,25 @@ class MapSelector {
   /**
    * @constructor MapSelector
    * @param {HTMLElement} mapModal The map selection modal element.
+   * @param {HTMLElement} mapElement The map element.
    */
-  constructor(mapModal) {
+  constructor(mapModal, mapElement) {
     this.ZOOM_LEVEL = 13;
 
     this.mapModal = mapModal;
+    this.mapElement = mapElement;
     this.map = null;
     this.currentMarker = null;
     this.selectedLatLng = null;
   }
 
   openMapModal() {
-    mapModal.style.display = 'block';
+    this.mapModal.style.display = 'block';
     this.initializeMap();
   }
 
   closeMapModal() {
-    mapModal.style.display = 'none';
+    this.mapModal.style.display = 'none';
   }
 
   confirmLocation() {
@@ -39,7 +41,7 @@ class MapSelector {
 
   initializeMap() {
     if (!this.map) {
-      this.map = L.map('map').fitWorld();
+      this.map = L.map(this.mapElement).fitWorld();
 
       // Set up the OpenStreetMap layer
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -68,6 +70,15 @@ class MapSelector {
           this.map.setView(latLng, this.ZOOM_LEVEL);
         })
         .addTo(this.map);
+
+      // If a marker was set before the map was initialized, set it now
+      if (this.markerCache) {
+        const MOVEMENT_DELAY = 500;
+        setTimeout(() => {
+          this.setMarker(this.markerCache.latLng, this.markerCache.zoom);
+          this.markerCache = null;
+        }, MOVEMENT_DELAY);
+      }
     }
   }
 
@@ -76,7 +87,13 @@ class MapSelector {
     this.setMarker(clickedLatLng);
   }
 
-  setMarker(latLng) {
+  setMarker(latLng, zoom = false) {
+    if (!this.map) {
+      this.markerCache = { latLng, zoom };
+      this.selectedLatLng = latLng;
+      return;
+    }
+
     // If a marker already exists, remove it
     if (this.currentMarker) {
       this.map.removeLayer(this.currentMarker);
@@ -84,6 +101,9 @@ class MapSelector {
 
     // Add a new marker at the clicked location
     this.currentMarker = L.marker(latLng).addTo(this.map);
+
+    // Locate the map to the clicked location
+    this.map.setView(latLng, zoom ? this.ZOOM_LEVEL : this.map.getZoom());
 
     // Store the selected coordinates
     this.selectedLatLng = latLng;
