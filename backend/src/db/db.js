@@ -103,4 +103,4 @@ collaboratorsDb.serialize(() => {
   );
 });
 
-module.exports = { adminsDb, membersDb, closeDbs };
+module.exports = { adminsDb, membersDb, collaboratorsDb, closeDbs };
