@@ -126,6 +126,7 @@ const updateWagCv = async (cv) => {
 
     aboutWag.cv = cv;
     (await aboutWagDb).write();
+    return aboutWag.cv;
   } catch (error) {
     console.error('Error in updating CV for WAG: ', error);
     throw error;
