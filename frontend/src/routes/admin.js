@@ -18,6 +18,10 @@ router.get('/members', (req, res) => {
   return res.render('pages/admin/members');
 });
 
+router.get('/collaborators', (req, res) => {
+  return res.render('pages/admin/collaborators');
+});
+
 router.get('/login', (req, res) => {
   return res.render('pages/admin/login', {
     redirect: req.query.redirect,

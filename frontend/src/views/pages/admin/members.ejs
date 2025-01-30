@@ -105,9 +105,9 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.education}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.area}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.email}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.organization || '-'}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.country || '-'}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.website || '-'}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.organization || "-"}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.country || "-"}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.website || "-"}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                 <button onclick="openUpdateMemberModal('${member.id}')" class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-400">Update</button>
                 <button onclick="removeMember('${member.id}')" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-400">Remove</button>
@@ -135,14 +135,14 @@
       document.getElementById("update-member-modal").classList.remove("hidden");
       const memberData = membersData.find(member => member.id === Number(memberId));
       document.getElementById("update-member-photo-img").src = memberData.photo || "/img/default-avatar.png";
-      document.getElementById("update-member-name").value = memberData.name || '';
-      document.getElementById("update-member-position").value = memberData.position || '';
-      document.getElementById("update-member-education").value = memberData.education || '';
-      document.getElementById("update-member-area").value = memberData.area || '';
-      document.getElementById("update-member-email").value = memberData.email || '';
-      document.getElementById("update-member-organization").value = memberData.organization || '';
-      document.getElementById("update-member-country").value = memberData.country || '';
-      document.getElementById("update-member-website").value = memberData.website || '';
+      document.getElementById("update-member-name").value = memberData.name || "";
+      document.getElementById("update-member-position").value = memberData.position || "";
+      document.getElementById("update-member-education").value = memberData.education || "";
+      document.getElementById("update-member-area").value = memberData.area || "";
+      document.getElementById("update-member-email").value = memberData.email || "";
+      document.getElementById("update-member-organization").value = memberData.organization || "";
+      document.getElementById("update-member-country").value = memberData.country || "";
+      document.getElementById("update-member-website").value = memberData.website || "";
 
       document.getElementById("update-member-button").onclick = () => updateMember(memberId);
     };
