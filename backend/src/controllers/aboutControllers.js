@@ -167,18 +167,18 @@ const updateWagPhoto = async (req, res) => {
  * @param {Object} res - The response object.
  */
 const updateMsc = async (req, res) => {
-  const { msc } = req.body;
+  const { about } = req.body;
 
-  // Check if the msc is valid
-  if (typeof msc !== 'object') {
+  // Check if the msc about is valid
+  if (typeof about !== 'object') {
     return res.badRequest('Invalid MSC data.', 'INVALID_MSC');
   }
 
   try {
-    const updatedMsc = await aboutService.updateAboutMsc(msc);
+    const updatedMsc = await aboutService.updateAboutMsc(about);
     return res.success(
       {
-        msc: updatedMsc,
+        about: updatedMsc,
       },
       'MSC updated successfully.',
     );
