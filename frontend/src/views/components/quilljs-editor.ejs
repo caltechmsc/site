@@ -1,3 +1,15 @@
+<style>
+  .ql-code-block-container .ql-ui {
+    color: #000;
+    border: none;
+    border-radius: 10px;
+  }
+
+  .ql-snow .ql-tooltip {
+    z-index: 9999;
+  }
+</style>
+
 <div>
   <div id="<%- quillId %>">
     <span class="ql-formats">
@@ -44,6 +56,5 @@
       <button class="ql-clean"></button>
     </span>
   </div>
-  <div id="<%- quillId %>-editor" style="height: '<%- height ? height : '300px' %>'"></div>
-</div>
+  <div id="<%- quillId %>-editor" style="height: <%- height %>"></div>
 </div>
