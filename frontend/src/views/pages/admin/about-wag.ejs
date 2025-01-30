@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../../components/head.ejs") %>
+  <%- include("../../components/quilljs-head.ejs") %>
+  <script src="/js/about.js"></script>
+  <title>MSC Admin | About William A. Goddard III</title>
+</head>
+
+<body>
+  <%- include("../../components/admin/sidebar.ejs") %>
+
+  <main class="sm:ml-64 p-6">
+    <h1 class="text-2xl font-semibold mb-6">About William A. Goddard III</h1>
+
+    <!-- Bio -->
+    <div class="mb-6">
+      <label for="bio" class="block text-sm font-medium text-gray-700">Bio</label>
+      <textarea id="bio" rows="5" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+      <button id="save-bio" class="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-400">Save Bio</button>
+    </div>
+
+    <!-- About (Quill.js) -->
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700">About</label>
+      <%- include("../../components/quilljs-editor.ejs", { quillId: "about", height: "300px" }) %>
+      <button id="save-about" class="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-400">Save About</button>
+    </div>
+
+    <!-- CV Upload and Download -->
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700">CV</label>
+      <div class="flex items-center">
+        <input type="file" id="cv" class="hidden">
+        <button id="cv-upload" class="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-400">Upload CV</button>
+        <a id="cv-download" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400">Download CV</a>
+      </div>
+    </div>
+
+    <!-- Profile Picture Upload and Download -->
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700">Profile Picture</label>
+      <div class="flex items-center">
+        <input type="file" id="photo" class="hidden">
+        <button id="photo-upload" class="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-400">Upload Photo</button>
+        <a id="photo-download" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400">Download Photo</a>
+      </div>
+      <img id="profile-picture" alt="Profile Picture" class="mt-4 w-32 h-32 rounded-full object-cover">
+    </div>
+  </main>
+
+  <script>
+    const about = new About(app);
+
+    // Initialize Quill.js editor
+    const quill = new Quill('#about-editor', {
+      modules: {
+        syntax: true,
+        toolbar: '#about',
+      },
+      theme: 'snow'
+    });
+
+    // Load the existing data
+    const loadAboutData = async () => {
+      const aboutResponse = await about.getAboutWag();
+      if (aboutResponse.status === "success") {
+        document.getElementById('bio').value = aboutResponse.data.bio;
+        quill.setContents(aboutResponse.data.about);
+        document.getElementById('profile-picture').src = aboutResponse.data.photo;
+        document.getElementById('photo-download').href = aboutResponse.data.photo;
+        document.getElementById('photo-download').download = 'profile-picture.png';
+      }
+
+      document.getElementById('cv-download').addEventListener('click', async () => {
+        const cvResponse = await about.getWagCv();
+        if (cvResponse.status === "success") {
+          const data = cvResponse.data;
+
+          const base64Parts = data.split(",");
+          const mimeType = base64Parts[0].split(":")[1].split(";")[0];
+          const base64Data = base64Parts[1];
+
+          const byteCharacters = atob(base64Data);
+          const byteArrays = new Uint8Array(byteCharacters.length);
+
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteArrays[i] = byteCharacters.charCodeAt(i);
+          }
+
+          const blob = new Blob([byteArrays], {
+            type: mimeType
+          });
+
+          const url = URL.createObjectURL(blob);
+          window.open(url);
+        }
+      });
+    };
+
+    loadAboutData();
+
+    // Save bio
+    document.getElementById('save-bio').addEventListener('click', async () => {
+      const bio = document.getElementById('bio').value;
+      const response = await about.updateWagBio(bio);
+      app.ui.alert(response.message, response.status);
+    });
+
+    // Save about
+    document.getElementById('save-about').addEventListener('click', async () => {
+      const aboutData = quill.getContents();
+      const response = await about.updateWagAbout(aboutData);
+      app.ui.alert(response.message, response.status);
+    });
+
+    // Trigger CV upload
+    document.getElementById('cv-upload').addEventListener('click', () => {
+      document.getElementById('cv').click();
+    });
+
+    // Handle CV upload
+    document.getElementById('cv').addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const base64 = e.target.result;
+        const response = await about.updateWagCv(base64);
+        app.ui.alert(response.message, response.status);
+        event.target.value = '';
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Trigger photo upload
+    document.getElementById('photo-upload').addEventListener('click', () => {
+      document.getElementById('photo').click();
+    });
+
+    // Handle photo upload
+    document.getElementById('photo').addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const base64 = e.target.result;
+        const response = await about.updateWagPhoto(base64);
+        document.getElementById('profile-picture').src = base64;
+        document.getElementById('photo-download').href = base64;
+        app.ui.alert(response.message, response.status);
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+
+</html>

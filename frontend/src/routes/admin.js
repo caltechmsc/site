@@ -14,6 +14,10 @@ router.get('/administrators', (req, res) => {
   return res.render('pages/admin/administrators');
 });
 
+router.get('/about/wag', (req, res) => {
+  return res.render('pages/admin/about-wag');
+});
+
 router.get('/members', (req, res) => {
   return res.render('pages/admin/members');
 });
