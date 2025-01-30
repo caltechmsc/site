@@ -18,6 +18,10 @@ router.get('/about/wag', (req, res) => {
   return res.render('pages/admin/about-wag');
 });
 
+router.get('/about/msc', (req, res) => {
+  return res.render('pages/admin/about-msc');
+});
+
 router.get('/members', (req, res) => {
   return res.render('pages/admin/members');
 });

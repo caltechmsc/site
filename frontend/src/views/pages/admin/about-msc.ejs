@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../../components/head.ejs") %>
+  <%- include("../../components/quilljs-head.ejs") %>
+  <script src="/js/about.js"></script>
+  <title>MSC Admin | About MSC</title>
+</head>
+
+<body>
+  <%- include("../../components/admin/sidebar.ejs") %>
+
+  <main class="sm:ml-64 p-6">
+    <h1 class="text-2xl font-semibold mb-6">About MSC</h1>
+
+    <!-- About (Quill.js) -->
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700">About</label>
+      <%- include("../../components/quilljs-editor.ejs", { quillId: "about", height: "300px" }) %>
+      <button id="save-about" class="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-400">Save About</button>
+    </div>
+  </main>
+
+  <script>
+    const about = new About(app);
+
+    // Initialize Quill.js editor
+    const quill = new Quill('#about-editor', {
+      modules: {
+        syntax: true,
+        toolbar: '#about',
+      },
+      theme: 'snow'
+    });
+
+    // Load the existing data
+    const loadAboutData = async () => {
+      const response = await about.getAboutMsc();
+      if (response.status === "success") {
+        quill.setContents(response.data);
+      }
+    };
+
+    loadAboutData();
+
+    // Save about
+    document.getElementById('save-about').addEventListener('click', async () => {
+      const aboutData = quill.getContents();
+      const response = await about.updateMsc(aboutData);
+      app.ui.alert(response.message, response.status);
+    });
+  </script>
+</body>
+
+</html>
