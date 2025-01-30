@@ -68,12 +68,12 @@ const getCollaborators = async () => {
 };
 
 /**
- * @function getCollaborator - Get a collaborator from the database.
+ * @function getCollaboratorById - Get a collaborator from the database.
  * @param {number} id - The id of the collaborator.
  * @returns {Promise<Object>} The collaborator with the specified id.
  * @throws {Error} Throws an error if the collaborator cannot be retrieved.
  */
-const getCollaborator = async (id) => {
+const getCollaboratorById = async (id) => {
   try {
     const collaborator = await new Promise((resolve, reject) => {
       collaboratorsDb.get(
@@ -205,7 +205,7 @@ const updateCollaboratorsAbout = async (about) => {
 module.exports = {
   createCollaborator,
   getCollaborators,
-  getCollaborator,
+  getCollaboratorById,
   updateCollaborator,
   deleteCollaborator,
   getCollaboratorsAbout,
