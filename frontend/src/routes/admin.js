@@ -30,6 +30,10 @@ router.get('/collaborators', (req, res) => {
   return res.render('pages/admin/collaborators');
 });
 
+router.get('/collaborators/about', (req, res) => {
+  return res.render('pages/admin/collaborators-about');
+});
+
 router.get('/login', (req, res) => {
   return res.render('pages/admin/login', {
     redirect: req.query.redirect,
