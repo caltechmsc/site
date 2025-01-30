@@ -85,7 +85,7 @@
           </a>
         </li>
         <li>
-          <a href="/admin/collaborators" class="flex items-center p-2 text-white rounded-lg group hover:bg-gray-700">
+          <button type="button" class="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-gray-700" aria-controls="sidebar-collaborators-menu" data-collapse-toggle="sidebar-collaborators-menu">
             <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8 36V44H40V4H8V12" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
               <path d="M6 30H10" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
@@ -94,8 +94,37 @@
               <circle cx="24" cy="17" r="4" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
               <path d="M32 35C32 30.5817 28.4183 27 24 27C19.5817 27 16 30.5817 16 35" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-            <span class="ms-3">Collaborators</span>
-          </a>
+            <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Collaborators</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+            </svg>
+          </button>
+          <ul id="sidebar-collaborators-menu" class="hidden py-2 space-y-2">
+            <li>
+              <a href="/admin/collaborators" class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-700">
+                <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 36V44H40V4H8V12" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M6 30H10" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M6 24H10" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M6 18H10" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <circle cx="24" cy="17" r="4" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M32 35C32 30.5817 28.4183 27 24 27C19.5817 27 16 30.5817 16 35" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="flex-1 ms-3 whitespace-nowrap">Collaborators</span>
+              </a>
+            </li>
+            <li>
+              <a href="/admin/collaborators/about" class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-700">
+                <svg class="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M24 44C29.5228 44 34.5228 41.7614 38.1421 38.1421C41.7614 34.5228 44 29.5228 44 24C44 18.4772 41.7614 13.4772 38.1421 9.85786C34.5228 6.23858 29.5228 4 24 4C18.4772 4 13.4772 6.23858 9.85786 9.85786C6.23858 13.4772 4 18.4772 4 24C4 29.5228 6.23858 34.5228 9.85786 38.1421C13.4772 41.7614 18.4772 44 24 44Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M24 11C25.3807 11 26.5 12.1193 26.5 13.5C26.5 14.8807 25.3807 16 24 16C22.6193 16 21.5 14.8807 21.5 13.5C21.5 12.1193 22.6193 11 24 11Z" fill="currentColor" />
+                  <path d="M24.5 34V20H23.5H22.5" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M21 34H28" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="flex-1 ms-3 whitespace-nowrap">About Collaborators</span>
+              </a>
+            </li>
+          </ul>
         </li>
         <li>
           <button type="button" class="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-gray-700" aria-controls="sidebar-research-menu" data-collapse-toggle="sidebar-research-menu">
@@ -220,6 +249,7 @@
       "/admin/about/msc": document.querySelector("[href='/admin/about/msc']"),
       "/admin/members": document.querySelector("[href='/admin/members']"),
       "/admin/collaborators": document.querySelector("[href='/admin/collaborators']"),
+      "/admin/collaborators/about": document.querySelector("[href='/admin/collaborators/about']"),
       "/admin/research/about": document.querySelector("[href='/admin/research/about']"),
       "/admin/research/areas": document.querySelector("[href='/admin/research/areas']"),
       "/admin/publications": document.querySelector("[href='/admin/publications']"),
