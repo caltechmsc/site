@@ -34,6 +34,10 @@ router.get('/collaborators/about', (req, res) => {
   return res.render('pages/admin/collaborators-about');
 });
 
+router.get('/research/about', (req, res) => {
+  return res.render('pages/admin/research-about');
+});
+
 router.get('/login', (req, res) => {
   return res.render('pages/admin/login', {
     redirect: req.query.redirect,
