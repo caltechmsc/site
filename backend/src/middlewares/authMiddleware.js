@@ -35,15 +35,15 @@ const PUBLIC_ROUTES = [
     method: 'GET',
   },
   {
-    path: '/api/members/current',
+    path: '/api/members',
     method: 'GET',
   },
   {
-    path: '/api/members/collaborators',
+    path: '/api/collaborators',
     method: 'GET',
   },
   {
-    path: '/api/members/collaborators/about',
+    path: '/api/collaborators/about',
     method: 'GET',
   },
   {
