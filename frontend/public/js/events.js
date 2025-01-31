@@ -42,7 +42,7 @@ class Events {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(photo),
+      body: JSON.stringify({ photo }),
     });
 
     const data = await response.json();
