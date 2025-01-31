@@ -26,6 +26,10 @@ router.get('/members', (req, res) => {
   return res.render('pages/members');
 });
 
+router.get('/collaborators', (req, res) => {
+  return res.render('pages/collaborators');
+});
+
 router.use('/admin', require('./admin'));
 
 router.get('/404', (req, res) => {
