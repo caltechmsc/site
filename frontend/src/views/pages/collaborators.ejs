@@ -150,7 +150,7 @@
         response.data.forEach(collaborator => {
           if (collaborator.latitude && collaborator.longitude) {
             const marker = L.marker([collaborator.latitude, collaborator.longitude]).addTo(map);
-            marker.bindPopup(`<b>${collaborator.organization}</b><br>${collaborator.country}<br><a href="${collaborator.website}" target="_blank">${collaborator.website}</a>`);
+            marker.bindPopup(`<b>${collaborator.organization}</b><br>${collaborator.country}<br>${collaborator.website ? `<a href="${collaborator.website}" target="_blank">Website</a>` : ''}`);
           }
         });
       }).catch(error => {
