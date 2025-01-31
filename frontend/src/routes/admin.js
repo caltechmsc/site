@@ -38,6 +38,10 @@ router.get('/research/about', (req, res) => {
   return res.render('pages/admin/research-about');
 });
 
+router.get('/research/areas', (req, res) => {
+  return res.render('pages/admin/research-areas');
+});
+
 router.get('/login', (req, res) => {
   return res.render('pages/admin/login', {
     redirect: req.query.redirect,

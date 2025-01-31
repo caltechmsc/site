@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../../components/head.ejs") %>
+  <%- include("../../components/quilljs-head.ejs") %>
+  <script src="/js/research.js"></script>
+  <title>MSC Admin | Research Areas</title>
+</head>
+
+<body>
+  <%- include("../../components/admin/sidebar.ejs") %>
+
+  <main class="sm:ml-64 p-6">
+    <h1 class="text-2xl font-semibold mb-6">Research Areas</h1>
+
+    <!-- Research Areas Table -->
+    <div class="overflow-x-auto bg-gray-50 shadow-md rounded-lg mt-4">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Label</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500" colspan="3">Research Area</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 min-w-[250px]">Related Papers</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 min-w-[380px]">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700" rowspan="8">A</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="3">Methods</td>
+            <td class="px-6 py-4 text-sm text-gray-700"></td>
+            <td class="px-6 py-4 text-sm text-gray-700"></td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">A1</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Quantum Mechanics (QM)</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="a-1" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('a-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('a-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">A2</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Reactive Force Fields (ReaxFF AND RexPoN)</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="a-2" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('a-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('a-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">A3</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Generic Nonreactive Force Fields (UFF, Dreiding)</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="a-3" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('a-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('a-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">A4</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Coarse Grain FF</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="a-4" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('a-4')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('a-4')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">A5</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Charge Predictions</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="a-5" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('a-5')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('a-5')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">A6</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Accurate Nonbond Interactions</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="a-6" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('a-6')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('a-6')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">A7</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">The Electron Force Field (eFF)</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="a-7" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('a-7')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('a-7')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700" rowspan="16">B</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="3">Materials Applications</td>
+            <td class="px-6 py-4 text-sm text-gray-700"></td>
+            <td class="px-6 py-4 text-sm text-gray-700"></td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">B1</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Homogeneous Catalysis</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="b-1" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('b-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('b-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">B2</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Heterogeneous Catalysis</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="b-2" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('b-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('b-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">B3</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Electrocatalysis</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="b-3" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('b-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('b-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">B4</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Batteries</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="b-4" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('b-4')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('b-4')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">B5</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Fuel Cells</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="b-5" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('b-5')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('b-5')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">B6</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Thermoelectrics</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="b-6" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('b-6')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('b-6')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">B7</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Boron Carbide Ductility</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="b-7" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('b-7')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('b-7')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">B8</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Ceramics</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="b-8" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('b-8')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('b-8')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">B9</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Energetic Materials</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="b-9" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('b-9')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('b-9')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">B10</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Amorphous Metals</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="b-10" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('b-10')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('b-10')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700" rowspan="5">B11</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Other Systems</td>
+            <td class="px-6 py-4 text-sm text-gray-700"></td>
+            <td class="px-6 py-4 text-sm text-gray-700"></td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">B11-1</td>
+            <td class="px-6 py-4 text-sm text-gray-700">Damage Free Electron Etching</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="b-11-1" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('b-11-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('b-11-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">B11-2</td>
+            <td class="px-6 py-4 text-sm text-gray-700">Polymers</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="b-11-2" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('b-11-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('b-11-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">B11-3</td>
+            <td class="px-6 py-4 text-sm text-gray-700">MOFs, COFs, and ZIFs</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="b-11-3" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('b-11-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('b-11-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">B11-4</td>
+            <td class="px-6 py-4 text-sm text-gray-700">Superconductors</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="b-11-4" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('b-11-4')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('b-11-4')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700" rowspan="4">C</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="3">Biotechnology and Drug Design</td>
+            <td class="px-6 py-4 text-sm text-gray-700"></td>
+            <td class="px-6 py-4 text-sm text-gray-700"></td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">C1</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">G-Protein Coupled Receptors (GPCRs)</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="c-1" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('c-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('c-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">C2</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Nucleic Acids</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="c-2" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('c-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('c-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">C3</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Other Protein Projects</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="c-3" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('c-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('c-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700" rowspan="4">D</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="3">Mechanical Bonded Devices</td>
+            <td class="px-6 py-4 text-sm text-gray-700"></td>
+            <td class="px-6 py-4 text-sm text-gray-700"></td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">D1</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Electron-catalyzed Molecular Recognition</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="d-1" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('d-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('d-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">D2</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Electrochemical Switching of Molecular Rotor</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="d-2" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('d-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('d-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-700">D3</td>
+            <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Other Papers on Mechanically Bonded Materials</td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <input id="d-3" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              <button onclick="saveRelatedPapers('d-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Save Related Papers</button>
+              <button onclick="editDetails('d-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">Edit Details</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Edit Details Modal -->
+  <div id="edit-details-modal" class="z-50 fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded shadow-lg w-[94vw]">
+      <h2 class="text-lg font-bold mb-4">Edit Details</h2>
+      <div id="editor-container" class="mb-4">
+        <%- include("../../components/quilljs-editor.ejs", { quillId: "details", height: "400px" }) %>
+      </div>
+      <div class="flex justify-end">
+        <button onclick="closeEditDetailsModal()" class="bg-gray-500 text-white px-3 py-1 rounded mr-2 hover:bg-gray-400">Cancel</button>
+        <button onclick="saveEditDetailsModal()" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-400">Update</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const research = new Research(app);
+
+    let researchAreas;
+    let currentAreaId;
+
+    // Initialize Quill editor
+    const quillEditor = new Quill('#details-editor', {
+      modules: {
+        syntax: true,
+        toolbar: '#details'
+      },
+      theme: 'snow'
+    });
+
+    // Initialize research areas when there is no data
+    const initResearchAreas = () => {
+      const areas = [
+        "a-1",
+        "a-2",
+        "a-3",
+        "a-4",
+        "a-5",
+        "a-6",
+        "a-7",
+        "b-1",
+        "b-2",
+        "b-3",
+        "b-4",
+        "b-5",
+        "b-6",
+        "b-7",
+        "b-8",
+        "b-9",
+        "b-10",
+        "b-11-1",
+        "b-11-2",
+        "b-11-3",
+        "b-11-4",
+        "c-1",
+        "c-2",
+        "c-3",
+        "d-1",
+        "d-2",
+        "d-3",
+      ];
+      areas.forEach((area) => {
+        researchAreas[area] = {
+          id: area,
+          relatedPapers: "",
+          details: null,
+        };
+      });
+    };
+
+    // Fetch research areas from the server
+    research.getResearchAreas().then((response) => {
+      if (response.status === "success") {
+        researchAreas = response.data;
+
+        for (const area of Object.values(researchAreas)) {
+          document.getElementById(area.id).value = area.relatedPapers;
+        }
+      }
+    });
+
+    // Functions to handle saving related papers and editing details
+    const saveRelatedPapers = (id) => {
+      const relatedPapers = document.getElementById(id).value;
+      const area = Object.values(researchAreas).find((area) => area.id === id);
+      area.relatedPapers = relatedPapers;
+      updateResearchAreas();
+    };
+
+    // Function to handle editing details
+    const editDetails = (id) => {
+      if (Object.values(researchAreas).length === 0) {
+        initResearchAreas();
+      }
+      const area = Object.values(researchAreas).find((area) => area.id === id);
+      if (area.details) {
+        quillEditor.setContents(area.details);
+      }
+      currentAreaId = id;
+      document.getElementById("edit-details-modal").classList.remove("hidden");
+    };
+
+    // Function to handle closing the modal without saving and saving the details
+    const closeEditDetailsModal = () => {
+      document.getElementById("edit-details-modal").classList.add("hidden");
+      quillEditor.setContents("");
+    };
+
+    // Function to handle saving the details
+    const saveEditDetailsModal = () => {
+      const area = Object.values(researchAreas).find((area) => area.id === currentAreaId);
+      area.details = quillEditor.getContents();
+      closeEditDetailsModal();
+      updateResearchAreas();
+    };
+
+    // Function to update research areas on the server
+    const updateResearchAreas = async () => {
+      const response = await research.updateResearchAreas(researchAreas);
+      app.ui.alert(response.message, response.status);
+    };
+  </script>
+</body>
+
+</html>
