@@ -6,10 +6,113 @@
   <title>MSC Admin | Dashboard</title>
 </head>
 
-<body>
+<body class="bg-gray-100">
   <%- include("../../components/admin/sidebar.ejs") %>
 
-  <main class="sm:ml-64 p-6"></main>
+  <main class="sm:ml-64 p-6">
+    <h1 class="text-2xl font-semibold mb-6">Admin Dashboard</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <!-- Administrators -->
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex flex-col justify-between">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Administrators</h2>
+          <p class="text-gray-600 mb-4">Manage accounts and permissions of site administrators.</p>
+        </div>
+        <a href="/admin/administrators" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors self-end">Go to Administrators</a>
+      </div>
+
+      <!-- About WAG -->
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex flex-col justify-between">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">About WAG</h2>
+          <p class="text-gray-600 mb-4">Edit and update information about WAG.</p>
+        </div>
+        <a href="/admin/about/wag" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors self-end">Go to About WAG</a>
+      </div>
+
+      <!-- About MSC -->
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex flex-col justify-between">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">About MSC</h2>
+          <p class="text-gray-600 mb-4">Edit and update information about MSC.</p>
+        </div>
+        <a href="/admin/about/msc" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors self-end">Go to About MSC</a>
+      </div>
+
+      <!-- Members -->
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex flex-col justify-between">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Members</h2>
+          <p class="text-gray-600 mb-4">Manage members and their details.</p>
+        </div>
+        <a href="/admin/members" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors self-end">Go to Members</a>
+      </div>
+
+      <!-- Collaborators -->
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex flex-col justify-between">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Collaborators</h2>
+          <p class="text-gray-600 mb-4">Manage collaborators and their details.</p>
+        </div>
+        <a href="/admin/collaborators" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors self-end">Go to Collaborators</a>
+      </div>
+
+      <!-- Collaborators About -->
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex flex-col justify-between">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Collaborators About</h2>
+          <p class="text-gray-600 mb-4">Edit and update information about collaborators.</p>
+        </div>
+        <a href="/admin/collaborators/about" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors self-end">Go to Collaborators About</a>
+      </div>
+
+      <!-- Research About -->
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex flex-col justify-between">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Research About</h2>
+          <p class="text-gray-600 mb-4">Edit and update information about research projects.</p>
+        </div>
+        <a href="/admin/research/about" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors self-end">Go to Research About</a>
+      </div>
+
+      <!-- Research Areas -->
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex flex-col justify-between">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Research Areas</h2>
+          <p class="text-gray-600 mb-4">Manage and update different research areas.</p>
+        </div>
+        <a href="/admin/research/areas" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors self-end">Go to Research Areas</a>
+      </div>
+
+      <!-- Publications -->
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex flex-col justify-between">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Publications</h2>
+          <p class="text-gray-600 mb-4">View and manage papers crawler and their details.</p>
+        </div>
+        <a href="/admin/publications" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors self-end">Go to Publications</a>
+      </div>
+
+      <!-- Group Photos -->
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex flex-col justify-between">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Group Photos</h2>
+          <p class="text-gray-600 mb-4">Manage and organize group photos.</p>
+        </div>
+        <a href="/admin/group-photos" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors self-end">Go to Group Photos</a>
+      </div>
+
+      <!-- Logout -->
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex flex-col justify-between">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Logout</h2>
+          <p class="text-gray-600 mb-4">Logout from the admin panel.</p>
+        </div>
+        <a href="/admin/logout" class="inline-block bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors self-end">Logout</a>
+      </div>
+    </div>
+  </main>
 </body>
 
 </html>
