@@ -12,7 +12,7 @@ const LONGITUDE_MAX = 180; // The maximum longitude value
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Check if the email is valid (contains an @ symbol and a period)
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_])[^\s]{8,}$/; // Check if the password is valid (at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character)
-const URL_REGEX = /^(https?:\/\/)?([\da-zA-Z.-]+)(:\d+)?(\.[a-zA-Z]{2,})(\/[^\s]*)*(\?[^\s]*)*(#[^\s]*)?$/; // Check if the URL is valid (starts with http or https)
+const URL_REGEX = /^​(https?:\/\/)?(www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|(https?:\/\/)?(www\.)?(?!ww)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/; // Check if the URL is valid (starts with http or https)
 const BASE64_IMAGE_REGEX = /^data:image\/[a-z]+;base64,/; // Check if the image is valid (starts with data:image)
 
 /**
