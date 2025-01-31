@@ -42,6 +42,10 @@ router.get('/events/photos', (req, res) => {
   return res.render('pages/events-photos');
 });
 
+router.get('/events/calendar', (req, res) => {
+  return res.render('pages/events-calendar');
+});
+
 router.use('/admin', require('./admin'));
 
 router.get('/404', (req, res) => {
