@@ -188,7 +188,6 @@ class Auth {
 
           options.headers.Authorization = `Bearer ${this.accessToken}`;
 
-          const response = await window.originalFetch(url, options);
           return await window.originalFetch(url, options);
         } catch (error) {
           this.destroy();
