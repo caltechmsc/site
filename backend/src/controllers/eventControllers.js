@@ -57,7 +57,7 @@ const addGroupPhoto = async (req, res) => {
  * @param {Object} res - The response.
  */
 const removeGroupPhoto = async (req, res) => {
-  const { index } = req.params;
+  const index = parseInt(req.params.index, 10);
 
   // Check if the index is valid
   if (typeof index !== 'number') {
