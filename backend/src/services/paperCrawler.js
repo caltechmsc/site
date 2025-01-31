@@ -41,6 +41,21 @@ class PaperCrawler {
       this.crawlPublicationThumbnails.bind(this),
     );
 
+    // Clear the crawl status if status is not completed
+    const isCrawling = await this.isCrawling();
+    if (isCrawling) {
+      await this.updateCrawlStatus('publications', {
+        status: 'failed',
+        message: 'Crawl status cleared due to unexpected termination.',
+        error: 'Unexpected termination.',
+      });
+      await this.updateCrawlStatus('thumbnails', {
+        status: 'failed',
+        message: 'Crawl status cleared due to unexpected termination.',
+        error: 'Unexpected termination.',
+      });
+    }
+
     // Start the publication crawler
     await this.crawlPublications();
     await this.crawlPublicationThumbnails();
