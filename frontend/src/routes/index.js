@@ -34,6 +34,10 @@ router.get('/research', (req, res) => {
   return res.render('pages/research');
 });
 
+router.get('/publications', (req, res) => {
+  return res.render('pages/publications');
+});
+
 router.use('/admin', require('./admin'));
 
 router.get('/404', (req, res) => {
