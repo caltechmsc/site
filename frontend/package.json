@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.10",
-    "@tailwindcss/postcss": "^4.0.0",
     "autoprefixer": "^10.4.20",
     "cssnano": "^7.0.6",
     "dotenv": "^16.4.7",
