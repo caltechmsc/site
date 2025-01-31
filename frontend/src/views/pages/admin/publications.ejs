@@ -71,7 +71,7 @@
   <script>
     const publication = new Publication(app);
 
-    let crawlStatus = 'idle';
+    let crawlStatus = "idle";
     let lastCrawledAt = null;
     let lastInteractionTime = Date.now();
 
@@ -88,14 +88,14 @@
         message
       } = response.data.publications;
 
-      document.getElementById('status').innerText = status;
-      document.getElementById('progress').innerText = `${progress}%`;
-      document.getElementById('progress-bar').style.width = `${progress}%`;
-      document.getElementById('crawled').innerText = `${crawled} Papers`;
-      document.getElementById('last-crawled').innerText = new Date(lastCrawled).toLocaleString() || 'N/A';
-      document.getElementById('last-updated').innerText = new Date(lastCrawled).toLocaleString() || 'N/A';
-      document.getElementById('error').innerText = error || 'None';
-      document.getElementById('message').innerText = message || 'N/A';
+      document.getElementById("status").innerText = status;
+      document.getElementById("progress").innerText = `${progress}%`;
+      document.getElementById("progress-bar").style.width = `${progress}%`;
+      document.getElementById("crawled").innerText = `${crawled} Papers`;
+      document.getElementById("last-crawled").innerText = new Date(lastCrawled).toLocaleString() || "N/A";
+      document.getElementById("last-updated").innerText = new Date(lastCrawled).toLocaleString() || "N/A";
+      document.getElementById("error").innerText = error || "None";
+      document.getElementById("message").innerText = message || "N/A";
 
       crawlStatus = status;
 
@@ -108,12 +108,12 @@
       const response = await publication.requestReCrawl();
       app.ui.alert(response.message, response.status);
 
-      if (response.status === 'success') {
-        crawlStatus = 'crawling';
-        document.getElementById('status').innerText = 'crawling';
-        document.getElementById('progress').innerText = '0%';
-        document.getElementById('progress-bar').style.width = '0%';
-        document.getElementById('crawled').innerText = '0 Papers';
+      if (response.status === "success") {
+        crawlStatus = "crawling";
+        document.getElementById("status").innerText = "crawling";
+        document.getElementById("progress").innerText = "0%";
+        document.getElementById("progress-bar").style.width = "0%";
+        document.getElementById("crawled").innerText = "0 Papers";
       }
     };
 
@@ -126,7 +126,7 @@
       const timeSinceLastInteraction = (now - lastInteractionTime) / 1000;
 
       let refreshInterval;
-      if (crawlStatus === 'crawling') {
+      if (crawlStatus === "crawling") {
         refreshInterval = 250; // 4 times per second
       } else if (timeSinceLastInteraction < 60) {
         refreshInterval = 10000; // every 10 seconds
@@ -144,15 +144,15 @@
     autoRefresh();
 
     // Update last interaction time on user interaction
-    document.addEventListener('mousemove', () => lastInteractionTime = Date.now());
-    document.addEventListener('keypress', () => lastInteractionTime = Date.now());
+    document.addEventListener("mousemove", () => lastInteractionTime = Date.now());
+    document.addEventListener("keypress", () => lastInteractionTime = Date.now());
 
     // Update last fetched time every second
     setInterval(() => {
       if (lastCrawledAt) {
         const now = new Date();
         const secondsAgo = Math.floor((now - lastCrawledAt) / 1000);
-        document.getElementById('last-fetched-at').innerText = secondsAgo;
+        document.getElementById("last-fetched-at").innerText = secondsAgo;
       }
     }, 1000);
   </script>

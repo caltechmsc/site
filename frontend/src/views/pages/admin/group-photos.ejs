@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../../components/head.ejs") %>
+  <script src="/js/events.js"></script>
+  <title>MSC Admin | Group Photos</title>
+</head>
+
+<body class="bg-gray-100">
+  <%- include("../../components/admin/sidebar.ejs") %>
+
+  <main class="sm:ml-64 p-6">
+    <h1 class="text-2xl font-semibold mb-6">Group Photos</h1>
+
+    <!-- Upload Area -->
+    <div id="upload-area" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer transition-colors duration-300 mb-6" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)" onclick="triggerFileInput()">
+      Click or drag photos here to upload
+      <input id="file-input" type="file" accept="image/*" multiple class="hidden" onchange="handleFileSelect(event)">
+    </div>
+
+    <!-- Gallery -->
+    <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+
+    <!-- Modal for enlarged photo -->
+    <div id="modal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-75 flex items-center justify-center">
+      <div class="relative bg-white p-6 rounded-lg max-w-3xl max-h-90vh overflow-auto">
+        <button class="absolute top-2 right-2 bg-black bg-opacity-70 text-white rounded-full w-6 h-6 flex items-center justify-center" onclick="closeModal()">&times;</button>
+        <img id="modal-img" src="" alt="Enlarged Photo" class="max-w-full max-h-screen">
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const events = new Events(app);
+
+    let groupPhotos = [];
+
+    // Render group photos from the global array
+    const renderGroupPhotos = () => {
+      const gallery = document.getElementById("gallery");
+      gallery.innerHTML = "";
+
+      groupPhotos.forEach((photo, index) => {
+        const photoItem = document.createElement("div");
+        photoItem.className = "relative overflow-hidden rounded-lg cursor-pointer transition-transform duration-300";
+
+        const img = document.createElement("img");
+        img.src = photo;
+        img.alt = "Group Photo";
+        img.className = "w-full h-auto transition-transform duration-300";
+        img.onclick = () => openModal(photo);
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "absolute top-2 right-2 bg-red-700 text-white rounded-full w-6 h-6 flex items-center justify-center";
+        deleteBtn.innerHTML = "&times;";
+        deleteBtn.onclick = (e) => {
+          e.stopPropagation();
+          deletePhoto(index);
+        };
+
+        photoItem.appendChild(img);
+        photoItem.appendChild(deleteBtn);
+        gallery.appendChild(photoItem);
+      });
+    };
+
+    // Function to fetch and render group photos
+    const fetchGroupPhotos = async () => {
+      const response = await events.getGroupPhotos();
+      groupPhotos = response.data;
+      renderGroupPhotos();
+    };
+
+    // Function to open modal with enlarged photo
+    const openModal = (src) => {
+      const modal = document.getElementById("modal");
+      const modalImg = document.getElementById("modal-img");
+      modal.classList.remove("hidden");
+      modalImg.src = src;
+    };
+
+    // Function to close modal
+    const closeModal = () => {
+      const modal = document.getElementById("modal");
+      modal.classList.add("hidden");
+    };
+
+    // Function to delete a photo
+    const deletePhoto = async (index) => {
+      const response = await events.removeGroupPhoto(index);
+      app.ui.alert(response.message, response.status);
+
+      groupPhotos.splice(index, 1);
+      renderGroupPhotos();
+    };
+
+    // Function to handle file selection
+    const handleFileSelect = async (event) => {
+      const files = event.target.files;
+      for (let file of files) {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          const base64 = e.target.result;
+
+          const response = await events.addGroupPhoto(base64);
+          app.ui.alert(response.message, response.status);
+
+          if (response.status === "success") {
+            groupPhotos.unshift(base64);
+            renderGroupPhotos();
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+
+    // Function to handle drag over
+    const handleDragOver = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      document.getElementById("upload-area").classList.add("border-green-500");
+    };
+
+    // Function to handle drag leave
+    const handleDragLeave = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      document.getElementById("upload-area").classList.remove("border-green-500");
+    };
+
+    // Function to handle drop
+    const handleDrop = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      document.getElementById("upload-area").classList.remove("border-green-500");
+      const files = event.dataTransfer.files;
+      document.getElementById("file-input").files = files;
+      handleFileSelect({
+        target: {
+          files
+        }
+      });
+    };
+
+    // Function to trigger file input click
+    const triggerFileInput = () => {
+      document.getElementById("file-input").click();
+    };
+
+    // Fetch initial group photos on page load
+    fetchGroupPhotos();
+  </script>
+</body>
+
+</html>
