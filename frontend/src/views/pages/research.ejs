@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../components/head.ejs") %>
+  <%- include("../components/quilljs-head.ejs") %>
+  <script src="/js/research.js"></script>
+  <meta name="description" content="Explore the research areas and projects of the Material and Process Simulation Center (MSC) at Caltech.">
+  <title>MSC | Research</title>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <%- include("../components/main-header.ejs") %>
+
+  <!-- About Section -->
+  <div class="mt-8 p-8 bg-gray-100">
+    <div class="max-w-7xl mx-auto">
+      <div id="research-about" class="read-only">
+        <!-- This will be the Quill.js container for rendering content -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Research Areas Table -->
+  <section class="overflow-x-auto p-8 bg-gray-100">
+    <div class="max-w-7xl mx-auto">
+      <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Label</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500" colspan="3">Research Area</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 min-w-[220px]">Related Papers</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 min-w-[100px]">Details</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700" rowspan="8">A</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="3">Methods</td>
+              <td class="px-6 py-4 text-sm text-gray-700"></td>
+              <td class="px-6 py-4 text-sm text-gray-700"></td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">A1</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Quantum Mechanics (QM)</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="a-1" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('a-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">A2</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Reactive Force Fields (ReaxFF AND RexPoN)</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="a-2" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('a-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">A3</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Generic Nonreactive Force Fields (UFF, Dreiding)</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="a-3" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('a-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">A4</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Coarse Grain FF</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="a-4" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('a-4')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">A5</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Charge Predictions</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="a-5" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('a-5')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">A6</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Accurate Nonbond Interactions</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="a-6" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('a-6')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">A7</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">The Electron Force Field (eFF)</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="a-7" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('a-7')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700" rowspan="16">B</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="3">Materials Applications</td>
+              <td class="px-6 py-4 text-sm text-gray-700"></td>
+              <td class="px-6 py-4 text-sm text-gray-700"></td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">B1</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Homogeneous Catalysis</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="b-1" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('b-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">B2</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Heterogeneous Catalysis</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="b-2" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('b-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">B3</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Electrocatalysis</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="b-3" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('b-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">B4</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Batteries</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="b-4" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('b-4')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">B5</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Fuel Cells</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="b-5" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('b-5')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">B6</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Thermoelectrics</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="b-6" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('b-6')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">B7</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Boron Carbide Ductility</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="b-7" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('b-7')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">B8</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Ceramics</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="b-8" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('b-8')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">B9</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Energetic Materials</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="b-9" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('b-9')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">B10</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Amorphous Metals</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="b-10" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('b-10')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700" rowspan="5">B11</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Other Systems</td>
+              <td class="px-6 py-4 text-sm text-gray-700"></td>
+              <td class="px-6 py-4 text-sm text-gray-700"></td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">B11-1</td>
+              <td class="px-6 py-4 text-sm text-gray-700">Damage Free Electron Etching</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="b-11-1" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('b-11-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">B11-2</td>
+              <td class="px-6 py-4 text-sm text-gray-700">Polymers</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="b-11-2" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('b-11-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">B11-3</td>
+              <td class="px-6 py-4 text-sm text-gray-700">MOFs, COFs, and ZIFs</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="b-11-3" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('b-11-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">B11-4</td>
+              <td class="px-6 py-4 text-sm text-gray-700">Superconductors</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="b-11-4" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('b-11-4')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700" rowspan="4">C</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="3">Biotechnology and Drug Design</td>
+              <td class="px-6 py-4 text-sm text-gray-700"></td>
+              <td class="px-6 py-4 text-sm text-gray-700"></td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">C1</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">G-Protein Coupled Receptors (GPCRs)</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="c-1" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('c-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">C2</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Nucleic Acids</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="c-2" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('c-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">C3</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Other Protein Projects</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="c-3" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('c-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700" rowspan="4">D</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="3">Mechanical Bonded Devices</td>
+              <td class="px-6 py-4 text-sm text-gray-700"></td>
+              <td class="px-6 py-4 text-sm text-gray-700"></td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">D1</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Electron-catalyzed Molecular Recognition</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="d-1" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('d-1')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">D2</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Electrochemical Switching of Molecular Rotor</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="d-2" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('d-2')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-700">D3</td>
+              <td class="px-6 py-4 text-sm text-gray-700" colspan="2">Other Papers on Mechanically Bonded Materials</td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <input id="d-3" type="text" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled cursor-not-allowed pointer-events-none bg-gray-200">
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <button onclick="viewDetails('d-3')" class="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-400">View Details</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Details Modal -->
+  <div id="details-modal" class="z-50 fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded shadow-lg w-[94vw] max-w-4xl">
+      <h2 class="text-lg font-bold mb-4">Research Area Details</h2>
+      <div class="mb-4 h-[60vh] overflow-y-auto">
+        <div id="details-container" class="bg-gray-100 p-4 rounded-lg shadow-inner">
+          <!-- This will be the Quill.js container for rendering content -->
+        </div>
+      </div>
+      <div class="flex justify-end">
+        <button onclick="closeDetailsModal()" class="bg-gray-500 text-white px-3 py-1 rounded mr-2 hover:bg-gray-400">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <%- include("../components/footer.ejs") %>
+
+  <script>
+    const research = new Research(app);
+
+    let researchAreas;
+
+    // Initialize Quill.js for rendering about content
+    const quillAbout = new Quill("#research-about", {
+      modules: {
+        syntax: true,
+        toolbar: false,
+      },
+      theme: "bubble",
+      readOnly: true
+    });
+
+    // Initialize Quill.js for rendering content
+    const quillViewer = new Quill("#details-container", {
+      modules: {
+        syntax: true,
+        toolbar: false,
+      },
+      theme: "bubble",
+      readOnly: true
+    });
+
+    // Function to fetch and render about content
+    const renderAboutContent = async () => {
+      try {
+        const response = await research.getResearchAbout();
+        if (response.status === "success") {
+          quillAbout.setContents(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching about content:', error);
+      }
+    };
+
+    // Function to populate related papers
+    const populateRelatedPapers = (areaId, relatedPapers) => {
+      document.getElementById(`${areaId}`).value = relatedPapers;
+    };
+
+    // Function to fetch and render research areas
+    const renderResearchAreas = async () => {
+      try {
+        const response = await research.getResearchAreas();
+        if (response.status === "success") {
+          researchAreas = response.data;
+
+          Object.values(response.data).forEach(area => {
+            populateRelatedPapers(area.id, area.relatedPapers);
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching research areas:', error);
+      }
+    };
+
+    // Function to view details of a research area
+    const viewDetails = (id) => {
+      try {
+        const area = researchAreas[id];
+        quillViewer.setContents(area.details);
+        document.getElementById("details-modal").classList.remove("hidden");
+      } catch (error) {
+        console.error('Error fetching research area details:', error);
+      }
+    };
+
+    // Function to close the details modal
+    const closeDetailsModal = () => {
+      document.getElementById("details-modal").classList.add("hidden");
+      quillViewer.setContents("");
+    };
+
+    // Fetch and render research areas on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderAboutContent();
+      renderResearchAreas();
+    });
+  </script>
+</body>
+
+</html>
