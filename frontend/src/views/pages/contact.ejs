@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../components/head.ejs") %>
+  <meta name="description" content="The Material and Process Simulation Center (MSC) at Caltech focuses on developing advanced computational methods to predict materials properties, catalysis, and biochemical systems, enabling innovation across industries like nanotechnology, pharmaceuticals, and energy.">
+  <title>MSC | About MSC</title>
+  <!-- Include Leaflet CSS and JS for OpenStreetMap -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+  <!-- Header Section -->
+  <%- include("../components/main-header.ejs") %>
+
+  <!-- Hero Section with Full-Width Background Image -->
+  <section class="relative bg-cover bg-center h-[500px]" style="background-image: url('/img/beckman.jpg');">
+    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <div class="text-center text-white">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">About the MSC</h1>
+        <p class="text-lg md:text-2xl">Advancing Computational Methods for Innovation</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map and Address Section -->
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h2 class="text-3xl font-bold mb-4">Our Location</h2>
+          <div id="map" class="w-full h-64 rounded-lg shadow-lg"></div>
+        </div>
+        <div class="flex flex-col justify-center">
+          <h3 class="text-2xl font-semibold mb-2">Address</h3>
+          <p class="text-lg">Beckman Institute<br>California Institute of Technology<br>Pasadena, CA 91125, USA</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Email Section -->
+  <section class="py-12 bg-gray-100">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
+      <p class="text-lg mb-4">For inquiries, please email us at:</p>
+      <a href="mailto:wagoddard3@gmail.com" class="text-xl text-blue-600 hover:underline">wagoddard3@gmail.com</a>
+      <br>
+      <a href="mailto:wag@caltech.edu" class="text-xl text-blue-600 hover:underline">wag@caltech.edu</a>
+    </div>
+  </section>
+
+  <!-- Links Section -->
+  <section class="py-12">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">Useful Links</h2>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="https://www.caltech.edu/" class="text-lg text-blue-600 hover:underline">California Institute of Technology</a> |
+        <a href="https://www.cce.caltech.edu/" class="text-lg text-blue-600 hover:underline">Caltech | Chemistry and Chemical Engineering</a> |
+        <a href="https://www.eas.caltech.edu/" class="text-lg text-blue-600 hover:underline">Caltech | Engineering and Applied Science</a> |
+        <a href="https://www.liquidsunlightalliance.org/" class="text-lg text-blue-600 hover:underline">LiSA | Liquid Sunlight Alliance</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <%- include("../components/footer.ejs") %>
+
+  <script>
+    // Initialize the map
+    const map = L.map('map').setView([34.13920381359298, -118.12671661376953], 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([34.13920381359298, -118.12671661376953]).addTo(map)
+      .bindPopup('Material and Process Simulation Center (MSC)<br>California Institute of Technology')
+      .openPopup();
+  </script>
+</body>
+
+</html>
