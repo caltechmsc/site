@@ -100,7 +100,13 @@ The MSC website is designed to offer:
       npm install # Install the dependencies
       ```
 
-   3. Start the frontend server:
+   3. Build the Tailwind CSS:
+
+      ```bash
+      npm run build:css # Build the Tailwind CSS
+      ```
+
+   4. Start the frontend server:
 
       ```bash
       npm start # Start the frontend server
