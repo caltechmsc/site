@@ -23,10 +23,10 @@
     <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
 
     <!-- Modal for enlarged photo -->
-    <div id="modal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-75 flex items-center justify-center">
-      <div class="relative bg-white p-6 rounded-lg max-w-3xl max-h-90vh overflow-auto">
+    <div id="modal" class="hidden fixed inset-0 z-[1000] flex items-center justify-center bg-black bg-opacity-80">
+      <div class="relative bg-white p-6 rounded-lg max-w-3xl max-h-screen">
         <button class="absolute top-2 right-2 bg-black bg-opacity-70 text-white rounded-full w-6 h-6 flex items-center justify-center" onclick="closeModal()">&times;</button>
-        <img id="modal-img" src="" alt="Enlarged Photo" class="max-w-full max-h-screen">
+        <img id="modal-img" src="" alt="Enlarged Photo" class="max-w-full max-h-screen object-contain">
       </div>
     </div>
   </main>
@@ -45,10 +45,13 @@
         const photoItem = document.createElement("div");
         photoItem.className = "relative overflow-hidden rounded-lg cursor-pointer transition-transform duration-300";
 
+        const imgWrapper = document.createElement("div");
+        imgWrapper.className = "w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden";
+
         const img = document.createElement("img");
         img.src = photo;
         img.alt = "Group Photo";
-        img.className = "w-full h-auto transition-transform duration-300";
+        img.className = "object-cover h-full w-full";
         img.onclick = () => openModal(photo);
 
         const deleteBtn = document.createElement("button");
@@ -59,7 +62,8 @@
           deletePhoto(index);
         };
 
-        photoItem.appendChild(img);
+        imgWrapper.appendChild(img);
+        photoItem.appendChild(imgWrapper);
         photoItem.appendChild(deleteBtn);
         gallery.appendChild(photoItem);
       });
