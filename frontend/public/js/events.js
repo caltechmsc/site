@@ -1,9 +1,9 @@
 /**
- * @fileoverview Event Class
- * @description Event class to send events requests to the backend.
+ * @fileoverview Events Class
+ * @description Events class to send events requests to the backend.
  */
 
-class Event {
+class Events {
   /**
    * @constructor - Initializes the Event class.
    * @param {Object} app - The App class.
