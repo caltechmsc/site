@@ -46,8 +46,8 @@
   <div id="add-member-modal" class="z-50 fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
     <div class="bg-white p-6 rounded shadow-lg w-96">
       <h2 class="text-xl font-semibold mb-4">Add New Member</h2>
-      <img src="/img/default-avatar.png" alt="Member Photo" class="w-24 h-24 rounded-full mx-auto mb-4 cursor-pointer" onclick="document.getElementById('member-photo').click()">
-      <input id="member-photo" type="file" class="hidden w-[50px] h-[50px] object-cover">
+      <img id="member-photo-img" src="/img/default-avatar.png" alt="Member Photo" class="w-24 h-24 rounded-full mx-auto mb-4 cursor-pointer object-cover" onclick="document.getElementById('member-photo').click()">
+      <input id="member-photo" type="file" class="hidden w-[50px] h-[50px] object-cover" onchange="previewPhoto(event, 'member-photo-img')">
       <input id="member-name" type="text" placeholder="Name" class="w-full p-2 border rounded mb-2">
       <input id="member-position" type="text" placeholder="Position" class="w-full p-2 border rounded mb-2">
       <input id="member-education" type="text" placeholder="Education" class="w-full p-2 border rounded mb-2">
@@ -66,8 +66,8 @@
   <!-- Update Member Modal -->
   <div id="update-member-modal" class="z-50 fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
     <div class="bg-white p-6 rounded shadow-lg w-96">
-      <img id="update-member-photo-img" src="" alt="Member Photo" class="w-24 h-24 rounded-full mx-auto mb-4 cursor-pointer" onclick="triggerPhotoUpload()">
-      <input id="update-member-photo" type="file" class="hidden" onchange="previewPhoto(event)">
+      <img id="update-member-photo-img" src="" alt="Member Photo" class="w-24 h-24 rounded-full mx-auto mb-4 cursor-pointer object-cover" onclick="triggerPhotoUpload()">
+      <input id="update-member-photo" type="file" class="hidden" onchange="previewPhoto(event, 'update-member-photo-img')">
       <h2 class="text-xl font-semibold mb-4">Update Member</h2>
       <input id="update-member-name" type="text" placeholder="Name" class="w-full p-2 border rounded mb-2">
       <input id="update-member-position" type="text" placeholder="Position" class="w-full p-2 border rounded mb-2">
@@ -99,7 +99,7 @@
         response.data.forEach(member => {
           const memberRow = document.createElement("tr");
           memberRow.innerHTML = `
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 min-w-[100px]"><img src="${member.photo || "/img/default-avatar.png"}" alt="${member.name}" class="w-12 h-12 rounded-full"></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 min-w-[100px]"><img src="${member.photo || "/img/default-avatar.png"}" alt="${member.name}" class="w-12 h-12 rounded-full object-cover"></td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.name}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.position}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.education}</td>
@@ -284,10 +284,10 @@
     };
 
     // Function to preview photo before uploading
-    const previewPhoto = (event) => {
+    const previewPhoto = (event, imgId) => {
       const reader = new FileReader();
       reader.onload = () => {
-        document.getElementById("update-member-photo-img").src = reader.result;
+        document.getElementById(imgId).src = reader.result;
       };
       reader.readAsDataURL(event.target.files[0]);
     };
