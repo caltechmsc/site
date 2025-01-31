@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../components/head.ejs") %>
+  <script src="/js/events.js"></script>
+  <meta name="description" content="Explore the group photos of the Material and Process Simulation Center (MSC) at Caltech.">
+  <title>MSC | Group Photos</title>
+  <style>
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-left: -10px;
+      width: auto;
+    }
+
+    .gallery-item {
+      width: 250px;
+      margin-bottom: 10px;
+      padding-left: 10px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .gallery img:hover {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      max-width: 80%;
+      max-height: 80%;
+      animation: zoom 0.6s;
+    }
+
+    @keyframes zoom {
+      from {
+        transform: scale(0);
+      }
+
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #bbb;
+    }
+
+    /* Media query for mobile devices */
+    @media (max-width: 600px) {
+      .gallery-item {
+        width: 100%;
+        margin-bottom: 10px;
+        padding-left: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <%- include("../components/main-header.ejs") %>
+
+  <!-- Gallery Section -->
+  <section class="p-8 bg-gray-100">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="text-3xl font-semibold mb-6 text-center">Group Photos</h1>
+      <div id="gallery" class="gallery">
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal for full-size image -->
+  <div id="modal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modal-img">
+  </div>
+
+  <!-- Footer Section -->
+  <%- include("../components/footer.ejs") %>
+
+  <!-- Include Masonry.js for layout -->
+  <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+  <script>
+    const events = new Events(app);
+
+    // Fetch and render group photos when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', async function() {
+      const gallery = document.getElementById('gallery');
+
+      // Function to fetch and render group photos
+      const fetchAndRenderGroupPhotos = async () => {
+        try {
+          const response = await events.getGroupPhotos();
+          const data = response.data;
+
+          if (response.status === "success") {
+            const imagesLoadedPromises = data.map(base64Image => {
+              return new Promise(resolve => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+
+                const img = document.createElement('img');
+                img.src = base64Image;
+                img.onclick = () => openModal(img.src);
+
+                img.onload = resolve;
+                div.appendChild(img);
+                gallery.appendChild(div);
+              });
+            });
+
+
+            await Promise.all(imagesLoadedPromises);
+            new Masonry(gallery, {
+              itemSelector: '.gallery-item',
+              columnWidth: '.gallery-item',
+              percentPosition: true,
+              gutter: 10
+            });
+          }
+        } catch (error) {
+          console.error('Error fetching group photos:', error);
+        }
+      };
+
+      // Function to open the modal
+      const openModal = (src) => {
+        const modal = document.getElementById("modal");
+        const modalImg = document.getElementById("modal-img");
+        modal.style.display = "flex";
+        modalImg.src = src;
+      };
+
+      await fetchAndRenderGroupPhotos();
+    });
+
+    // Function to close the modal
+    const closeModal = () => {
+      const modal = document.getElementById("modal");
+      modal.style.display = "none";
+    };
+  </script>
+</body>
+
+</html>

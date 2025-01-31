@@ -38,6 +38,10 @@ router.get('/publications', (req, res) => {
   return res.render('pages/publications');
 });
 
+router.get('/events/photos', (req, res) => {
+  return res.render('pages/events-photos');
+});
+
 router.use('/admin', require('./admin'));
 
 router.get('/404', (req, res) => {
