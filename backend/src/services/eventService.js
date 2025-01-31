@@ -3,7 +3,7 @@
  * @description Event service for interacting with the events database.
  */
 
-const { eventsDb } = require('../db/lowdb');
+const { eventsGroupPhotosDb } = require('../db/lowdb');
 
 /**
  * @function getGroupPhotos - Get the group photos from the database.
@@ -12,9 +12,9 @@ const { eventsDb } = require('../db/lowdb');
  */
 const getGroupPhotos = async () => {
   try {
-    const events = (await eventsDb).read();
+    const events = (await eventsGroupPhotosDb).read();
 
-    return events.groupPhotos;
+    return events.photos;
   } catch (error) {
     console.error('Error in getting group photos: ', error);
     throw error;
@@ -29,11 +29,11 @@ const getGroupPhotos = async () => {
  */
 const addGroupPhoto = async (photo) => {
   try {
-    const events = (await eventsDb).read();
+    const events = (await eventsGroupPhotosDb).read();
 
-    events.groupPhotos.push(photo);
-    (await eventsDb).write();
-    return events.groupPhotos;
+    events.photos.unshift(photo);
+    (await eventsGroupPhotosDb).write();
+    return events.photos;
   } catch (error) {
     console.error('Error in adding group photo: ', error);
     throw error;
@@ -48,11 +48,11 @@ const addGroupPhoto = async (photo) => {
  */
 const removeGroupPhoto = async (index) => {
   try {
-    const events = (await eventsDb).read();
+    const events = (await eventsGroupPhotosDb).read();
 
-    events.groupPhotos.splice(index, 1);
-    (await eventsDb).write();
-    return events.groupPhotos;
+    events.photos.splice(index, 1);
+    (await eventsGroupPhotosDb).write();
+    return events.photos;
   } catch (error) {
     console.error('Error in removing group photo: ', error);
     throw error;
