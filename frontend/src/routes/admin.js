@@ -42,6 +42,10 @@ router.get('/research/areas', (req, res) => {
   return res.render('pages/admin/research-areas');
 });
 
+router.get('/publications', (req, res) => {
+  return res.render('pages/admin/publications');
+});
+
 router.get('/login', (req, res) => {
   return res.render('pages/admin/login', {
     redirect: req.query.redirect,

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../../components/head.ejs") %>
+  <script src="/js/publication.js"></script>
+  <title>MSC Admin | Publications</title>
+</head>
+
+<body class="bg-gray-100">
+  <%- include("../../components/admin/sidebar.ejs") %>
+
+  <main class="sm:ml-64 p-6">
+    <h1 class="text-2xl font-semibold mb-6">Publications Crawler</h1>
+
+    <!-- Last update at -->
+    <div class="mb-6">
+      <span class="text-gray-600">Last updated at <span id="last-fetched-at"></span> seconds ago.</span>
+    </div>
+
+    <!-- Crawl status card -->
+    <div id="crawl-status" class="bg-white rounded-lg shadow-md p-6 mb-6">
+      <h2 class="text-xl font-semibold mb-4">Crawl Status</h2>
+      <div class="mb-2">
+        <div class="flex justify-between">
+          <span>Status:</span>
+          <span id="status" class="font-semibold">Idle</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Progress:</span>
+          <span id="progress" class="font-semibold">0%</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full mt-2">
+          <div id="progress-bar" class="progress-bar bg-green-500 h-6 rounded-full transition-all duration-500 ease-in-out" style="width: 0%;"></div>
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="flex justify-between">
+          <span>Crawled:</span>
+          <span id="crawled" class="font-semibold">0</span>
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="flex justify-between">
+          <span>Last Crawled:</span>
+          <span id="last-crawled" class="font-semibold">N/A</span>
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="flex justify-between">
+          <span>Last Updated:</span>
+          <span id="last-updated" class="font-semibold">N/A</span>
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="flex justify-between">
+          <span>Error:</span>
+          <span id="error" class="font-semibold text-red-500">None</span>
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="flex justify-between">
+          <span>Message:</span>
+          <span id="message" class="font-semibold">N/A</span>
+        </div>
+      </div>
+      <button onclick="requestReCrawl()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-400 mt-4">Re-Crawl</button>
+    </div>
+  </main>
+
+  <script>
+    const publication = new Publication(app);
+
+    let crawlStatus = 'idle';
+    let lastCrawledAt = null;
+    let lastInteractionTime = Date.now();
+
+    // Fetch and display crawl status
+    const fetchCrawlStatus = async () => {
+      const response = await publication.getCrawlStatus();
+      const {
+        status,
+        progress,
+        crawled,
+        lastCrawled,
+        lastUpdated,
+        error,
+        message
+      } = response.data.publications;
+
+      document.getElementById('status').innerText = status;
+      document.getElementById('progress').innerText = `${progress}%`;
+      document.getElementById('progress-bar').style.width = `${progress}%`;
+      document.getElementById('crawled').innerText = `${crawled} Papers`;
+      document.getElementById('last-crawled').innerText = new Date(lastCrawled).toLocaleString() || 'N/A';
+      document.getElementById('last-updated').innerText = new Date(lastCrawled).toLocaleString() || 'N/A';
+      document.getElementById('error').innerText = error || 'None';
+      document.getElementById('message').innerText = message || 'N/A';
+
+      crawlStatus = status;
+
+      // Update the last crawled time
+      lastCrawledAt = new Date();
+    };
+
+    // Request a re-crawl
+    const requestReCrawl = async () => {
+      const response = await publication.requestReCrawl();
+      app.ui.alert(response.message, response.status);
+
+      if (response.status === 'success') {
+        crawlStatus = 'crawling';
+        document.getElementById('status').innerText = 'crawling';
+        document.getElementById('progress').innerText = '0%';
+        document.getElementById('progress-bar').style.width = '0%';
+        document.getElementById('crawled').innerText = '0 Papers';
+      }
+    };
+
+    // Fetch initial crawl status on page load
+    fetchCrawlStatus();
+
+    // Auto-refresh logic
+    const autoRefresh = () => {
+      const now = Date.now();
+      const timeSinceLastInteraction = (now - lastInteractionTime) / 1000;
+
+      let refreshInterval;
+      if (crawlStatus === 'crawling') {
+        refreshInterval = 250; // 4 times per second
+      } else if (timeSinceLastInteraction < 60) {
+        refreshInterval = 10000; // every 10 seconds
+      } else {
+        refreshInterval = 60000; // every minute
+      }
+
+      setTimeout(() => {
+        fetchCrawlStatus();
+        autoRefresh();
+      }, refreshInterval);
+    };
+
+    // Start auto-refresh
+    autoRefresh();
+
+    // Update last interaction time on user interaction
+    document.addEventListener('mousemove', () => lastInteractionTime = Date.now());
+    document.addEventListener('keypress', () => lastInteractionTime = Date.now());
+
+    // Update last fetched time every second
+    setInterval(() => {
+      if (lastCrawledAt) {
+        const now = new Date();
+        const secondsAgo = Math.floor((now - lastCrawledAt) / 1000);
+        document.getElementById('last-fetched-at').innerText = secondsAgo;
+      }
+    }, 1000);
+  </script>
+</body>
+
+</html>
