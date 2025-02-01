@@ -24,7 +24,7 @@ const app = express();
 app.set('trust proxy', 1);
 
 // Middleware setup
-app.use(bodyParser.json({ limit: '15mb' }));
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(preprocessRequestDetailsMiddleware);
 app.use(responseMiddleware);
 app.use(authMiddleware);
