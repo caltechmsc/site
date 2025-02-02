@@ -64,6 +64,13 @@ const PUBLIC_ROUTES = [
   },
 ];
 
+const PUBLIC_ROOT_ROUTES = [
+  {
+    path: '/api/research',
+    method: 'GET',
+  },
+];
+
 /**
  * @function authMiddleware - Authenticate the user's JWT.
  * @param {Request} req - The request object.
@@ -74,6 +81,12 @@ const PUBLIC_ROUTES = [
 const authMiddleware = (req, res, next) => {
   for (const route of PUBLIC_ROUTES) {
     if (req.path === route.path && req.method === route.method) {
+      return next();
+    }
+  }
+
+  for (const route of PUBLIC_ROOT_ROUTES) {
+    if (req.path.startsWith(route.path) && req.method === route.method) {
       return next();
     }
   }

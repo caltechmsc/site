@@ -6,7 +6,7 @@
 const researchService = require('../services/researchService');
 
 /**
- * @function getResearch - Get the research areas object.
+ * @function getResearch - Get the research areas object. (no details fields)
  * @param {Object} req - The request object.
  * @param {Object} res - The response object.
  */
@@ -19,6 +19,37 @@ const getResearch = async (req, res) => {
     return res.internalServerError(
       'Error getting research areas.',
       'GET_RESEARCH_ERROR',
+    );
+  }
+};
+
+/**
+ * @function getResearchDetails - Get the research areas object. (with details fields)
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+const getResearchDetails = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const research = await researchService.getResearchAreaDetails(id);
+
+    if (!research) {
+      return res.notFound(
+        'Research area not found.',
+        'RESEARCH_AREA_NOT_FOUND',
+      );
+    }
+
+    return res.success(
+      research,
+      'Research area details retrieved successfully.',
+    );
+  } catch (error) {
+    console.error('Error getting research area details: ', error);
+    return res.internalServerError(
+      'Error getting research area details.',
+      'GET_RESEARCH_AREA_DETAILS_ERROR',
     );
   }
 };
@@ -104,6 +135,7 @@ const updateResearchAbout = async (req, res) => {
 
 module.exports = {
   getResearch,
+  getResearchDetails,
   getResearchAbout,
   updateResearch,
   updateResearchAbout,

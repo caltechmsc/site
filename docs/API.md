@@ -42,6 +42,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Update About Collaborators](#update-about-collaborators)
     - [Research Endpoints](#research-endpoints)
       - [Get Research Areas](#get-research-areas)
+      - [Get Research Area Details](#get-research-area-details)
       - [Get Research About](#get-research-about)
       - [Update Research Areas](#update-research-areas)
       - [Update Research About](#update-research-about)
@@ -1902,7 +1903,7 @@ The API has specific rate limits for different functionalities to ensure fair us
     }
     ```
 
-    > **Note:** The research areas will be returned in the response (`data` field).
+    > **Note:** The research areas will be returned in the response (`data` field). Will not include details for each area.
 
   - **Status:** `500 Internal Server Error`
 
@@ -1912,6 +1913,55 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Error getting research areas.",
       "error": {
         "code": "GET_RESEARCH_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Get Research Area Details
+
+- **URL**: `/api/research/:id`
+- **Method**: `GET`
+
+- **Request Parameters**:
+
+  - `id`: The ID of the research area to retrieve.
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "Research area details retrieved successfully."
+    }
+    ```
+
+    > **Note:** The research area details will be returned in the response (`data` field).
+
+  - **Status:** `404 Not Found`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Research area not found.",
+      "error": {
+        "code": "RESEARCH_AREA_NOT_FOUND",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error getting research area details.",
+      "error": {
+        "code": "GET_RESEARCH_AREA_DETAILS_ERROR",
         "details": {}
       }
     }
