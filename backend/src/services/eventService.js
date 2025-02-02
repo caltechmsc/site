@@ -94,6 +94,62 @@ const addGroupPhoto = async (photo, date = null, description = null) => {
 };
 
 /**
+ * @function updateGroupPhotoDescription - Update the description of a group photo.
+ * @param {number} id - The ID of the group photo.
+ * @param {string} description - The new description of the group photo.
+ * @returns {Promise<void>}
+ * @throws {Error} Throws an error if the group photo description cannot be updated.
+ */
+const updateGroupPhotoDescription = async (id, description) => {
+  try {
+    await new Promise((resolve, reject) => {
+      eventsGroupPhotosDb.run(
+        'UPDATE events_group_photos SET description = ? WHERE id = ?',
+        [description, id],
+        (error) => {
+          if (error) {
+            return reject(error);
+          } else {
+            return resolve();
+          }
+        },
+      );
+    });
+  } catch (error) {
+    console.error('Error in updating group photo description: ', error);
+    throw error;
+  }
+};
+
+/**
+ * @function updateGroupPhotoDate - Update the date of a group photo.
+ * @param {number} id - The ID of the group photo.
+ * @param {string} date - The new date of the group photo.
+ * @returns {Promise<void>}
+ * @throws {Error} Throws an error if the group photo date cannot be updated.
+ */
+const updateGroupPhotoDate = async (id, date) => {
+  try {
+    await new Promise((resolve, reject) => {
+      eventsGroupPhotosDb.run(
+        'UPDATE events_group_photos SET date = ? WHERE id = ?',
+        [date, id],
+        (error) => {
+          if (error) {
+            return reject(error);
+          } else {
+            return resolve();
+          }
+        },
+      );
+    });
+  } catch (error) {
+    console.error('Error in updating group photo date: ', error);
+    throw error;
+  }
+};
+
+/**
  * @function removeGroupPhoto - Remove a group photo from the database.
  * @param {number} id - The ID of the group photo to remove.
  * @returns {Promise<void>}
@@ -124,5 +180,7 @@ module.exports = {
   getGroupPhotoIds,
   getGroupPhotoById,
   addGroupPhoto,
+  updateGroupPhotoDescription,
+  updateGroupPhotoDate,
   removeGroupPhoto,
 };

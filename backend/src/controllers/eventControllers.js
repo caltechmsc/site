@@ -8,19 +8,50 @@ const eventsService = require('../services/eventService');
 const validationUtils = require('../utils/validationUtils');
 
 /**
- * @function getGroupPhotos - Get the group photos.
+ * @function getGroupPhotoIds - Get the IDs of all group photos.
  * @param {Object} req - The request.
  * @param {Object} res - The response.
  */
-const getGroupPhotos = async (req, res) => {
+const getGroupPhotoIds = async (req, res) => {
   try {
-    const groupPhotos = await eventsService.getGroupPhotos();
-    return res.success(groupPhotos, 'Group photos retrieved successfully.');
+    const groupPhotoIds = await eventsService.getGroupPhotoIds();
+    return res.success(
+      groupPhotoIds,
+      'Group photo IDs retrieved successfully.',
+    );
   } catch (error) {
-    console.error('Error getting group photos: ', error);
+    console.error('Error getting group photo IDs: ', error);
     return res.internalServerError(
-      'Error getting group photos.',
-      'GET_GROUP_PHOTOS_ERROR',
+      'Error getting group photo IDs.',
+      'GET_GROUP_PHOTO_IDS_ERROR',
+    );
+  }
+};
+
+/**
+ * @function getGroupPhotoById - Get a group photo by ID.
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ */
+const getGroupPhotoById = async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  // Check if the ID is valid
+  if (isNaN(id)) {
+    return res.badRequest('Invalid ID.', 'INVALID_ID');
+  }
+
+  try {
+    const groupPhoto = await eventsService.getGroupPhotoById(id);
+    if (!groupPhoto) {
+      return res.notFound('Group photo not found.', 'GROUP_PHOTO_NOT_FOUND');
+    }
+    return res.success(groupPhoto, 'Group photo retrieved successfully.');
+  } catch (error) {
+    console.error('Error getting group photo by ID: ', error);
+    return res.internalServerError(
+      'Error getting group photo by ID.',
+      'GET_GROUP_PHOTO_BY_ID_ERROR',
     );
   }
 };
@@ -31,7 +62,7 @@ const getGroupPhotos = async (req, res) => {
  * @param {Object} res - The response.
  */
 const addGroupPhoto = async (req, res) => {
-  const { photo } = req.body;
+  const { photo, date, description } = req.body;
 
   // Check if the photo is valid
   if (!validationUtils.validateBase64Image(photo)) {
@@ -40,8 +71,12 @@ const addGroupPhoto = async (req, res) => {
 
   // Add the group photo
   try {
-    const groupPhoto = await eventsService.addGroupPhoto(photo);
-    return res.created(groupPhoto, 'Group photo added successfully.');
+    const groupPhotoId = await eventsService.addGroupPhoto(
+      photo,
+      date,
+      description,
+    );
+    return res.created(groupPhotoId, 'Group photo added successfully.');
   } catch (error) {
     console.error('Error adding group photo: ', error);
     return res.internalServerError(
@@ -52,29 +87,91 @@ const addGroupPhoto = async (req, res) => {
 };
 
 /**
+ * @function updateGroupPhotoDescription - Update the description of a group photo.
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ */
+const updateGroupPhotoDescription = async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const { description } = req.body;
+
+  // Check if the ID is valid
+  if (isNaN(id)) {
+    return res.badRequest('Invalid ID.', 'INVALID_ID');
+  }
+
+  // Update the group photo description
+  try {
+    const groupPhoto = await eventsService.getGroupPhotoById(id);
+    if (!groupPhoto) {
+      return res.notFound('Group photo not found.', 'GROUP_PHOTO_NOT_FOUND');
+    }
+
+    await eventsService.updateGroupPhotoDescription(id, description);
+    return res.success(null, 'Group photo description updated successfully.');
+  } catch (error) {
+    console.error('Error updating group photo description: ', error);
+    return res.internalServerError(
+      'Error updating group photo description.',
+      'UPDATE_GROUP_PHOTO_DESCRIPTION_ERROR',
+    );
+  }
+};
+
+/**
+ * @function updateGroupPhotoDate - Update the date of a group photo.
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ */
+const updateGroupPhotoDate = async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const { date } = req.body;
+
+  // Check if the ID is valid
+  if (isNaN(id)) {
+    return res.badRequest('Invalid ID.', 'INVALID_ID');
+  }
+
+  // Update the group photo date
+  try {
+    const groupPhoto = await eventsService.getGroupPhotoById(id);
+    if (!groupPhoto) {
+      return res.notFound('Group photo not found.', 'GROUP_PHOTO_NOT_FOUND');
+    }
+
+    await eventsService.updateGroupPhotoDate(id, date);
+    return res.success(null, 'Group photo date updated successfully.');
+  } catch (error) {
+    console.error('Error updating group photo date: ', error);
+    return res.internalServerError(
+      'Error updating group photo date.',
+      'UPDATE_GROUP_PHOTO_DATE_ERROR',
+    );
+  }
+};
+
+/**
  * @function removeGroupPhoto - Remove a group photo.
  * @param {Object} req - The request.
  * @param {Object} res - The response.
  */
 const removeGroupPhoto = async (req, res) => {
-  const index = parseInt(req.params.index, 10);
+  const id = parseInt(req.params.id, 10);
 
-  // Check if the index is valid
-  if (typeof index !== 'number') {
-    return res.badRequest('Invalid index.', 'INVALID_INDEX');
+  // Check if the ID is valid
+  if (isNaN(id)) {
+    return res.badRequest('Invalid ID.', 'INVALID_ID');
   }
 
   // Remove the group photo
   try {
-    // Check if the index is out of bounds
-    const groupPhotos = await eventsService.getGroupPhotos();
-    if (index < 0 || index >= groupPhotos.length) {
+    const groupPhoto = await eventsService.getGroupPhotoById(id);
+    if (!groupPhoto) {
       return res.notFound('Group photo not found.', 'GROUP_PHOTO_NOT_FOUND');
     }
 
-    // If the index is valid, remove the group photo
-    const updatedGroupPhotos = await eventsService.removeGroupPhoto(index);
-    return res.success(updatedGroupPhotos, 'Group photo removed successfully.');
+    await eventsService.removeGroupPhoto(id);
+    return res.success(null, 'Group photo removed successfully.');
   } catch (error) {
     console.error('Error removing group photo: ', error);
     return res.internalServerError(
@@ -85,7 +182,10 @@ const removeGroupPhoto = async (req, res) => {
 };
 
 module.exports = {
-  getGroupPhotos,
+  getGroupPhotoIds,
+  getGroupPhotoById,
   addGroupPhoto,
+  updateGroupPhotoDescription,
+  updateGroupPhotoDate,
   removeGroupPhoto,
 };

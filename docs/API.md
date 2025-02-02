@@ -51,8 +51,11 @@ The API documentation provides detailed information about the backend API endpoi
       - [Get Crawl Status](#get-crawl-status)
       - [Request Re-Crawl](#request-re-crawl)
     - [Events Endpoints](#events-endpoints)
-      - [Get Group Photos](#get-group-photos)
+      - [Get Group Photo IDs](#get-group-photo-ids)
+      - [Get Group Photo by ID](#get-group-photo-by-id)
       - [Add Group Photo](#add-group-photo)
+      - [Update Group Photo Description](#update-group-photo-description)
+      - [Update Group Photo Date](#update-group-photo-date)
       - [Remove Group Photo](#remove-group-photo)
 
 ## Authentication
@@ -1415,8 +1418,6 @@ The API has specific rate limits for different functionalities to ensure fair us
     }
     ```
 
-    > **Note:** The deleted member data will be returned in the response (`data` field).
-
   - **Status:** `404 Not Found`
 
     ```json
@@ -1768,8 +1769,6 @@ The API has specific rate limits for different functionalities to ensure fair us
       "message": "Collaborator deleted successfully."
     }
     ```
-
-    > **Note:** The deleted collaborator data will be returned in the response (`data` field).
 
   - **Status:** `404 Not Found`
 
@@ -2220,7 +2219,7 @@ The API has specific rate limits for different functionalities to ensure fair us
 
 > **Note:** The following `POST`, and `DELETE` endpoints are protected and require a valid JWT token to access.
 
-#### Get Group Photos
+#### Get Group Photo IDs
 
 - **URL**: `/api/events/group-photos`
 - **Method**: `GET`
@@ -2233,20 +2232,82 @@ The API has specific rate limits for different functionalities to ensure fair us
     {
       "status": "success",
       "data": [],
-      "message": "Group photos retrieved successfully."
+      "message": "Group photo IDs retrieved successfully."
     }
     ```
 
-    > **Note:** The list of group photos will be returned in the response (`data` field). Each group photo will be a base64 encoded string.
+    > **Note:** The list of group photo IDs will be returned in the response (`data` field).
 
   - **Status:** `500 Internal Server Error`
 
     ```json
     {
       "status": "error",
-      "message": "Error getting group photos.",
+      "message": "Error getting group photo IDs.",
       "error": {
-        "code": "GET_GROUP_PHOTOS_ERROR",
+        "code": "GET_GROUP_PHOTO_IDS_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Get Group Photo by ID
+
+- **URL**: `/api/events/group-photos/:id`
+- **Method**: `GET`
+
+- **Request Parameters**:
+
+  - `id`: The ID of the group photo to retrieve.
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": {},
+      "message": "Group photo retrieved successfully."
+    }
+    ```
+
+    > **Note:** The group photo data will be returned in the response (`data` field).
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid ID.",
+      "error": {
+        "code": "INVALID_ID",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `404 Not Found`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Group photo not found.",
+      "error": {
+        "code": "GROUP_PHOTO_NOT_FOUND",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error getting group photo by ID.",
+      "error": {
+        "code": "GET_GROUP_PHOTO_BY_ID_ERROR",
         "details": {}
       }
     }
@@ -2261,7 +2322,9 @@ The API has specific rate limits for different functionalities to ensure fair us
 
   ```json
   {
-    "photo": "BASE64_ENCODED_PHOTO"
+    "photo": "BASE64_ENCODED_PHOTO",
+    "date": "YYYY-MM-DD",
+    "description": "photo_description"
   }
   ```
 
@@ -2277,7 +2340,7 @@ The API has specific rate limits for different functionalities to ensure fair us
     }
     ```
 
-    > **Note:** The newly added group photo data will be returned in the response (`data` field).
+    > **Note:** The newly created group photo id will be returned in the response (`data` field).
 
   - **Status:** `400 Bad Request`
 
@@ -2305,16 +2368,22 @@ The API has specific rate limits for different functionalities to ensure fair us
     }
     ```
 
-#### Remove Group Photo
+#### Update Group Photo Description
 
-- **URL**: `/api/events/group-photos/:index`
-- **Method**: `DELETE`
+- **URL**: `/api/events/group-photos/:id/description`
+- **Method**: `PUT`
 
 - **Request Parameters**:
 
-  - `index`: The index of the group photo to delete. (0-based index)
+  - `id`: The ID of the group photo to update.
 
-    > **Note:** The index should be a valid number between 0 and the number of group photos. Be careful with the index, because the index will change after deleting a group photo.
+- **Request Body**:
+
+  ```json
+  {
+    "description": "photo_description"
+  }
+  ```
 
 - **Response**:
 
@@ -2324,20 +2393,18 @@ The API has specific rate limits for different functionalities to ensure fair us
     {
       "status": "success",
       "data": null,
-      "message": "Group photo removed successfully."
+      "message": "Group photo description updated successfully."
     }
     ```
-
-    > **Note:** The group photo data after deletion will be returned in the response (`data` field).
 
   - **Status:** `400 Bad Request`
 
     ```json
     {
       "status": "error",
-      "message": "Invalid index.",
+      "message": "Invalid ID.",
       "error": {
-        "code": "INVALID_INDEX",
+        "code": "INVALID_ID",
         "details": {}
       }
     }
@@ -2361,9 +2428,137 @@ The API has specific rate limits for different functionalities to ensure fair us
     ```json
     {
       "status": "error",
-      "message": "Error removing group photo.",
+      "message": "Error updating group photo description.",
       "error": {
-        "code": "REMOVE_GROUP_PHOTO_ERROR",
+        "code": "UPDATE_GROUP_PHOTO_DESCRIPTION_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Update Group Photo Date
+
+- **URL**: `/api/events/group-photos/:id/date`
+- **Method**: `PUT`
+
+- **Request Parameters**:
+
+  - `id`: The ID of the group photo to update.
+
+- **Request Body**:
+
+  ```json
+  {
+    "date": "YYYY-MM-DD"
+  }
+  ```
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": null,
+      "message": "Group photo date updated successfully."
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid ID.",
+      "error": {
+        "code": "INVALID_ID",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `404 Not Found`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Group photo not found.",
+      "error": {
+        "code": "GROUP_PHOTO_NOT_FOUND",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error updating group photo date.",
+      "error": {
+        "code": "UPDATE_GROUP_PHOTO_DATE_ERROR",
+        "details": {}
+      }
+    }
+    ```
+
+#### Remove Group Photo
+
+- **URL**: `/api/events/group-photos/:id`
+- **Method**: `DELETE`
+
+- **Request Parameters**:
+
+  - `id`: The ID of the group photo to delete.
+
+- **Response**:
+
+  - **Status:** `200 OK`
+
+    ```json
+    {
+      "status": "success",
+      "data": null,
+      "message": "Group photo deleted successfully."
+    }
+    ```
+
+  - **Status:** `400 Bad Request`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid ID.",
+      "error": {
+        "code": "INVALID_ID",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `404 Not Found`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Group photo not found.",
+      "error": {
+        "code": "GROUP_PHOTO_NOT_FOUND",
+        "details": {}
+      }
+    }
+    ```
+
+  - **Status:** `500 Internal Server Error`
+
+    ```json
+    {
+      "status": "error",
+      "message": "Error deleting group photo.",
+      "error": {
+        "code": "DELETE_GROUP_PHOTO_ERROR",
         "details": {}
       }
     }

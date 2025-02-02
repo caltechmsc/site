@@ -69,6 +69,10 @@ const PUBLIC_ROOT_ROUTES = [
     path: '/api/research',
     method: 'GET',
   },
+  {
+    path: '/api/events/group-photos',
+    method: 'GET',
+  },
 ];
 
 /**
