@@ -26,8 +26,18 @@
     <div id="modal" class="hidden fixed inset-0 z-[1000] flex items-center justify-center bg-black bg-opacity-80">
       <div class="relative bg-white p-6 rounded-lg max-w-3xl max-h-screen">
         <button class="absolute top-2 right-2 bg-black bg-opacity-70 text-white rounded-full w-6 h-6 flex items-center justify-center" onclick="closeModal()">&times;</button>
-        <img id="modal-img" src="" alt="Enlarged Photo" class="max-w-full max-h-screen object-contain">
+        <img id="modal-img" src="" alt="Enlarged Photo" class="max-w-full max-h-screen object-contain mb-4">
+
+        <!-- Date and Description -->
+        <input id="modal-date" type="date" class="border p-2 rounded w-full mb-2">
+        <textarea id="modal-description" class="border p-2 rounded w-full mb-4" placeholder="Enter description..."></textarea>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded" onclick="updatePhoto()">Update</button>
       </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="fixed inset-0 flex items-center justify-center bg-white bg-opacity-70 hidden">
+      <div class="loader">Loading...</div>
     </div>
   </main>
 
@@ -35,13 +45,14 @@
     const events = new Events(app);
 
     let groupPhotos = [];
+    let currentPhotoId = null;
 
     // Render group photos from the global array
     const renderGroupPhotos = () => {
       const gallery = document.getElementById("gallery");
       gallery.innerHTML = "";
 
-      groupPhotos.forEach((photo, index) => {
+      groupPhotos.forEach(photo => {
         const photoItem = document.createElement("div");
         photoItem.className = "relative overflow-hidden rounded-lg cursor-pointer transition-transform duration-300";
 
@@ -49,7 +60,7 @@
         imgWrapper.className = "w-full h-80 bg-gray-200 flex items-center justify-center overflow-hidden";
 
         const img = document.createElement("img");
-        img.src = photo;
+        img.src = photo.photo;
         img.alt = "Group Photo";
         img.className = "object-cover h-full w-full";
         img.onclick = () => openModal(photo);
@@ -59,7 +70,7 @@
         deleteBtn.innerHTML = "&times;";
         deleteBtn.onclick = (e) => {
           e.stopPropagation();
-          deletePhoto(index);
+          deletePhoto(photo.id);
         };
 
         imgWrapper.appendChild(img);
@@ -71,17 +82,41 @@
 
     // Function to fetch and render group photos
     const fetchGroupPhotos = async () => {
-      const response = await events.getGroupPhotos();
-      groupPhotos = response.data;
-      renderGroupPhotos();
+      try {
+        const response = await events.getGroupPhotoIds();
+        const data = response.data;
+
+        if (response.status === "success") {
+          groupPhotos = await Promise.all(data.map(async id => {
+            const photoResponse = await events.getGroupPhotoById(id);
+            return {
+              id,
+              ...photoResponse.data
+            };
+          }));
+          renderGroupPhotos();
+        }
+      } catch (error) {
+        console.error('Error fetching group photos:', error);
+      } finally {
+        // Hide the loading spinner after the images are loaded
+        document.getElementById("loading-spinner").style.display = 'none';
+      }
     };
 
     // Function to open modal with enlarged photo
-    const openModal = (src) => {
+    const openModal = (photo) => {
+      currentPhotoId = photo.id;
       const modal = document.getElementById("modal");
       const modalImg = document.getElementById("modal-img");
+      const modalDate = document.getElementById("modal-date");
+      const modalDescription = document.getElementById("modal-description");
+
+      modalImg.src = photo.photo;
+      modalDate.value = photo.date || '';
+      modalDescription.value = photo.description || '';
+
       modal.classList.remove("hidden");
-      modalImg.src = src;
     };
 
     // Function to close modal
@@ -90,13 +125,44 @@
       modal.classList.add("hidden");
     };
 
-    // Function to delete a photo
-    const deletePhoto = async (index) => {
-      const response = await events.removeGroupPhoto(index);
-      app.ui.alert(response.message, response.status);
+    // Function to update photo date and description
+    const updatePhoto = async () => {
+      const date = document.getElementById("modal-date").value;
+      const description = document.getElementById("modal-description").value;
 
-      groupPhotos.splice(index, 1);
-      renderGroupPhotos();
+      try {
+        await events.updateGroupPhotoDate(currentPhotoId, date);
+        await events.updateGroupPhotoDescription(currentPhotoId, description);
+
+        app.ui.alert("Photo updated successfully", "success");
+
+        // Update local data
+        const photo = groupPhotos.find(p => p.id === currentPhotoId);
+        if (photo) {
+          photo.date = date;
+          photo.description = description;
+        }
+
+        renderGroupPhotos();
+        closeModal();
+      } catch (error) {
+        console.error('Error updating photo:', error);
+        app.ui.alert("Error updating photo", "error");
+      }
+    };
+
+    // Function to delete a photo
+    const deletePhoto = async (id) => {
+      try {
+        const response = await events.removeGroupPhoto(id);
+        app.ui.alert(response.message, response.status);
+
+        groupPhotos = groupPhotos.filter(photo => photo.id !== id);
+        renderGroupPhotos();
+      } catch (error) {
+        console.error('Error deleting photo:', error);
+        app.ui.alert("Error deleting photo", "error");
+      }
     };
 
     // Function to handle file selection
@@ -111,7 +177,10 @@
           app.ui.alert(response.message, response.status);
 
           if (response.status === "success") {
-            groupPhotos.unshift(base64);
+            groupPhotos.unshift({
+              id: response.data,
+              photo: base64
+            });
             renderGroupPhotos();
           }
         };
