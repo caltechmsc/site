@@ -6,7 +6,7 @@
 const { researchDb } = require('../db/lowdb');
 
 /**
- * @function getResearchAreas - Get the research areas from the database.
+ * @function getResearchAreas - Get the research areas from the database. (no details fields)
  * @returns {Promise<Object>} The research areas.
  * @throws {Error} Throws an error if the research areas cannot be retrieved.
  */
@@ -14,9 +14,37 @@ const getResearchAreas = async () => {
   try {
     const research = (await researchDb).read();
 
-    return research.areas;
+    const researchAreas = research.areas.map((area) => ({
+      id: area.id,
+      relatedPapers: area.relatedPapers,
+    }));
+
+    return researchAreas;
   } catch (error) {
     console.error('Error in getting research areas: ', error);
+    throw error;
+  }
+};
+
+/**
+ * @function getResearchAreaDetails - Get the research areas from the database. (with details fields)
+ * @param {string} id - The research area ID.
+ * @returns {Promise<Object>} The research area details.
+ * @throws {Error} Throws an error if the research area cannot be retrieved.
+ */
+const getResearchAreaDetails = async (id) => {
+  try {
+    const research = (await researchDb).read();
+
+    const area = research.areas.find((a) => a.id === id);
+
+    if (!area) {
+      return null;
+    }
+
+    return area;
+  } catch (error) {
+    console.error('Error in getting research area details: ', error);
     throw error;
   }
 };
@@ -77,6 +105,7 @@ const updateResearchAbout = async (about) => {
 
 module.exports = {
   getResearchAreas,
+  getResearchAreaDetails,
   getResearchAbout,
   updateResearchAreas,
   updateResearchAbout,
