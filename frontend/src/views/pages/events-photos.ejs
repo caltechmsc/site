@@ -191,7 +191,7 @@
         try {
           // Fetch group photo IDs
           const response = await events.getGroupPhotoIds();
-          const data = response.data;
+          const data = response.data.reverse();
 
           if (response.status === "success") {
             // Load each photo by ID

@@ -84,7 +84,7 @@
     const fetchGroupPhotos = async () => {
       try {
         const response = await events.getGroupPhotoIds();
-        const data = response.data;
+        const data = response.data.reverse();
 
         if (response.status === "success") {
           groupPhotos = await Promise.all(data.map(async id => {
