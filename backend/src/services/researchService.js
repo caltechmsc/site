@@ -14,10 +14,13 @@ const getResearchAreas = async () => {
   try {
     const research = (await researchDb).read();
 
-    const researchAreas = research.areas.map((area) => ({
-      id: area.id,
-      relatedPapers: area.relatedPapers,
-    }));
+    const researchAreas = Object.keys(research.areas).map((key) => {
+      const area = research.areas[key];
+      return {
+        id: area.id,
+        relatedPapers: area.relatedPapers,
+      };
+    });
 
     return researchAreas;
   } catch (error) {
@@ -36,7 +39,7 @@ const getResearchAreaDetails = async (id) => {
   try {
     const research = (await researchDb).read();
 
-    const area = research.areas.find((a) => a.id === id);
+    const area = research.areas[id];
 
     if (!area) {
       return null;
