@@ -49,6 +49,24 @@ class Research {
   }
 
   /**
+   * @function getResearchAreaDetails - Sends a get research area details request to the backend.
+   * @param {string} id - The research area ID.
+   * @returns {Promise<Object>} - The response from the backend.
+   */
+  async getResearchAreaDetails(id) {
+    const response = await fetch(`${this.apiURL}/research/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    return data;
+  }
+
+  /**
    * @function updateResearchAbout - Sends an update research about request to the backend.
    * @param {Object} about - The research about to update.
    * @returns {Promise<Object>} - The response from the backend.
