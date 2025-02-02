@@ -17,12 +17,16 @@
 
     .gallery-item {
       width: 250px;
-      margin-bottom: 10px;
-      padding-left: 10px;
+      margin: 10px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .gallery img {
-      width: 100%;
+      width: auto;
+      max-width: 100%;
       height: auto;
       object-fit: cover;
       filter: grayscale(100%);
@@ -33,6 +37,22 @@
     .gallery img:hover {
       filter: grayscale(0%);
       transform: scale(1.05);
+    }
+
+    .hover-info {
+      display: none;
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+
+    .gallery-item:hover .hover-info {
+      display: block;
     }
 
     .modal {
@@ -49,6 +69,7 @@
     }
 
     .modal-content {
+      margin: 0 auto;
       max-width: 80%;
       max-height: 80%;
       animation: zoom 0.6s;
@@ -107,8 +128,7 @@
     @media (max-width: 600px) {
       .gallery-item {
         width: 100%;
-        margin-bottom: 10px;
-        padding-left: 0;
+        margin: 10px 0;
       }
     }
   </style>
@@ -139,8 +159,14 @@
 
   <!-- Modal for full-size image -->
   <div id="modal" class="modal">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <img class="modal-content" id="modal-img">
+    <span class="close z-10" onclick="closeModal()">&times;</span>
+    <div class="modal-body absolute">
+      <img class="modal-content relative" id="modal-img">
+      <div class="text-white relative p-4">
+        <p id="modal-date" class="text-lg font-semibold"></p>
+        <p id="modal-description"></p>
+      </div>
+    </div>
   </div>
 
   <!-- Footer Section -->
@@ -163,23 +189,44 @@
       // Function to fetch and render group photos
       const fetchAndRenderGroupPhotos = async () => {
         try {
-          const response = await events.getGroupPhotos();
+          // Fetch group photo IDs
+          const response = await events.getGroupPhotoIds();
           const data = response.data;
 
           if (response.status === "success") {
-            const imagesLoadedPromises = data.map(base64Image => {
-              return new Promise(resolve => {
-                const div = document.createElement('div');
-                div.className = 'gallery-item';
+            // Load each photo by ID
+            const imagesLoadedPromises = data.map(async id => {
+              const photoResponse = await events.getGroupPhotoById(id);
+              const photoData = photoResponse.data;
 
-                const img = document.createElement('img');
-                img.src = base64Image;
-                img.onclick = () => openModal(img.src);
+              if (photoResponse.status === "success" && photoData) {
+                return new Promise(resolve => {
+                  const div = document.createElement('div');
+                  div.className = 'gallery-item';
 
-                img.onload = resolve;
-                div.appendChild(img);
-                gallery.appendChild(div);
-              });
+                  const img = document.createElement('img');
+                  img.src = photoData.photo;
+                  img.onclick = () => openModal(photoData);
+
+                  img.onload = resolve;
+                  div.appendChild(img);
+
+                  // Add hover info
+                  if (photoData.date || photoData.description) {
+                    const hoverInfo = document.createElement('div');
+                    hoverInfo.className = 'hover-info';
+                    if (photoData.date) {
+                      hoverInfo.innerHTML += `<p>Date: ${photoData.date}</p>`;
+                    }
+                    if (photoData.description) {
+                      hoverInfo.innerHTML += `<p>Description: ${photoData.description.slice(0, 20)}...</p>`;
+                    }
+                    div.appendChild(hoverInfo);
+                  }
+
+                  gallery.appendChild(div);
+                });
+              }
             });
 
             await Promise.all(imagesLoadedPromises);
@@ -199,11 +246,16 @@
       };
 
       // Function to open the modal
-      const openModal = (src) => {
+      const openModal = (photoData) => {
         const modal = document.getElementById("modal");
         const modalImg = document.getElementById("modal-img");
+        const modalDate = document.getElementById("modal-date");
+        const modalDescription = document.getElementById("modal-description");
+
         modal.style.display = "flex";
-        modalImg.src = src;
+        modalImg.src = photoData.photo;
+        modalDate.textContent = photoData.date ? `Date: ${photoData.date}` : '';
+        modalDescription.textContent = photoData.description ? `Description: ${photoData.description.slice(0, 50)}...` : '';
       };
 
       await fetchAndRenderGroupPhotos();
