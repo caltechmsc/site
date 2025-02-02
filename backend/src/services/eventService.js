@@ -76,7 +76,7 @@ const addGroupPhoto = async (photo, date = null, description = null) => {
       eventsGroupPhotosDb.run(
         'INSERT INTO events_group_photos (photo, date, description) VALUES (?, ?, ?)',
         [photo, date, description],
-        (error) => {
+        function callback(error) {
           if (error) {
             return reject(error);
           } else {
