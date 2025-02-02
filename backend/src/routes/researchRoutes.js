@@ -13,8 +13,8 @@ const researchControllers = require('../controllers/researchControllers');
 router.use(rateLimiter());
 
 router.get('/', researchControllers.getResearch);
-router.get('/:id', researchControllers.getResearchDetails);
 router.get('/about', researchControllers.getResearchAbout);
+router.get('/:id', researchControllers.getResearchDetails);
 
 router.put('/', researchControllers.updateResearch);
 router.put('/about', researchControllers.updateResearchAbout);
