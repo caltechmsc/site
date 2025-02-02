@@ -92,11 +92,9 @@ const updateResearch = async (req, res) => {
 
   // Update the research areas
   try {
-    const research = await researchService.getResearchAreas();
-    const updatedAreas = jsonpatch.applyPatch(
-      research.areas,
-      areas,
-    ).newDocument;
+    const research = await researchService.getDetailedResearchAreas();
+
+    const updatedAreas = jsonpatch.applyPatch(research, areas).newDocument;
 
     await researchService.updateResearchAreas(updatedAreas);
     return res.success(null, 'Research areas updated successfully.');

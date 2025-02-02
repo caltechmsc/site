@@ -30,6 +30,22 @@ const getResearchAreas = async () => {
 };
 
 /**
+ * @function getDetailedResearchAreas - Get the research areas from the database. (with details fields)
+ * @returns {Promise<Object>} The research areas.
+ * @throws {Error} Throws an error if the research areas cannot be retrieved.
+ */
+const getDetailedResearchAreas = async () => {
+  try {
+    const research = (await researchDb).read();
+
+    return research.areas;
+  } catch (error) {
+    console.error('Error in getting research areas: ', error);
+    throw error;
+  }
+};
+
+/**
  * @function getResearchAreaDetails - Get the research areas from the database. (with details fields)
  * @param {string} id - The research area ID.
  * @returns {Promise<Object>} The research area details.
@@ -108,6 +124,7 @@ const updateResearchAbout = async (about) => {
 
 module.exports = {
   getResearchAreas,
+  getDetailedResearchAreas,
   getResearchAreaDetails,
   getResearchAbout,
   updateResearchAreas,
