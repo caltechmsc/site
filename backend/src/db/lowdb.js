@@ -106,9 +106,6 @@ const publicationsDb = getDbConnection('publications', {
     },
   },
 });
-const eventsGroupPhotosDb = getDbConnection('events_group_photos', {
-  photos: [],
-});
 
 // Function to close all open connections
 const closeDbs = async () => {
@@ -129,6 +126,5 @@ module.exports = {
   collaboratorsDb,
   researchDb,
   publicationsDb,
-  eventsGroupPhotosDb,
   closeDbs,
 };

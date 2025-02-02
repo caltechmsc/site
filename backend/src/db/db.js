@@ -14,7 +14,7 @@ if (!fs.existsSync(dbPath)) {
   fs.mkdirSync(dbPath);
 }
 
-// Connect to the admins, members, and collaborators databases
+// Connect to the admins, members, collaborators, and events_group_photos databases
 const adminsDb = new sqlite3.Database(dbPath + '/admins.db', (error) => {
   if (error) {
     console.error(error.message);
@@ -36,6 +36,16 @@ const collaboratorsDb = new sqlite3.Database(
       console.error(error.message);
     } else {
       console.log('Connected to the collaborators database.');
+    }
+  },
+);
+const eventsGroupPhotosDb = new sqlite3.Database(
+  dbPath + '/events_group_photos.db',
+  (error) => {
+    if (error) {
+      console.error(error.message);
+    } else {
+      console.log('Connected to the events_group_photos database.');
     }
   },
 );
@@ -76,6 +86,17 @@ const closeDbs = async () => {
         }
       });
     }),
+    new Promise((resolve, reject) => {
+      eventsGroupPhotosDb.close((error) => {
+        if (error) {
+          console.error(error.message);
+          reject(error);
+        } else {
+          console.log('Closed the events_group_photos database connection.');
+          resolve();
+        }
+      });
+    }),
   ];
 
   try {
@@ -86,7 +107,7 @@ const closeDbs = async () => {
   }
 };
 
-// Create the admins, members, and collaborators tables if they do not exist
+// Create the admins, members, collaborators, and events_group_photos tables if they do not exist
 adminsDb.serialize(() => {
   adminsDb.run(
     'CREATE TABLE IF NOT EXISTS admins (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT NOT NULL UNIQUE, password TEXT NOT NULL)',
@@ -102,5 +123,16 @@ collaboratorsDb.serialize(() => {
     'CREATE TABLE IF NOT EXISTS collaborators (id INTEGER PRIMARY KEY AUTOINCREMENT, organization TEXT NOT NULL, country TEXT NOT NULL, leader TEXT NOT NULL, email TEXT NOT NULL, website TEXT, latitude REAL, longitude REAL)',
   );
 });
+eventsGroupPhotosDb.serialize(() => {
+  eventsGroupPhotosDb.run(
+    'CREATE TABLE IF NOT EXISTS events_group_photos (id INTEGER PRIMARY KEY AUTOINCREMENT, photo TEXT NOT NULL, date TEXT, description TEXT)',
+  );
+});
 
-module.exports = { adminsDb, membersDb, collaboratorsDb, closeDbs };
+module.exports = {
+  adminsDb,
+  membersDb,
+  collaboratorsDb,
+  eventsGroupPhotosDb,
+  closeDbs,
+};
