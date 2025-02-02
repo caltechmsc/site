@@ -48,7 +48,7 @@ const PUBLIC_ROUTES = [
   },
   {
     path: '/api/research',
-    method: 'GET',
+    method: 'PATCH',
   },
   {
     path: '/api/research/about',

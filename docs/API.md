@@ -44,7 +44,7 @@ The API documentation provides detailed information about the backend API endpoi
       - [Get Research Areas](#get-research-areas)
       - [Get Research Area Details](#get-research-area-details)
       - [Get Research About](#get-research-about)
-      - [Update Research Areas](#update-research-areas)
+      - [Update Research Areas (JSON Patch)](#update-research-areas-json-patch)
       - [Update Research About](#update-research-about)
     - [Publications Endpoints](#publications-endpoints)
       - [Get All Publications](#get-all-publications)
@@ -1999,10 +1999,12 @@ The API has specific rate limits for different functionalities to ensure fair us
     }
     ```
 
-#### Update Research Areas
+#### Update Research Areas (JSON Patch)
+
+> **Note:** JSON Patch is a format for expressing a sequence of operations to apply to a JSON document, and is defined in [RFC 6902](https://datatracker.ietf.org/doc/html/rfc6902).
 
 - **URL**: `/api/research`
-- **Method**: `PUT`
+- **Method**: `PATCH`
 
 - **Request Body**:
 
@@ -2019,12 +2021,10 @@ The API has specific rate limits for different functionalities to ensure fair us
     ```json
     {
       "status": "success",
-      "data": {},
+      "data": null,
       "message": "Research areas updated successfully."
     }
     ```
-
-    > **Note:** The updated research areas will be returned in the response (`data` field).
 
   - **Status:** `400 Bad Request`
 

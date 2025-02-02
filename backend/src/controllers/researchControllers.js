@@ -5,6 +5,8 @@
 
 const researchService = require('../services/researchService');
 
+const jsonpatch = require('fast-json-patch');
+
 /**
  * @function getResearch - Get the research areas object. (no details fields)
  * @param {Object} req - The request object.
@@ -76,7 +78,7 @@ const getResearchAbout = async (req, res) => {
 };
 
 /**
- * @function updateResearch - Update the research areas object.
+ * @function updateResearch - Update the research areas object. (JSON Patch)
  * @param {Object} req - The request object.
  * @param {Object} res - The response object.
  */
@@ -90,8 +92,14 @@ const updateResearch = async (req, res) => {
 
   // Update the research areas
   try {
-    const updatedAreas = await researchService.updateResearchAreas(areas);
-    return res.success(updatedAreas, 'Research areas updated successfully.');
+    const research = await researchService.getResearchAreas();
+    const updatedAreas = jsonpatch.applyPatch(
+      research.areas,
+      areas,
+    ).newDocument;
+
+    await researchService.updateResearchAreas(updatedAreas);
+    return res.success(null, 'Research areas updated successfully.');
   } catch (error) {
     console.error('Error updating research areas: ', error);
     return res.internalServerError(
