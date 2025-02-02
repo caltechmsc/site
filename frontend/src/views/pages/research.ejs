@@ -363,8 +363,6 @@
   <script>
     const research = new Research(app);
 
-    let researchAreas;
-
     // Initialize Quill.js for rendering about content
     const quillAbout = new Quill("#research-about", {
       modules: {
@@ -407,8 +405,6 @@
       try {
         const response = await research.getResearchAreas();
         if (response.status === "success") {
-          researchAreas = response.data;
-
           Object.values(response.data).forEach(area => {
             populateRelatedPapers(area.id, area.relatedPapers);
           });
