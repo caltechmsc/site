@@ -86,13 +86,13 @@ class Research {
   }
 
   /**
-   * @function updateResearchAreas - Sends an update research areas request to the backend.
+   * @function updateResearchAreas - Sends an update research areas request to the backend. (JSON Patch)
    * @param {Object} areas - The research areas to update.
    * @returns {Promise<Object>} - The response from the backend.
    */
   async updateResearchAreas(areas) {
     const response = await fetch(`${this.apiURL}/research`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },

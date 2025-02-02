@@ -375,7 +375,6 @@
   <script>
     const research = new Research(app);
 
-    let researchAreas;
     let currentAreaId;
 
     // Initialize Quill editor
@@ -387,97 +386,83 @@
       theme: 'snow'
     });
 
-    // Initialize research areas when there is no data
-    const initResearchAreas = () => {
-      const areas = [
-        "a-1",
-        "a-2",
-        "a-3",
-        "a-4",
-        "a-5",
-        "a-6",
-        "a-7",
-        "b-1",
-        "b-2",
-        "b-3",
-        "b-4",
-        "b-5",
-        "b-6",
-        "b-7",
-        "b-8",
-        "b-9",
-        "b-10",
-        "b-11-1",
-        "b-11-2",
-        "b-11-3",
-        "b-11-4",
-        "c-1",
-        "c-2",
-        "c-3",
-        "d-1",
-        "d-2",
-        "d-3",
-      ];
-      areas.forEach((area) => {
-        researchAreas[area] = {
-          id: area,
-          relatedPapers: "",
-          details: null,
-        };
-      });
+    // Function to fetch research areas from the server and populate related papers
+    const renderResearchAreas = async () => {
+      try {
+        const response = await research.getResearchAreas();
+        if (response.status === "success") {
+          const researchAreas = response.data;
+
+          for (const area of Object.values(researchAreas)) {
+            document.getElementById(area.id).value = area.relatedPapers;
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching research areas:', error);
+      }
     };
 
-    // Fetch research areas from the server
-    research.getResearchAreas().then((response) => {
-      if (response.status === "success") {
-        researchAreas = response.data;
-
-        for (const area of Object.values(researchAreas)) {
-          document.getElementById(area.id).value = area.relatedPapers;
-        }
-      }
-    });
-
-    // Functions to handle saving related papers and editing details
-    const saveRelatedPapers = (id) => {
+    // Function to handle saving related papers
+    const saveRelatedPapers = async (id) => {
       const relatedPapers = document.getElementById(id).value;
-      const area = Object.values(researchAreas).find((area) => area.id === id);
-      area.relatedPapers = relatedPapers;
-      updateResearchAreas();
+      const patch = [{
+        op: "replace",
+        path: `/${id}/relatedPapers`,
+        value: relatedPapers
+      }];
+
+      try {
+        const response = await research.updateResearchAreas(patch);
+        app.ui.alert(response.message, response.status);
+      } catch (error) {
+        console.error('Error updating related papers:', error);
+      }
     };
 
     // Function to handle editing details
-    const editDetails = (id) => {
-      if (Object.values(researchAreas).length === 0) {
-        initResearchAreas();
-      }
-      const area = Object.values(researchAreas).find((area) => area.id === id);
-      if (area.details) {
-        quillEditor.setContents(area.details);
-      }
+    const editDetails = async (id) => {
       currentAreaId = id;
-      document.getElementById("edit-details-modal").classList.remove("hidden");
+
+      try {
+        const response = await research.getResearchAreaDetails(id);
+        if (response.status === "success") {
+          const areaDetails = response.data.details;
+          quillEditor.setContents(areaDetails);
+          document.getElementById("edit-details-modal").classList.remove("hidden");
+        }
+      } catch (error) {
+        console.error('Error fetching research area details:', error);
+      }
     };
 
-    // Function to handle closing the modal without saving and saving the details
+    // Function to handle closing the modal without saving
     const closeEditDetailsModal = () => {
       document.getElementById("edit-details-modal").classList.add("hidden");
       quillEditor.setContents("");
     };
 
     // Function to handle saving the details
-    const saveEditDetailsModal = () => {
-      const area = Object.values(researchAreas).find((area) => area.id === currentAreaId);
-      area.details = quillEditor.getContents();
-      closeEditDetailsModal();
-      updateResearchAreas();
+    const saveEditDetailsModal = async () => {
+      const details = quillEditor.getContents();
+      const patch = [{
+        op: "replace",
+        path: `/${currentAreaId}/details`,
+        value: details
+      }];
+
+      try {
+        const response = await research.updateResearchAreas(patch);
+        app.ui.alert(response.message, response.status);
+        closeEditDetailsModal();
+      } catch (error) {
+        console.error('Error updating research area details:', error);
+      }
     };
 
-    // Function to update research areas on the server
-    const updateResearchAreas = async () => {
-      const response = await research.updateResearchAreas(researchAreas);
-      app.ui.alert(response.message, response.status);
-    };
+    // Fetch and render research areas on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderResearchAreas();
+    });
   </script>
 </body>
 
