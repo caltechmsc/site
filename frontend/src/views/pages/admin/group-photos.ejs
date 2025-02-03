@@ -87,14 +87,15 @@
         const data = response.data.reverse();
 
         if (response.status === "success") {
-          groupPhotos = await Promise.all(data.map(async id => {
+          groupPhotos = [];
+          data.forEach(async id => {
             const photoResponse = await events.getGroupPhotoById(id);
-            return {
+            groupPhotos.push({
               id,
               ...photoResponse.data
-            };
-          }));
-          renderGroupPhotos();
+            });
+            renderGroupPhotos(); // Render after each photo is loaded
+          });
         }
       } catch (error) {
         console.error('Error fetching group photos:', error);
