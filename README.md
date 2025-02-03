@@ -19,17 +19,20 @@ The MSC website is designed to offer:
 ### Public Website
 
 - **About MSC**: Insights into the center, team biographies, and achievements.
-- **Research**: Detailed information on ongoing projects and collaborations.
+- **Research**: Detailed information on research areas and projects.
 - **Publications**: Access the latest papers, archives and most cited works.
 - **Members**: Browse through the MSC team and their respective profiles.
+- **Collaborators**: Information on external collaborators and their affiliations, and an interactive world map with pins representing all collaborators along with detailed information.
 - **Events**: View group photos, upcoming events, and a dynamic calendar.
 
 ### Admin Dashboard
 
-- **User Management**: Add, edit, or remove members and collaborators.
+- **Administrator Management**: Manage the list of administrators.
+- **Member/Collaborator Management**: Add, edit, or remove members and collaborators.
 - **Content Management**: Update research overviews, member bios, and more with Quill.js.
-- **Publication Crawling**: Fetch and display publications from the Caltech Library.
+- **Publication Crawling**: Fetch and display publications from the Caltech Library, monitor crawling status, and initiate re-crawling.
 - **Event Management**: Upload and manage group photos.
+- **Google OAuth Support**: Support for Google OAuth 2.0 authentication for admin login.
 
 ## 🛠️ Technologies
 
