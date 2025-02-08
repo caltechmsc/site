@@ -99,7 +99,7 @@
         response.data.forEach(member => {
           const memberRow = document.createElement("tr");
           memberRow.innerHTML = `
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 min-w-[100px]"><img src="${member.photo || "/img/default-avatar.png"}" alt="${member.name}" class="w-12 h-12 rounded-full object-cover"></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 min-w-[100px]"><img src="${member.photo || "/img/default-avatar.png"}" alt="Member Photo" class="w-12 h-12 rounded-full object-cover"></td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.name}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.position}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${member.education}</td>
