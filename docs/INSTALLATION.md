@@ -12,7 +12,7 @@
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/TKanX/MSC-Website.git && cd MSC-Website
+   git clone https://github.com/caltechmsc/site.git && cd site
     ```
 
 2. **Setup the backend**:
