@@ -8,6 +8,7 @@ const publicationService = require('../services/publicationService');
 const PaperCrawler = require('../services/paperCrawler');
 const paperCrawler = new PaperCrawler(
   process.env.PUBLICATIONS_URL,
+  process.env.PUBLICATIONS_HTML_URL,
   publicationService,
 );
 
