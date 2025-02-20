@@ -63,6 +63,7 @@ The MSC website is designed to offer:
       HOST=localhost # Host address for the server (default: localhost)
       JWT_SECRET=secret # Secret key for JWT token generation
       PUBLICATIONS_URL=https://feeds.library.caltech.edu/people/Goddard-W-A-III/article.json # URL for the Caltech Library publications
+      PUBLICATIONS_HTML_URL=https://caltech-msc.github.io/publications/pubs-current.html # URL for the Caltech Library publications HTML (GitHub Pages)
       ```
 
    2. Install the dependencies:
