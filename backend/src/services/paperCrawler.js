@@ -141,9 +141,9 @@ class PaperCrawler {
       let publisher = '';
       let publicationDate = '';
       const entryText = entry.text();
-      const pubMatch = entryText.match(/([\w\s\.\,&-]+)\s+\(?(\d{4})\)?/);
+      const pubMatch = entryText.match(/^\s*(.+?)\s*\((\d{4})\)/im);
       if (pubMatch) {
-        publisher = pubMatch[1].trim();
+        publisher = pubMatch[1].trim().replace(/\s+\d+.*$/, '');
         const PUBLICATION_DATE_MATCH_SECOND_GROUP = 2;
         publicationDate = pubMatch[PUBLICATION_DATE_MATCH_SECOND_GROUP].trim();
       }
