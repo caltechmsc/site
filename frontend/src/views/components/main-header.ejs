@@ -1,46 +1,48 @@
 <header class="sticky top-0 z-50">
-  <nav class="bg-white border-dark-700 px-4 lg:px-6 py-8">
+  <nav class="bg-white border-dark-700 px-4 xl:px-6 py-8">
     <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
       <a href="/" class="flex items-center">
-        <img src="/img/logo.svg" class="mr-3 h-9 sm:h-11 smaller-logo" alt="MSC Logo" />
+        <img src="/img/logo.svg" class="hidden mr-3 h-9 sm:h-11 sm:block smaller-logo" alt="MSC Logo" />
+        <img src="/img/logo-s.svg" class="sm:hidden mr-3 h-9 sm:h-11 smaller-logo" alt="MSC Logo" />
       </a>
-      <div class="flex items-center lg:order-2">
-        <a href="/admin" class="text-black hover:bg-gray-200 focus:ring-4 focus:ring-gray-400 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2">Admin</a>
-        <button data-collapse-toggle="mobile-menu" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-black rounded-lg lg:hidden hover:bg-gray-200 focus:outline-none focus:ring-gray-400 focus:ring-gray-200" aria-controls="mobile-menu" aria-expanded="false">
+      <div class="flex items-center xl:order-2">
+        <a href="https://wiki.wag.caltech.edu" target="_blank" rel="noopener noreferrer" class="bg-primary-600 text-white hover:bg-primary-500 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 xl:px-5 py-2 xl:py-2.5 mr-2">WIKI</a>
+        <a href="/admin" class="text-black hover:bg-gray-200 focus:ring-4 focus:ring-gray-400 font-medium rounded-lg text-sm px-4 xl:px-5 py-2 xl:py-2.5 mr-2">Admin</a>
+        <button data-collapse-toggle="mobile-menu" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-black rounded-lg xl:hidden hover:bg-gray-200 focus:outline-none focus:ring-gray-400 focus:ring-gray-200" aria-controls="mobile-menu" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
           </svg>
         </button>
       </div>
-      <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu">
-        <ul class="flex flex-col mt-4 text-lg font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+      <div class="hidden justify-between items-center w-full xl:flex xl:w-auto xl:order-1" id="mobile-menu">
+        <ul class="flex flex-col mt-4 text-lg font-medium xl:flex-row xl:space-x-8 xl:mt-0">
           <li class="relative group">
-            <a href="/" id="home-link" class="block py-2 pr-4 pl-3 lg:p-0" aria-current="page">Home</a>
+            <a href="/" id="home-link" class="block py-2 pr-4 pl-3 xl:p-0" aria-current="page">Home</a>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li class="relative group">
-            <a href="/about/wag" id="about-link" class="block py-2 pr-4 pl-3 lg:p-0">About</a>
+            <a href="/about/wag" id="about-link" class="block py-2 pr-4 pl-3 xl:p-0">About</a>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li class="relative group">
-            <a href="/members" id="members-link" class="block py-2 pr-4 pl-3 lg:p-0">Members</a>
+            <a href="/members" id="members-link" class="block py-2 pr-4 pl-3 xl:p-0">Members</a>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li class="relative group">
-            <a href="/research" id="research-link" class="block py-2 pr-4 pl-3 lg:p-0">Research</a>
+            <a href="/research" id="research-link" class="block py-2 pr-4 pl-3 xl:p-0">Research</a>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li class="relative group">
-            <a href="/publications" id="publications-link" class="block py-2 pr-4 pl-3 lg:p-0">Publications</a>
+            <a href="/publications" id="publications-link" class="block py-2 pr-4 pl-3 xl:p-0">Publications</a>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li class="relative group">
-            <a href="/events/photos" id="events-link" class="block py-2 pr-4 pl-3 lg:p-0">Events</a>
+            <a href="/events/photos" id="events-link" class="block py-2 pr-4 pl-3 xl:p-0">Events</a>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li class="relative group">
-            <a href="/contact" id="contact-link" class="block py-2 pr-4 pl-3 lg:p-0">Contact</a>
+            <a href="/contact" id="contact-link" class="block py-2 pr-4 pl-3 xl:p-0">Contact</a>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
           </li>
         </ul>
@@ -83,16 +85,16 @@
       "/contact": document.getElementById("contact-link"),
     };
 
-    const activeClass = "bg-primary-600 rounded lg:bg-transparent lg:border-b-2 lg:border-primary-600 lg:text-primary-600 lg:rounded-none";
-    const inactiveClass = "hover:bg-primary-500 lg:hover:bg-transparent lg:border-0";
+    const activeClass = "bg-primary-600 rounded xl:bg-transparent xl:border-b-2 xl:border-primary-600 xl:text-primary-600 xl:rounded-none";
+    const inactiveClass = "hover:bg-primary-500 xl:hover:bg-transparent xl:border-0";
 
     Object.keys(links).forEach((path) => {
       links[path].className =
         currentPath === path ?
-        `block py-2 pr-4 pl-3 lg:p-0 text-black ${activeClass}` :
+        `block py-2 pr-4 pl-3 xl:p-0 text-black ${activeClass}` :
         links[path].className.includes(activeClass) ?
-        `block py-2 pr-4 pl-3 lg:p-0 text-black ${activeClass}` :
-        `block py-2 pr-4 pl-3 lg:p-0 text-black ${inactiveClass}`;
+        `block py-2 pr-4 pl-3 xl:p-0 text-black ${activeClass}` :
+        `block py-2 pr-4 pl-3 xl:p-0 text-black ${inactiveClass}`;
     });
   });
 </script>
