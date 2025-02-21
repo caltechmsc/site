@@ -191,13 +191,14 @@ class PaperCrawler {
           // When the corresponding field in HTML is an empty string, use the data from JSON
           title: pub.title !== '' ? pub.title : jsonPub.title,
           authors: pub.authors !== '' ? pub.authors : jsonPub.authors,
-          publisher: pub.publisher !== '' ? pub.publisher : jsonPub.publisher,
+          publisher:
+            jsonPub.publisher !== '' ? jsonPub.publisher : pub.publisher,
           publicationDate:
-            pub.publicationDate !== ''
-              ? pub.publicationDate
-              : jsonPub.publicationDate,
-          url: pub.url !== '' ? pub.url : jsonPub.url,
-          abstract: pub.abstract !== '' ? pub.abstract : jsonPub.abstract,
+            jsonPub.publicationDate !== ''
+              ? jsonPub.publicationDate
+              : pub.publicationDate,
+          url: jsonPub.url !== '' ? jsonPub.url : pub.url,
+          abstract: jsonPub.abstract !== '' ? jsonPub.abstract : pub.abstract,
         };
       } else {
         // If the publication does not exist in JSON, return the data from HTML directly
