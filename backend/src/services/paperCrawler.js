@@ -164,45 +164,48 @@ class PaperCrawler {
   }
 
   /**
-   * @method mergePublications - Merge publications from JSON and HTML sources using DOI as the primary key.
+   * @method mergePublications - Merge publications from JSON and HTML sources using DOI as the primary key. (Use HTML data as base)
    * @param {Array<Object>} jsonPubs - Publications extracted from the JSON source.
    * @param {Array<Object>} htmlPubs - Publications extracted from the HTML source.
    * @returns {Array<Object>} Merged array of publications.
    */
   mergePublications(jsonPubs, htmlPubs) {
-    const merged = {};
-
-    // Add all JSON publications keyed by DOI (or id if DOI is missing)
+    // First, create a mapping of JSON data based on doi or id
+    const jsonMapping = {};
     jsonPubs.forEach((pub) => {
-      if (pub.doi) {
-        merged[pub.doi] = pub;
-      } else {
-        merged[pub.id] = pub;
+      const key = pub.doi || pub.id;
+      if (key) {
+        jsonMapping[key] = pub;
       }
     });
 
-    // For HTML publications, merge with JSON entries based on DOI
-    htmlPubs.forEach((pub) => {
-      if (pub.doi) {
-        if (!merged[pub.doi]) {
-          merged[pub.doi] = pub;
-        } else {
-          // Merge logic: if the JSON record has an empty field, use the HTML value
-          const jsonPub = merged[pub.doi];
-          jsonPub.title = jsonPub.title || pub.title;
-          jsonPub.authors = jsonPub.authors || pub.authors;
-          jsonPub.abstract = jsonPub.abstract || pub.abstract;
-          jsonPub.publisher = jsonPub.publisher || pub.publisher;
-          jsonPub.publicationDate =
-            jsonPub.publicationDate || pub.publicationDate;
-        }
+    // Use HTML data as the base, only merge publications that exist in HTML
+    const merged = htmlPubs.map((pub) => {
+      // Use doi as the key in HTML, if not present use title
+      const key = pub.doi || pub.title;
+      // If the corresponding publication exists in JSON, supplement the missing fields in HTML
+      if (jsonMapping[key]) {
+        const jsonPub = jsonMapping[key];
+        return {
+          ...pub,
+          // When the corresponding field in HTML is an empty string, use the data from JSON
+          title: pub.title !== '' ? pub.title : jsonPub.title,
+          authors: pub.authors !== '' ? pub.authors : jsonPub.authors,
+          publisher: pub.publisher !== '' ? pub.publisher : jsonPub.publisher,
+          publicationDate:
+            pub.publicationDate !== ''
+              ? pub.publicationDate
+              : jsonPub.publicationDate,
+          url: pub.url !== '' ? pub.url : jsonPub.url,
+          abstract: pub.abstract !== '' ? pub.abstract : jsonPub.abstract,
+        };
       } else {
-        // Fallback using title as a key if DOI is missing
-        merged[pub.title] = pub;
+        // If the publication does not exist in JSON, return the data from HTML directly
+        return pub;
       }
     });
 
-    return Object.values(merged);
+    return merged;
   }
 
   /**
