@@ -135,6 +135,6 @@ The MSC website is designed to offer:
 - **[Installation Guide](docs/INSTALLATION.md)**: Step-by-step guide to set up the project.
 - **[Backend API Documentation](docs/API.md)**: Detailed documentation for the backend API endpoints.
 
-## 📝 Licens
+## 📝 License
 
 This project is not licensed under any open-source license currently. All rights are reserved by the Caltech Materials and Process Simulation Center (MSC).
